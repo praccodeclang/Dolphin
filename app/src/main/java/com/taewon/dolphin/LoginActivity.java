@@ -22,12 +22,15 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        Intent resisterIntent = getIntent();
         userID = (EditText) findViewById(R.id.userID);
         userPassword = (EditText) findViewById(R.id.userPassword);
         loginBtn = (Button)findViewById(R.id.loginBtn);
         register = (TextView)findViewById(R.id.register);
         find = (TextView)findViewById(R.id.find);
+
+        userID.setText(resisterIntent.getStringExtra("userID"));
+        userPassword.setText(resisterIntent.getStringExtra("userPassword"));
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override

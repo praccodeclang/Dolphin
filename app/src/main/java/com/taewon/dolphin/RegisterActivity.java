@@ -132,19 +132,20 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //클릭되면 실행.
                 String userPhone = PHONE.getText().toString();
-                //만약 번호가 11자리가 아니면, 함수를 종료함.
+
+                //만약 번호가 11자리가 아니면, 함수를 실행하지 않습니다.
                 if(userPhone.length() != 11)
                 {
                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                    builder.setMessage("\t휴대폰이 맞나요?\n\t제가 아는 휴대폰은 11자리 숫자인걸요?").setNegativeButton("확인",null);
+                    builder.setTitle("휴대폰이 맞나요?").setMessage("제가 아는 휴대폰은 11자리 숫자인걸요?").setNegativeButton("확인",null);
                     AlertDialog dialog = builder.create();
                     dialog.show();
                     return;
                 }
 
                 //1000~9999 난수발생해서 저장하고, 문자를 보냅니다.
-                userRandNum = (int)((Math.random()*9999)+1);
-                sendSMS(userPhone, Integer.toString(userRandNum));
+                userRandNum = (int)((Math.random()*8999)+1000);
+                sendSMS(userPhone, "Dolphin 가입을 위한 인증코드: "+Integer.toString(userRandNum));
                 ceritifyZone.setVisibility(View.VISIBLE);
             }
         });
@@ -170,6 +171,14 @@ public class RegisterActivity extends AppCompatActivity {
                     PHONE.setBackgroundColor(getResources().getColor(R.color.LockColor));
                     certifyBtn.setEnabled(false);
                     certifyBtn.setBackgroundColor(getResources().getColor(R.color.LockColor));
+                    return;
+                }
+                else
+                {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                    builder.setTitle("그게 아닌것 같아요.").setMessage("\t메시지가 안왔다면, 권한이 설정되어있는지 확인해주세요.!").setNegativeButton("확인",null);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
                     return;
                 }
             }
@@ -198,7 +207,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }
                 String userID = idText.getText().toString();
                 String userPassword = passwordText.getText().toString();
-                String userName = idText.getText().toString();
+                String userName = nameText.getText().toString();
                 String Major = userMajor.getSelectedItem().toString();
                 String department = userDept.getSelectedItem().toString();
                 String userPhone = PHONE.getText().toString();
@@ -234,13 +243,14 @@ public class RegisterActivity extends AppCompatActivity {
                                         finish();
                                     }
                                 });
+
                                 AlertDialog dialog = builder.create();
                                 dialog.show();
                             }
                             else
                             {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                                builder.setMessage("나도 몰라요.").setMessage("\t왜 안될까요..?\n\t개발자에게 알려주세요\n\t010-4640-7993").setNegativeButton("확인", null);
+                                builder.setMessage("왜 안될까요..?").setMessage("\t저도 잘 모르겠어요.\n\t개발자에게 알려주세요\n\t010-4640-7993").setNegativeButton("확인", null);
                                 AlertDialog dialog = builder.create();
                                 dialog.show();
                             }
