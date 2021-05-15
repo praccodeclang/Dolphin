@@ -1,21 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+
+<!--
+* 가운데 정렬
+* 크기가 정해지면 수정 부탁드립니다 ^^-->
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/wrap"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_marginHorizontal="70dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/logo_main"
+            android:src="@drawable/logo_main"/>
+    </LinearLayout>
 
-    <!--작성 시 지워주세요.-->
-    <TextView
-        android:id="@+id/sample"
-        android:layout_width="wrap_content"
+    <!-- 로그인 폼입니다.-->
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="LoginActivity입니다."
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textSize="35dp"/>
-    <!--작성 시 지워주세요.-->
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:id="@+id/loginForm"
+        android:orientation="vertical">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/userID"
+            android:hint="아이디"/>
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/userPassword"
+            android:hint="비밀번호"/>
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/loginBtn"
+            android:text="로그인"
+            android:backgroundTint="@color/Dolphin"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/othersForm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:id="@+id/register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#ffffffff"
+                android:text="회원가입"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/find"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#ffffffff"
+                android:text="아이디/비밀번호 찾기"
+                android:textColor="@color/Dolphin"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+    <!-- loginForm_End -->
+
+
+</LinearLayout>
