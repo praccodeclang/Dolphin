@@ -1,6 +1,8 @@
 package com.taewon.dolphin;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -22,6 +24,15 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn = (Button)findViewById(R.id.loginBtn);
         register = (TextView)findViewById(R.id.register);
         find = (TextView)findViewById(R.id.find);
+
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
     }
 }

@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="warning">#d32f2f</color>
     <color name="Dolphin">#00b0f0</color>
+    <color name="LockColor">#d3d3d3</color>
 </resources>
