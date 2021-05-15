@@ -1,13 +1,22 @@
 package com.taewon.dolphin;
 
+import android.app.Activity;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,17 +29,26 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Random;
 
 public class RegisterActivity extends AppCompatActivity {
 
-
+    Boolean isValidate = false;
+    Boolean isCertified = false;
+    private View decorView;
+    private int uiOption;
+    private int userRandNum;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        isValidate = false;
+        isCertified = false;
 
         final Button validateBtn = (Button)findViewById(R.id.validate);
-        final Button registerBtnBtn = (Button)findViewById(R.id.registerBtn);
+        final Button registerBtn = (Button)findViewById(R.id.registerBtn);
+        final Button certifyPhone = (Button)findViewById(R.id.certifyPhone);
+        final Button certifyBtn = (Button)findViewById(R.id.certifyBtn);
 
         final EditText nameText = (EditText)findViewById(R.id.nameText);
         final EditText idText = (EditText)findViewById(R.id.idText);
@@ -38,16 +56,28 @@ public class RegisterActivity extends AppCompatActivity {
         final Spinner userMajor = (Spinner)findViewById(R.id.userMajor);
         final Spinner userDept = (Spinner)findViewById(R.id.userDept);
         final EditText PHONE = (EditText)findViewById(R.id.PHONE);
+
+
+        final EditText certifyNum = (EditText)findViewById(R.id.certifyNum);
+        final LinearLayout ceritifyZone = (LinearLayout)findViewById(R.id.certifyZone);
         AlertDialog alertDialog;
 
-        final Boolean[] isValidate = {false};
+
         //1. 중복확인 버튼
         validateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //클릭되면 실행.
                 String userID = idText.getText().toString();
-                System.out.println(userID);
+                if(userID.equals(""))
+                {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                    builder.setTitle("빈칸인데요?!").setMessage("\t아이디를 비우지말아요.\n\t우리는 당신이 궁금하거든요.").setNegativeButton("확인", null);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                    return;
+                }
+
                 Response.Listener<String> responseListener = new Response.Listener<String>()
                 {
                     @Override
@@ -73,7 +103,7 @@ public class RegisterActivity extends AppCompatActivity {
                                         idText.setEnabled(false);
                                         validateBtn.setBackgroundColor(getResources().getColor(R.color.LockColor));
                                         validateBtn.setEnabled(false);
-                                        isValidate[0] = true;
+                                        isValidate = true;
                                         dialog.dismiss();
                                     }
                                 });
@@ -96,17 +126,82 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        registerBtnBtn.setOnClickListener(new View.OnClickListener() {
+        //전화번호 인증 버튼
+        certifyPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //클릭되면 실행.
+                String userPhone = PHONE.getText().toString();
+                //만약 번호가 11자리가 아니면, 함수를 종료함.
+                if(userPhone.length() != 11)
+                {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                    builder.setMessage("\t휴대폰이 맞나요?\n\t제가 아는 휴대폰은 11자리 숫자인걸요?").setNegativeButton("확인",null);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                    return;
+                }
+
+                //1000~9999 난수발생해서 저장하고, 문자를 보냅니다.
+                userRandNum = (int)((Math.random()*9999)+1);
+                sendSMS(userPhone, Integer.toString(userRandNum));
+                ceritifyZone.setVisibility(View.VISIBLE);
+            }
+        });
+
+        //유저가 받은 인증번호를 입력하고 인증버튼을 누르면, 실행
+        certifyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int userInput = Integer.parseInt(certifyNum.getText().toString());
+                if(isComparePhone(userInput, userRandNum))
+                {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                    builder.setMessage("\t인증되었습니다.").setNegativeButton("확인",null);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                    isCertified = true;
+
+                    ceritifyZone.setVisibility(View.GONE);
+
+                    certifyPhone.setEnabled(false);
+                    certifyPhone.setBackgroundColor(getResources().getColor(R.color.LockColor));
+                    PHONE.setEnabled(false);
+                    PHONE.setBackgroundColor(getResources().getColor(R.color.LockColor));
+                    certifyBtn.setEnabled(false);
+                    certifyBtn.setBackgroundColor(getResources().getColor(R.color.LockColor));
+                    return;
+                }
+            }
+        });
+
+        //회원가입 버튼
+        registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                if(!isValidate)
+                {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                    builder.setMessage("\t중복 확인을 해주세요.").setNegativeButton("확인",null);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                    return;
+                }
+                if(!isCertified)
+                {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                    builder.setMessage("\t휴대폰을 인증해주세요.").setNegativeButton("확인",null);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                    return;
+                }
                 String userID = idText.getText().toString();
                 String userPassword = passwordText.getText().toString();
                 String userName = idText.getText().toString();
                 String Major = userMajor.getSelectedItem().toString();
                 String department = userDept.getSelectedItem().toString();
                 String userPhone = PHONE.getText().toString();
-
                 if(userID.isEmpty() || userPassword.isEmpty() || userName.isEmpty() || Major.isEmpty() || department.isEmpty() || userPhone.isEmpty())
                 {
                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
@@ -115,6 +210,7 @@ public class RegisterActivity extends AppCompatActivity {
                     dialog.show();
                     return;
                 }
+
 
                 Response.Listener<String> responseListener = new Response.Listener<String>()
                 {
@@ -166,5 +262,36 @@ public class RegisterActivity extends AppCompatActivity {
                 queue.add(validateRequest);
             }
         });
+    }//onCreate_End
+
+
+    //두 정수가 맞는지 리턴합니다.
+    Boolean isComparePhone(int num1, int num2){
+        return num1 == num2;
     }
+
+    //메시지를 보냅니다.
+    private void sendSMS(String phoneNumber, String message)
+    {
+        String SENT = "SMS_SENT";
+        String DELIVERED = "SMS_DELIVERED";
+
+        PendingIntent sentPI = PendingIntent.getBroadcast(this, 0, new Intent(SENT),0);
+        PendingIntent deliveredPI = PendingIntent.getBroadcast(this, 0, new Intent(DELIVERED),0);
+
+        registerReceiver(new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                switch (getResultCode()){
+                    case Activity.RESULT_OK :
+                        Toast.makeText(getBaseContext(),"인증 문자가 전송되었습니다.", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+        }, new IntentFilter(SENT));
+        SmsManager sms = SmsManager.getDefault();
+        sms.sendTextMessage(phoneNumber, null, message, sentPI, deliveredPI);
+    }
+
+
 }

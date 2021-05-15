@@ -8,7 +8,7 @@
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="125dp"
+        android:layout_height="100dp"
         android:orientation="horizontal"
         android:gravity="center"
         android:layout_marginBottom="30dp"
@@ -78,10 +78,10 @@
                      android:layout_weight="2"
                      android:layout_marginRight="3dp" />
                  <Button
-                     android:layout_width="85dp"
+                     android:layout_width="100dp"
                      android:layout_height="wrap_content"
                      android:id="@+id/validate"
-                     android:text="ID확인"
+                     android:text="중복확인"
                      android:backgroundTint="@color/Dolphin"/>
              </LinearLayout>
              <EditText
@@ -91,7 +91,7 @@
                  android:hint="비밀번호"
                  android:inputType="textPassword"
                  android:textAlignment="textStart"
-                 android:layout_marginRight="85dp"/>
+                 android:layout_marginRight="100dp"/>
          </LinearLayout>
 
 
@@ -134,15 +134,52 @@
                  android:text="전화번호"
                  android:textSize="18sp"
                  android:textColor="@color/Dolphin"/>
-             <EditText
+             <LinearLayout
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
-                 android:id="@+id/PHONE"
-                 android:hint="전화번호 (-)는 생략."
-                 android:inputType="text"
-                 android:textAlignment="textStart"
-                 android:textSize="16sp"
-                 />
+                 android:orientation="horizontal">
+                 <EditText
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:id="@+id/PHONE"
+                     android:hint="전화번호 (-)는 생략."
+                     android:inputType="text"
+                     android:textAlignment="textStart"
+                     android:textSize="16sp"
+                     android:layout_weight="2"
+                     />
+                 <Button
+                     android:layout_width="85dp"
+                     android:layout_height="wrap_content"
+                     android:id="@+id/certifyPhone"
+                     android:text="인증"
+                     android:backgroundTint="@color/Dolphin"/>
+             </LinearLayout>
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:orientation="horizontal"
+                 android:id="@+id/certifyZone"
+                 android:visibility="gone">
+                 <EditText
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:id="@+id/certifyNum"
+                     android:hint="인증번호를 입력해주세요."
+                     android:inputType="number"
+                     android:textAlignment="textStart"
+                     android:textSize="16sp"
+                     android:layout_weight="2"
+                     android:ems="4"
+                     />
+                 <Button
+                     android:layout_width="100dp"
+                     android:layout_height="wrap_content"
+                     android:id="@+id/certifyBtn"
+                     android:text="이거맞죠?"
+                     android:backgroundTint="@color/Dolphin"/>
+             </LinearLayout>
+
          </LinearLayout>
          <Button
              android:layout_width="match_parent"
