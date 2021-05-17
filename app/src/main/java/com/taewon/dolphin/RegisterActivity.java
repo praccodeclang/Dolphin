@@ -8,8 +8,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.telephony.SmsManager;
 import android.view.View;
 import android.widget.Button;
@@ -72,7 +74,7 @@ public class RegisterActivity extends AppCompatActivity {
                 if(userID.equals(""))
                 {
                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                    builder.setTitle("빈칸인데요?!").setMessage("\t아이디를 비우지말아요.\n\t우리는 당신이 궁금하거든요.").setNegativeButton("확인", null);
+                    builder.setIcon(R.drawable.icon_dolphins).setTitle("빈칸인데요?!").setMessage("\t아이디를 비우지말아요.\n\t우리는 당신이 궁금하거든요.").setNegativeButton("확인", null);
                     AlertDialog dialog = builder.create();
                     dialog.show();
                     return;
@@ -89,14 +91,14 @@ public class RegisterActivity extends AppCompatActivity {
                             if(!isExistUser)
                             {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                                builder.setTitle("중복된 아이디").setMessage("\t이미 존재하는 아이디입니다.\n\t다른 아이디를 입력해주세요.").setNegativeButton("확인", null);
+                                builder.setIcon(R.drawable.icon_dolphins).setTitle("중복된 아이디").setMessage("\t이미 존재하는 아이디입니다.\n\t다른 아이디를 입력해주세요.").setNegativeButton("확인", null);
                                 AlertDialog dialog = builder.create();
                                 dialog.show();
                             }
                             else
                             {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                                builder.setMessage("이 아이디로 하시겠습니까?").setNegativeButton("취소", null).setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                builder.setIcon(R.drawable.icon_dolphins).setMessage("이 아이디로 하시겠습니까?").setNegativeButton("취소", null).setPositiveButton("확인", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         idText.setBackgroundColor(getResources().getColor(R.color.LockColor));
@@ -137,16 +139,40 @@ public class RegisterActivity extends AppCompatActivity {
                 if(userPhone.length() != 11)
                 {
                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                    builder.setTitle("휴대폰이 맞나요?").setMessage("제가 아는 휴대폰은 11자리 숫자인걸요?").setNegativeButton("확인",null);
+                    builder.setIcon(R.drawable.icon_dolphins).setTitle("휴대폰이 맞나요?").setMessage("제가 아는 휴대폰은 11자리 숫자인걸요?").setNegativeButton("확인",null);
                     AlertDialog dialog = builder.create();
                     dialog.show();
                     return;
                 }
 
                 //1000~9999 난수발생해서 저장하고, 문자를 보냅니다.
-                userRandNum = (int)((Math.random()*8999)+1000);
-                sendSMS(userPhone, "Dolphin 가입을 위한 인증코드: "+Integer.toString(userRandNum));
-                ceritifyZone.setVisibility(View.VISIBLE);
+                try {
+                    userRandNum = (int)((Math.random()*8999)+1000);
+                    sendSMS(userPhone, "Dolphin 가입을 위한 인증코드: "+Integer.toString(userRandNum));
+                    ceritifyZone.setVisibility(View.VISIBLE);
+                }
+                catch (Exception e)
+                {
+                    //문자가 보내지지 않으면, 사용자가 권한을 설정하지 않은것이므로, 앱정보로 이동해 권한을 설정할 수 있도록 합니다.
+                    android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(RegisterActivity.this);
+                    builder.setIcon(R.drawable.icon_dolphins).setTitle("앱 권한").setMessage("우리 앱을 원활하게 사용하려면, 애플리케이션 정보>권한 에서 모든 권한을 허용해주세요.");
+                    builder.setPositiveButton("권한설정", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).setData(Uri.parse("package:"+getApplicationContext().getPackageName()));
+                            startActivity(intent);
+                            dialog.cancel();;
+                        }
+                    });
+                    builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                            finish();
+                        }
+                    }).show();
+                }
+
             }
         });
 

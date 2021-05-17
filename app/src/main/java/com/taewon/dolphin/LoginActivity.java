@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Response.Listener<String> responseLinstener = new Response.Listener<String>() {
+                Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try
@@ -78,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
                             else
                             {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                                builder.setTitle("우리한텐 없습니다.").setMessage("\t아이디나 비밀번호가 틀렸습니다.\n\t다시 시도해보세요.").setNegativeButton("확인", null);
+                                builder.setIcon(R.drawable.icon_dolphins).setTitle("우리한텐 없습니다.").setMessage("\t아이디나 비밀번호가 틀렸습니다.\n\t다시 시도해보세요.").setNegativeButton("확인", null);
                                 AlertDialog dialog = builder.create();
                                 dialog.show();
                             }
@@ -90,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     }
                 };
-                UserLogin validateRequest = new UserLogin(userID.getText().toString(), userPassword.getText().toString(), responseLinstener);
+                UserLogin validateRequest = new UserLogin(userID.getText().toString(), userPassword.getText().toString(), responseListener);
                 RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
                 queue.add(validateRequest);
 
