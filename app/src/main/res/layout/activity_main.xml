@@ -8,49 +8,6 @@
     android:orientation="vertical"
     android:gravity="center">
 
-    <ImageView
-        android:layout_width="400dp"
-        android:layout_height="70dp"
-        android:src="@drawable/logo_main"
-        android:scaleType="fitXY"/>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="공지사항"
-            android:backgroundTint="@color/black"
-            android:id="@+id/btnNotice"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="10dp"
-            />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="정보게시판"
-            android:backgroundTint="@color/black"
-            android:id="@+id/btnData"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="10dp"
-            />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="연락처"
-            android:backgroundTint="@color/black"
-            android:id="@+id/btnTel"
-            android:layout_weight="1"
-            android:layout_marginHorizontal="10dp"
-            />
-
-
-    </LinearLayout>
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -61,8 +18,7 @@
             android:layout_width="350dp"
             android:layout_height="500dp"
             android:src="@drawable/people"
-            android:scaleType="fitXY"/>
-
+            android:scaleType="center"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -75,11 +31,35 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="소프트아이스크림"/>
-
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="30dp">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="공지사항"
+                android:backgroundTint="@color/black"
+                android:id="@+id/btnNotice"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="10dp"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="자유게시판"
+                android:backgroundTint="@color/black"
+                android:id="@+id/btnData"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="10dp"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="연락처"
+                android:backgroundTint="@color/black"
+                android:id="@+id/btnTel"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="10dp"/>
+        </LinearLayout>
     </LinearLayout>
-
-
-
-
-
 </LinearLayout>

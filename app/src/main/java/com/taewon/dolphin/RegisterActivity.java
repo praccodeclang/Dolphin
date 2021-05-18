@@ -112,7 +112,6 @@ public class RegisterActivity extends AppCompatActivity {
                                 AlertDialog dialog = builder.create();
                                 dialog.show();
                             }
-
                         }
                         catch (Exception e)
                         {
@@ -190,7 +189,6 @@ public class RegisterActivity extends AppCompatActivity {
                     isCertified = true;
 
                     ceritifyZone.setVisibility(View.GONE);
-
                     certifyPhone.setEnabled(false);
                     certifyPhone.setBackgroundColor(getResources().getColor(R.color.LockColor));
                     PHONE.setEnabled(false);

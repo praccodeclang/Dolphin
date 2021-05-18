@@ -40,9 +40,17 @@ public class LoginActivity extends AppCompatActivity {
         register = (TextView)findViewById(R.id.register);
         find = (TextView)findViewById(R.id.find);
 
-        //만약 유저가 회원가입을 했다면, 자동으로 설정합니다.
-        userID.setText(resisterIntent.getStringExtra("userID"));
-        userPassword.setText(resisterIntent.getStringExtra("userPassword"));
+        try{
+            //만약 유저가 회원가입을 했다면, 자동으로 설정합니다.
+            userID.setText(resisterIntent.getStringExtra("userID"));
+            userPassword.setText(resisterIntent.getStringExtra("userPassword"));
+        }
+        catch (Exception e)
+        {
+            userID.setText(resisterIntent.getStringExtra(""));
+            userPassword.setText(resisterIntent.getStringExtra(""));
+        }
+
 
         /* 회원가입 클릭 시, 바로 회원가입 창으로 넘어갑니다.*/
         register.setOnClickListener(new View.OnClickListener() {
