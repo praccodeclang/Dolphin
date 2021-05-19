@@ -26,7 +26,7 @@ import org.json.JSONObject;
 public class LoginActivity extends AppCompatActivity {
     EditText userID, userPassword;
     Button loginBtn;
-    TextView register, find;
+    TextView register, findIDPW;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
         userPassword = (EditText) findViewById(R.id.userPassword);
         loginBtn = (Button)findViewById(R.id.loginBtn);
         register = (TextView)findViewById(R.id.register);
-        find = (TextView)findViewById(R.id.find);
+        findIDPW = (TextView)findViewById(R.id.find);
 
         try{
             //만약 유저가 회원가입을 했다면, 자동으로 설정합니다.

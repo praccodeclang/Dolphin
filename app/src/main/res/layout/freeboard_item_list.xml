@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginHorizontal="30dp"
+    android:background="@drawable/border_layout">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="[자유게시판]"
+            android:textColor="@color/Dolphin"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/freeboard_title"
+            android:text="제목입니다."
+            android:textColor="@color/black"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="5dp"
+            />
+
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/freeboard_date"
+        android:text="1900.00.00 12:00"
+        android:textColor="@color/black"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="30dp"
+        android:layout_gravity="end"
+        android:layout_marginBottom="10dp"/>
+</LinearLayout>

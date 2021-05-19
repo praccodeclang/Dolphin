@@ -49,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:text="자유게시판"
                 android:backgroundTint="@color/black"
-                android:id="@+id/btnData"
+                android:id="@+id/btnFreeBoard"
                 android:layout_weight="1"
                 android:layout_marginHorizontal="10dp"/>
             <Button

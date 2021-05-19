@@ -171,7 +171,6 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                     }).show();
                 }
-
             }
         });
 
