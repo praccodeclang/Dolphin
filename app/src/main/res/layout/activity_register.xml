@@ -118,7 +118,7 @@
                      android:id="@+id/userMajor"
                      android:spinnerMode="dropdown"
                      android:layout_marginTop="10dp"
-                     android:entries="@array/dept1"
+                     android:entries="@array/major"
                      />
 
                  <Spinner
@@ -127,7 +127,7 @@
                      android:layout_height="wrap_content"
                      android:spinnerMode="dropdown"
                      android:layout_marginTop="10dp"
-                     android:entries="@array/dept2"/>
+                     android:entries="@array/it"/>
             </LinearLayout>
              <LinearLayout
                  android:layout_width="match_parent"

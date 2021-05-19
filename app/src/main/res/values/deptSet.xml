@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="dept1">
+    <string-array name="major">
         <item>IT응용기술학부</item>
     </string-array>
-    <string-array name="dept2">
+    <string-array name="it">
         <item>소프트웨어개발</item>
         <item>IOT</item>
     </string-array>
