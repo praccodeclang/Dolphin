@@ -24,9 +24,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
-    EditText userID, userPassword;
-    Button loginBtn;
-    TextView register, findIDPW;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,11 +32,11 @@ public class LoginActivity extends AppCompatActivity {
 
         /* Views */
         Intent resisterIntent = getIntent();
-        userID = (EditText) findViewById(R.id.userID);
-        userPassword = (EditText) findViewById(R.id.userPassword);
-        loginBtn = (Button)findViewById(R.id.loginBtn);
-        register = (TextView)findViewById(R.id.register);
-        findIDPW = (TextView)findViewById(R.id.find);
+        final EditText userID = (EditText) findViewById(R.id.userID);
+        final EditText userPassword = (EditText) findViewById(R.id.userPassword);
+        final Button loginBtn = (Button)findViewById(R.id.loginBtn);
+        final TextView register = (TextView)findViewById(R.id.register);
+        final TextView findIDPW = (TextView)findViewById(R.id.find);
 
         try{
             //만약 유저가 회원가입을 했다면, 자동으로 설정합니다.
@@ -47,6 +45,7 @@ public class LoginActivity extends AppCompatActivity {
         }
         catch (Exception e)
         {
+            //null 값이 넘어올 수도 있습니다!
             userID.setText(resisterIntent.getStringExtra(""));
             userPassword.setText(resisterIntent.getStringExtra(""));
         }
@@ -61,6 +60,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        //로그인 버튼 클릭 시, 서버에 데이터를 요청하고, 만약 성공적으로 이루어졌다면 받아온 데이터를 UserData.class에저장합니다.
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,13 +73,18 @@ public class LoginActivity extends AppCompatActivity {
                             boolean success = jsonObject.getBoolean("success");
                             if(success)
                             {
+                                //로그인에 성공했다면,
+                                //UserData.class 에 데이터를 저장합니다.
+                                //UserData.Instance().get ~~ 혹은, UserData.Instance().set~~ 으로 사용하면됩니다.
                                 Toast.makeText(LoginActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                intent.putExtra("userID", jsonObject.getString("userID"));
-                                intent.putExtra("userName", jsonObject.getString("userName"));
-                                intent.putExtra("userMajor", jsonObject.getString("userMajor"));
-                                intent.putExtra("userDept", jsonObject.getString("userDept"));
-                                intent.putExtra("userPhoneNum", jsonObject.getString("userPhoneNum"));
+
+                                //UserData.class 에 데이터를 저장.
+                                UserData.getInstance().setUserID(jsonObject.getString("userID"));
+                                UserData.getInstance().setUserName(jsonObject.getString("userName"));
+                                UserData.getInstance().setUserMajor(jsonObject.getString("userMajor"));
+                                UserData.getInstance().setUserDept(jsonObject.getString("userDept"));
+                                UserData.getInstance().setUserPhoneNum(jsonObject.getString("userPhoneNum"));
                                 startActivity(intent);
                                 finish();
                             }

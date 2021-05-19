@@ -8,11 +8,11 @@ import com.android.volley.toolbox.StringRequest;
 
 import java.util.Map;
 
-public class GetFreeBoardRequest extends StringRequest {
+public class FreeBoardRequest extends StringRequest {
 
-    final private static String url = "https://xodnjs2546.cafe24.com/getFreeBoard.php";
+    final private static String url = "http://xodnjs2546.cafe24.com/getFreeBoard.php";
     private Map<String, String> mHash;
-    public GetFreeBoardRequest(Response.Listener<String> listener) {
+    public FreeBoardRequest(Response.Listener<String> listener) {
         super(Method.POST, url, listener, null);
     }
 

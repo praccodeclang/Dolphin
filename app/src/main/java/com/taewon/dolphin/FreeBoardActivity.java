@@ -1,24 +1,20 @@
 package com.taewon.dolphin;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -28,12 +24,12 @@ public class FreeBoardActivity extends AppCompatActivity{ //클릭 리스너 인
     private FreeBoardAdapter freeBoardAdapter;
     private ListView freeBoardListView;
     private List<FreeBoardItem> freeBoardItemList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_freeboard);
-
-
+        final Button writing = (Button)findViewById(R.id.writingBtn);
         freeBoardListView = (ListView)findViewById(R.id.freeBoardListView);
         freeBoardItemList = new ArrayList<>();
 
@@ -41,6 +37,17 @@ public class FreeBoardActivity extends AppCompatActivity{ //클릭 리스너 인
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //실행할거 적으세요..
+                Intent intent = new Intent(FreeBoardActivity.this, FreeBoardViewerActivity.class);
+
+                //누른 게시판의 인스턴스를 생성해 FreeBoardViewerActivity.class 인텐트로 넘겨준다.
+                FreeBoardItem instance = freeBoardItemList.get(position);
+                intent.putExtra("Name", instance.getUserName());
+                intent.putExtra("Date", instance.getDate());
+                intent.putExtra("Title", instance.getTitle());
+                intent.putExtra("Contents", instance.getContents());
+                intent.putExtra("userPhone", instance.getUserPhone());
+                intent.putExtra("BoardID", Integer.toString(instance.getBoardId()));
+                startActivity(intent);
             }
         });
     }
@@ -86,7 +93,7 @@ public class FreeBoardActivity extends AppCompatActivity{ //클릭 리스너 인
                 }
             }
         };
-        GetFreeBoardRequest validateRequest = new GetFreeBoardRequest(responseListener);
+        FreeBoardRequest validateRequest = new FreeBoardRequest(responseListener);
         RequestQueue queue = Volley.newRequestQueue(FreeBoardActivity.this);
         queue.add(validateRequest);
     }

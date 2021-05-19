@@ -6,8 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity{ //클릭 리스너 인터페이스 상속
+public class MainActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,6 +17,14 @@ public class MainActivity extends AppCompatActivity{ //클릭 리스너 인터�
         
 
         final Button btnFreeBoard = (Button) findViewById(R.id.btnFreeBoard);
+        final TextView viewUserName = (TextView)findViewById(R.id.viewUserName);
+        final TextView viewUserMajor = (TextView)findViewById(R.id.viewUserMajor);
+        final TextView viewUserDept = (TextView)findViewById(R.id.viewUserDept);
+
+        viewUserName.setText(UserData.getInstance().getUserName());
+        viewUserMajor.setText(UserData.getInstance().getUserMajor());
+        viewUserDept.setText(UserData.getInstance().getUserDept());
+
         btnFreeBoard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

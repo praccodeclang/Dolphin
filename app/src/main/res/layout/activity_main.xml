@@ -15,21 +15,24 @@
         android:gravity="center">
 
         <ImageView
-            android:layout_width="350dp"
-            android:layout_height="500dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:src="@drawable/people"
             android:scaleType="center"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/viewUserName"
             android:text="Admin"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/viewUserMajor"
             android:text="IT응용"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/viewUserDept"
             android:text="소프트아이스크림"/>
         <LinearLayout
             android:layout_width="wrap_content"
