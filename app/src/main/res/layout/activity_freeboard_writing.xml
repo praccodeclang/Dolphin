@@ -5,10 +5,20 @@
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="20dp">
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/FreeBoardWriteBackBtn"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            android:backgroundTint="#ffffff"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_marginHorizontal="50dp"
-        android:layout_marginVertical="50dp"
         >
         <ImageView
             android:layout_width="wrap_content"
@@ -32,38 +42,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/writtenTitle"
-                android:hint="글의 제목을 입력해주세요."/>
+                android:hint="제목을 입력해주세요."/>
         </LinearLayout>
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="40dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="내용"
+                android:textSize="20dp"
+                android:layout_marginRight="20dp"
+                android:textColor="@color/Dolphin"/>
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="40dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="내용"
-                    android:textSize="20dp"
-                    android:layout_marginRight="20dp"
-                    android:textColor="@color/Dolphin"/>
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/writtenContents"
-                    android:hint="@string/writing_hint"
-                    android:lines="15"
-                    android:gravity="top"
-                    />
-            </LinearLayout>
-        </ScrollView>
+                android:id="@+id/writtenContents"
+                android:lines="13"
+                android:maxLines="14"
+                android:gravity="top"
+                />
+        </LinearLayout>
         <Button
             android:id="@+id/writeOkBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
+            android:layout_gravity="right"
             android:text="등록"/>
     </LinearLayout>
 </LinearLayout>

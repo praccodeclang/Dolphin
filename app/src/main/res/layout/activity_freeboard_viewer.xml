@@ -13,7 +13,7 @@
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/backBtn"
+            android:id="@+id/FreeBoardViewBackBtn"
             android:src="@drawable/ic_baseline_arrow_back_24"
             android:backgroundTint="#ffffff"/>
 

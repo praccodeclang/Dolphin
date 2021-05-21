@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,7 +36,10 @@ public class FreeBoardViewerActivity extends AppCompatActivity {
         TextView board_title = (TextView)findViewById(R.id.board_title);
         TextView board_contents = (TextView)findViewById(R.id.board_contents);
         LinearLayout profileLayout = (LinearLayout)findViewById(R.id.board_profileLayout);
+        
+        //update&deleteBtn을 담는 레이아웃
         LinearLayout udBtns = (LinearLayout)findViewById(R.id.udBtns);
+        ImageButton FreeBoardViewBackBtn = (ImageButton)findViewById(R.id.FreeBoardViewBackBtn);
         Button deleteBtn = (Button)findViewById(R.id.deleteBtn);
         Button modifyBtn = (Button)findViewById(R.id.modifyBtn);
 
@@ -45,6 +49,13 @@ public class FreeBoardViewerActivity extends AppCompatActivity {
         board_title.setText(freeBoardIntent.getStringExtra("Title"));
         board_contents.setText(freeBoardIntent.getStringExtra("Contents"));
 
+        //돌아가기 버튼입니다.
+        FreeBoardViewBackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         //ClickListener들
         //profile을 누르면 전화를 걸 수 있도록 합니다.

@@ -6,6 +6,7 @@ import android.os.PersistableBundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -27,16 +28,39 @@ public class FreeBoardWritingActivity extends AppCompatActivity {
         final Button writeOkBtn = (Button)findViewById(R.id.writeOkBtn);
         final EditText writtenTitle =(EditText)findViewById(R.id.writtenTitle);
         final EditText writtenContents =(EditText)findViewById(R.id.writtenContents);
-
+        final ImageButton FreeBoardWriteBackBtn = (ImageButton)findViewById(R.id.FreeBoardWriteBackBtn);
+        FreeBoardWriteBackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        //버튼 클릭 리스너
         writeOkBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(writtenTitle.getText().toString().equals("") || writtenContents.getText().toString().equals(""))
+                {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(FreeBoardWritingActivity.this);
+                    builder.setIcon(R.drawable.icon_dolphins).setTitle("뭐라도 적으세요.").setMessage("제목이나 내용은 비워둘 수 없습니다.")
+                            .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                    return;
+                }
+                //클릭 시, 다이얼로그를 띄워 한번 더 확인.
                 AlertDialog.Builder builder = new AlertDialog.Builder(FreeBoardWritingActivity.this);
                 builder.setIcon(R.drawable.icon_dolphins)
                         .setTitle("게시글 작성")
                         .setMessage("글을 작성하시겠어요?")
                         .setNegativeButton("취소",null)
                         .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            //확인버튼 클릭 시, 서버로 요청을 보내 게시글을 업로드
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 Response.Listener<String> responseListener = new Response.Listener<String>() {
