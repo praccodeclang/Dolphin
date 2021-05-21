@@ -13,12 +13,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 public class FreeBoardViewerActivity extends AppCompatActivity {
@@ -99,7 +97,7 @@ public class FreeBoardViewerActivity extends AppCompatActivity {
 
                                     }
                                 };
-                                FreeBoardDelete validateRequest = new FreeBoardDelete(freeBoardIntent.getStringExtra("BoardID"), responseListener);
+                                RequestFreeBoardDelete validateRequest = new RequestFreeBoardDelete(freeBoardIntent.getStringExtra("BoardID"), responseListener);
                                 RequestQueue queue = Volley.newRequestQueue(FreeBoardViewerActivity.this);
                                 queue.add(validateRequest);
                             }
@@ -109,7 +107,7 @@ public class FreeBoardViewerActivity extends AppCompatActivity {
         });
 
         //만약 내가 작성한 글이라면, 수정 삭제를 가능하게 합니다.
-        if(writer.getText().equals(UserData.getInstance().getUserName()))
+        if(writer.getText().equals(RequestUserData.getInstance().getUserName()))
         {
             udBtns.setVisibility(View.VISIBLE);
         }

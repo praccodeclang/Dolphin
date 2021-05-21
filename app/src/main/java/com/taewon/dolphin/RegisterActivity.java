@@ -7,9 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.telephony.SmsManager;
@@ -28,10 +26,6 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Random;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -121,7 +115,7 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 };
 
-                UserValidate validateRequest = new UserValidate(userID, responseListener);
+                RequestUserValidate validateRequest = new RequestUserValidate(userID, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
                 queue.add(validateRequest);
             }
@@ -290,7 +284,7 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                 };
 
-                UserRegister validateRequest = new UserRegister(userID, userPassword, userName, Major, department, userPhone, responseListener);
+                RequestUserRegister validateRequest = new RequestUserRegister(userID, userPassword, userName, Major, department, userPhone, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
                 queue.add(validateRequest);
             }

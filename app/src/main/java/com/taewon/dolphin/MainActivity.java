@@ -21,9 +21,9 @@ public class MainActivity extends AppCompatActivity{
         final TextView viewUserMajor = (TextView)findViewById(R.id.viewUserMajor);
         final TextView viewUserDept = (TextView)findViewById(R.id.viewUserDept);
 
-        viewUserName.setText(UserData.getInstance().getUserName());
-        viewUserMajor.setText(UserData.getInstance().getUserMajor());
-        viewUserDept.setText(UserData.getInstance().getUserDept());
+        viewUserName.setText(RequestUserData.getInstance().getUserName());
+        viewUserMajor.setText(RequestUserData.getInstance().getUserMajor());
+        viewUserDept.setText(RequestUserData.getInstance().getUserDept());
 
         btnFreeBoard.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -93,7 +93,7 @@ public class FreeBoardActivity extends AppCompatActivity{ //클릭 리스너 인
                 }
             }
         };
-        FreeBoardRequest validateRequest = new FreeBoardRequest(responseListener);
+        RequestGetFreeBoard validateRequest = new RequestGetFreeBoard(responseListener);
         RequestQueue queue = Volley.newRequestQueue(FreeBoardActivity.this);
         queue.add(validateRequest);
     }

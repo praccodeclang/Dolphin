@@ -1,9 +1,6 @@
 package com.taewon.dolphin;
 
-import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,8 +10,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -80,11 +75,11 @@ public class LoginActivity extends AppCompatActivity {
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 
                                 //UserData.class 에 데이터를 저장.
-                                UserData.getInstance().setUserID(jsonObject.getString("userID"));
-                                UserData.getInstance().setUserName(jsonObject.getString("userName"));
-                                UserData.getInstance().setUserMajor(jsonObject.getString("userMajor"));
-                                UserData.getInstance().setUserDept(jsonObject.getString("userDept"));
-                                UserData.getInstance().setUserPhoneNum(jsonObject.getString("userPhoneNum"));
+                                RequestUserData.getInstance().setUserID(jsonObject.getString("userID"));
+                                RequestUserData.getInstance().setUserName(jsonObject.getString("userName"));
+                                RequestUserData.getInstance().setUserMajor(jsonObject.getString("userMajor"));
+                                RequestUserData.getInstance().setUserDept(jsonObject.getString("userDept"));
+                                RequestUserData.getInstance().setUserPhoneNum(jsonObject.getString("userPhoneNum"));
                                 startActivity(intent);
                                 finish();
                             }
@@ -103,7 +98,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     }
                 };
-                UserLogin validateRequest = new UserLogin(userID.getText().toString(), userPassword.getText().toString(), responseListener);
+                RequestUserLogin validateRequest = new RequestUserLogin(userID.getText().toString(), userPassword.getText().toString(), responseListener);
                 RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
                 queue.add(validateRequest);
 
