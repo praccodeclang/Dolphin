@@ -29,7 +29,7 @@ public class FreeBoardActivity extends AppCompatActivity{ //클릭 리스너 인
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_freeboard);
-        final Button writing = (Button)findViewById(R.id.writingBtn);
+        final Button writingBtn = (Button)findViewById(R.id.writingBtn);
         freeBoardListView = (ListView)findViewById(R.id.freeBoardListView);
         freeBoardItemList = new ArrayList<>();
 
@@ -47,6 +47,13 @@ public class FreeBoardActivity extends AppCompatActivity{ //클릭 리스너 인
                 intent.putExtra("Contents", instance.getContents());
                 intent.putExtra("userPhone", instance.getUserPhone());
                 intent.putExtra("BoardID", Integer.toString(instance.getBoardId()));
+                startActivity(intent);
+            }
+        });
+        writingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FreeBoardActivity.this, FreeBoardWritingActivity.class);
                 startActivity(intent);
             }
         });

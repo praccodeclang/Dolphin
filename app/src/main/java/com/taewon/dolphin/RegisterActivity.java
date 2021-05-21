@@ -82,7 +82,7 @@ public class RegisterActivity extends AppCompatActivity {
                         {
                             JSONObject jsonObject = new JSONObject(response);
                             boolean isExistUser = jsonObject.getBoolean("success");
-                            if(!isExistUser)
+                            if(isExistUser)
                             {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                                 builder.setIcon(R.drawable.icon_dolphins).setTitle("중복된 아이디").setMessage("\t이미 존재하는 아이디입니다.\n\t다른 아이디를 입력해주세요.").setNegativeButton("확인", null);

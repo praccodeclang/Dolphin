@@ -107,7 +107,7 @@ public class FreeBoardViewerActivity extends AppCompatActivity {
         });
 
         //만약 내가 작성한 글이라면, 수정 삭제를 가능하게 합니다.
-        if(writer.getText().equals(RequestUserData.getInstance().getUserName()))
+        if(writer.getText().equals(UserData.getInstance().getUserName()))
         {
             udBtns.setVisibility(View.VISIBLE);
         }

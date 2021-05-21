@@ -26,5 +26,6 @@
         <activity android:name=".MainActivity"/>
         <activity android:name=".FreeBoardActivity"/>
         <activity android:name=".FreeBoardViewerActivity"/>
+        <activity android:name=".FreeBoardWritingActivity"/>
     </application>
 </manifest>

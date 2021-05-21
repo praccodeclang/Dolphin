@@ -75,11 +75,11 @@ public class LoginActivity extends AppCompatActivity {
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 
                                 //UserData.class 에 데이터를 저장.
-                                RequestUserData.getInstance().setUserID(jsonObject.getString("userID"));
-                                RequestUserData.getInstance().setUserName(jsonObject.getString("userName"));
-                                RequestUserData.getInstance().setUserMajor(jsonObject.getString("userMajor"));
-                                RequestUserData.getInstance().setUserDept(jsonObject.getString("userDept"));
-                                RequestUserData.getInstance().setUserPhoneNum(jsonObject.getString("userPhoneNum"));
+                                UserData.getInstance().setUserID(jsonObject.getString("userID"));
+                                UserData.getInstance().setUserName(jsonObject.getString("userName"));
+                                UserData.getInstance().setUserMajor(jsonObject.getString("userMajor"));
+                                UserData.getInstance().setUserDept(jsonObject.getString("userDept"));
+                                UserData.getInstance().setUserPhoneNum(jsonObject.getString("userPhoneNum"));
                                 startActivity(intent);
                                 finish();
                             }
