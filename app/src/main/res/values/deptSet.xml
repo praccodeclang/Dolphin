@@ -2,9 +2,101 @@
 <resources>
     <string-array name="major">
         <item>IT응용기술학부</item>
+        <item>간호학과</item>
+        <item>유아교육과</item>
+        <item>스포츠지도학과</item>
+        <item>건축디자인학부</item>
+        <item>물리치료학과</item>
+        <item>사회복지학과</item>
+        <item>기계공학부</item>
+        <item>치위생학과</item>
+        <item>세무회계학과</item>
+        <item>전기전자공학부</item>
+        <item>식품영양학과</item>
+        <item>유통물류경영학과</item>
+        <item>안전 및 산업공학과</item>
+        <item>호텔조리제빵과</item>
+        <item>글로벌비즈니스학과</item>
+        <item>디지털콘텐츠디자인학과</item>
+        <item>화학공학과</item>
     </string-array>
+
+
     <string-array name="it">
         <item>소프트웨어개발</item>
         <item>IOT</item>
+    </string-array>
+
+    <string-array name="nursing">
+        <item>간호학과</item>
+    </string-array>
+
+    <string-array name="early_childhood_education">
+        <item>유아교육과</item>
+    </string-array>
+
+    <string-array name="sports_guidance">
+        <item>스포츠지도학과</item>
+    </string-array>
+
+    <string-array name="architectural_design">
+        <item>건축토목</item>
+        <item>실내건축</item>
+    </string-array>
+
+    <string-array name="physiotherapy">
+        <item>물리치료과</item>
+    </string-array>
+
+    <string-array name="socialwelfare">
+        <item>사회복지과</item>
+    </string-array>
+
+    <string-array name="mechanical_Engineering">
+        <item>기계시스템</item>
+        <item>기계설비</item>
+        <item>조선해양</item>
+    </string-array>
+
+    <string-array name="dental_hygiene">
+        <item>치위생학과</item>
+    </string-array>
+
+    <string-array name="tax_accounting">
+        <item>세무회계학과</item>
+    </string-array>
+
+    <string-array name="electrical_and_electronic_engineering">
+        <item>전기</item>
+        <item>전자 및 통신</item>
+        <item>반도체 응용</item>
+    </string-array>
+
+    <string-array name="food_and_nutrition">
+        <item>식품영양학과</item>
+    </string-array>
+
+    <string-array name="distribution_and_logistics_management">
+        <item>유통물류경영학과</item>
+    </string-array>
+
+    <string-array name="safety_and_industrial_engineering">
+        <item>안전 및 산업공학과</item>
+    </string-array>
+
+    <string-array name="hotel_culinary_and_bakery">
+        <item>호텔조리제빵과</item>
+    </string-array>
+
+    <string-array name="global_business">
+        <item>글로벌비즈니스학과</item>
+    </string-array>
+
+    <string-array name="digital_content_design">
+        <item>디지털콘텐츠디자인학과</item>
+    </string-array>
+
+    <string-array name="chemical_engineering">
+        <item>화학공학과</item>
     </string-array>
 </resources>

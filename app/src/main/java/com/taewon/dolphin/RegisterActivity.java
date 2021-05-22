@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.telephony.SmsManager;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -26,6 +28,8 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -303,6 +307,98 @@ public class RegisterActivity extends AppCompatActivity {
                 RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
                 queue.add(validateRequest);
             }
+        });
+
+        userMajor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                ArrayAdapter<String> adapter;
+                switch (position)
+                {
+                    case 0:
+                        adapter = new ArrayAdapter<>(RegisterActivity.this, R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.it));
+                        userDept.setAdapter(adapter);
+                        break;
+                    case 1:
+                        adapter = new ArrayAdapter<>(RegisterActivity.this, R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.nursing));
+                        userDept.setAdapter(adapter);
+                        break;
+                    case 2:
+                        adapter = new ArrayAdapter<>(RegisterActivity.this, R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.early_childhood_education));
+                        userDept.setAdapter(adapter);
+                        break;
+                    case 3:
+                        adapter = new ArrayAdapter<>(RegisterActivity.this, R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.sports_guidance));
+                        userDept.setAdapter(adapter);
+                        break;
+                    case 4:
+                        adapter = new ArrayAdapter<>(RegisterActivity.this, R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.architectural_design));
+                        userDept.setAdapter(adapter);
+                        break;
+                    case 5:
+                        adapter = new ArrayAdapter<>(RegisterActivity.this, R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.physiotherapy));
+                        userDept.setAdapter(adapter);
+                        break;
+                    case 6:
+                        adapter = new ArrayAdapter<>(RegisterActivity.this, R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.socialwelfare));
+                        userDept.setAdapter(adapter);
+                        break;
+                    case 7:
+                        adapter = new ArrayAdapter<>(RegisterActivity.this, R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.mechanical_Engineering));
+                        userDept.setAdapter(adapter);
+                        break;
+                    case 8:
+                        adapter = new ArrayAdapter<>(RegisterActivity.this, R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.dental_hygiene));
+                        userDept.setAdapter(adapter);
+                        break;
+                    case 9:
+                        adapter = new ArrayAdapter<>(RegisterActivity.this, R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.tax_accounting));
+                        userDept.setAdapter(adapter);
+                        break;
+                    case 10:
+                        adapter = new ArrayAdapter<>(RegisterActivity.this, R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.electrical_and_electronic_engineering));
+                        userDept.setAdapter(adapter);
+                        break;
+                    case 11:
+                        adapter = new ArrayAdapter<>(RegisterActivity.this, R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.food_and_nutrition));
+                        userDept.setAdapter(adapter);
+                        break;
+                    case 12:
+                        adapter = new ArrayAdapter<>(RegisterActivity.this, R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.distribution_and_logistics_management));
+                        userDept.setAdapter(adapter);
+                        break;
+                    case 13:
+                        adapter = new ArrayAdapter<>(RegisterActivity.this, R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.safety_and_industrial_engineering));
+                        userDept.setAdapter(adapter);
+                        break;
+                    case 14:
+                        adapter = new ArrayAdapter<>(RegisterActivity.this, R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.hotel_culinary_and_bakery));
+                        userDept.setAdapter(adapter);
+                        break;
+                    case 15:
+                        adapter = new ArrayAdapter<>(RegisterActivity.this, R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.global_business));
+                        userDept.setAdapter(adapter);
+                        break;
+                    case 16:
+                        adapter = new ArrayAdapter<>(RegisterActivity.this, R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.digital_content_design));
+                        userDept.setAdapter(adapter);
+                        break;
+                    case 17:
+                        adapter = new ArrayAdapter<>(RegisterActivity.this, R.layout.support_simple_spinner_dropdown_item, getResources().getStringArray(R.array.chemical_engineering));
+                        userDept.setAdapter(adapter);
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+
         });
     }//onCreate_End
 
