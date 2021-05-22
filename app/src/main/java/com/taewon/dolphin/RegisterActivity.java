@@ -140,9 +140,24 @@ public class RegisterActivity extends AppCompatActivity {
 
                 //1000~9999 난수발생해서 저장하고, 문자를 보냅니다.
                 try {
-                    userRandNum = (int)((Math.random()*8999)+1000);
-                    sendSMS(userPhone, "Dolphin 가입을 위한 인증코드: "+Integer.toString(userRandNum));
-                    ceritifyZone.setVisibility(View.VISIBLE);
+                    //문자가 보내지지 않으면, 사용자가 권한을 설정하지 않은것이므로, 앱정보로 이동해 권한을 설정할 수 있도록 합니다.
+                    android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(RegisterActivity.this);
+                    builder.setIcon(R.drawable.icon_dolphins).setTitle("휴대폰 인증").setMessage("핸드폰으로 문자 한 개만 보낼게요!\n대부분 문자는 공짜입니다!");
+                    builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            userRandNum = (int)((Math.random()*8999)+1000);
+                            sendSMS(userPhone, "Dolphin 가입을 위한 인증코드: "+Integer.toString(userRandNum));
+                            ceritifyZone.setVisibility(View.VISIBLE);
+                        }
+                    });
+                    builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    }).show();
+
                 }
                 catch (Exception e)
                 {

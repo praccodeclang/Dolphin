@@ -9,14 +9,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="20dp"
+        android:id="@+id/FreeBoardViewBack"
         android:orientation="horizontal">
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/FreeBoardViewBackBtn"
             android:src="@drawable/ic_baseline_arrow_back_24"
             android:backgroundTint="#ffffff"/>
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="자유게시판"
+            android:gravity="center"
+            android:textColor="@color/Dolphin"
+            />
     </LinearLayout>
 
     <!-- 프로필 레이아웃 -->
@@ -54,23 +60,24 @@
     </LinearLayout>
 
     <!--제목과 컨텐츠 표시-->
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginHorizontal="30dp"
-        android:layout_marginTop="30dp"
-        android:layout_weight="1">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/board_title"
-            android:text="제목부분입니다."
-            android:textSize="30sp"
-            android:textStyle="bold"/>
-        <ScrollView
+        android:layout_height="wrap_content">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/board_title"
+                android:text="제목부분입니다."
+                android:textSize="30sp"
+                android:textStyle="bold"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -78,8 +85,9 @@
                 android:text="내용부분입니다"
                 android:textSize="16sp"
                 android:layout_marginTop="6dp"/>
-        </ScrollView>
-    </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
     <!--수정, 삭제-->
     <!--update & deleteBtns-->
     <LinearLayout

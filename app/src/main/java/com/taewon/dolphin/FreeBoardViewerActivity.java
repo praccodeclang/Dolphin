@@ -39,7 +39,7 @@ public class FreeBoardViewerActivity extends AppCompatActivity {
         
         //update&deleteBtn을 담는 레이아웃
         LinearLayout udBtns = (LinearLayout)findViewById(R.id.udBtns);
-        ImageButton FreeBoardViewBackBtn = (ImageButton)findViewById(R.id.FreeBoardViewBackBtn);
+        LinearLayout FreeBoardViewBack = (LinearLayout)findViewById(R.id.FreeBoardViewBack);
         Button deleteBtn = (Button)findViewById(R.id.deleteBtn);
         Button modifyBtn = (Button)findViewById(R.id.modifyBtn);
 
@@ -50,7 +50,7 @@ public class FreeBoardViewerActivity extends AppCompatActivity {
         board_contents.setText(freeBoardIntent.getStringExtra("Contents"));
 
         //돌아가기 버튼입니다.
-        FreeBoardViewBackBtn.setOnClickListener(new View.OnClickListener() {
+        FreeBoardViewBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
