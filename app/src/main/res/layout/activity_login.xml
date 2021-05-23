@@ -122,7 +122,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="#ffffffff"
-            android:text="여러분의 돌고래 친구들을 만나보세요"
+            android:text="지금 돌고래 친구들을 만나보세요!"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:textColor="@color/Dolphin"/>

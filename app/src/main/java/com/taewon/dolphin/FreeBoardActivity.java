@@ -33,6 +33,7 @@ public class FreeBoardActivity extends AppCompatActivity{ //클릭 리스너 인
         freeBoardListView = (ListView)findViewById(R.id.freeBoardListView);
         freeBoardItemList = new ArrayList<>();
 
+        //자유게시판의 글을 클릭하면 실행.
         freeBoardListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -50,6 +51,8 @@ public class FreeBoardActivity extends AppCompatActivity{ //클릭 리스너 인
                 startActivity(intent);
             }
         });
+
+        //글쓰기버튼 누르면, 실행
         writingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,6 +64,7 @@ public class FreeBoardActivity extends AppCompatActivity{ //클릭 리스너 인
 
     @Override
     protected void onResume() {
+        //사용자가 FreeBoardActivity로 돌아오면 실행.
         super.onResume();
 
         freeBoardItemList.clear();
@@ -71,12 +75,11 @@ public class FreeBoardActivity extends AppCompatActivity{ //클릭 리스너 인
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray jsonArray = jsonObject.getJSONArray("DATA");
-                    int count = 0;
                     int boardID;
-                    String title, contents, date, userName, PHONE;
 
                     for(int i=0; i<jsonArray.length(); i++)
                     {
+                        String title, contents, date, userName, PHONE;
                         JSONObject object = jsonArray.getJSONObject(i);
                         title = object.get("title").toString();
                         contents = object.get("contents").toString();
@@ -85,7 +88,6 @@ public class FreeBoardActivity extends AppCompatActivity{ //클릭 리스너 인
                         PHONE = object.get("PHONE").toString();
                         boardID = object.getInt("no");
                         freeBoardItemList.add(new FreeBoardItem(title, contents, date, userName, PHONE, boardID));
-                        count++;
                     }
                     freeBoardAdapter = new FreeBoardAdapter(FreeBoardActivity.this, freeBoardItemList);
                     freeBoardListView.setAdapter(freeBoardAdapter);

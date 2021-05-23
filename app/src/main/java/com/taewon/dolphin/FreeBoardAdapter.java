@@ -36,12 +36,13 @@ public class FreeBoardAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View convertView, ViewGroup parent) {
-        View v = View.inflate(context, R.layout.freeboard_item_list, null);
-        TextView boardTitle = (TextView)v.findViewById(R.id.freeboard_title);
-        TextView boardDate = (TextView)v.findViewById(R.id.freeboard_date);
-
+        View v = View.inflate(context, R.layout.freeboard_item, null);
+        TextView boardTitle = (TextView)v.findViewById(R.id.freeboardTitle);
+        TextView boardDate = (TextView)v.findViewById(R.id.freeboardDate);
+        TextView userName = (TextView)v.findViewById(R.id.freeboardUserName);
         boardTitle.setText(freeBoardItemList.get(i).getTitle());
         boardDate.setText(freeBoardItemList.get(i).getDate());
+        userName.setText(freeBoardItemList.get(i).getUserName());
         return v;
     }
 }

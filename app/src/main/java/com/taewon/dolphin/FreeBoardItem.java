@@ -32,8 +32,6 @@ public class FreeBoardItem {
         return date;
     }
     public int getBoardId() { return boardId; }
-
     public String getUserName() { return userName; }
-
     public String getUserPhone() { return userPhone; }
 }
