@@ -51,7 +51,6 @@ public class LoginActivity extends AppCompatActivity {
         Iterator<String> it = instanceHash.keySet().iterator();
 
         HashMap<String, String> userMap = new HashMap<String, String>();
-
         while(it.hasNext())
         {
             String key = it.next();
@@ -68,6 +67,7 @@ public class LoginActivity extends AppCompatActivity {
             UserData.getInstance().setUserPhoneNum(userMap.get("userPhoneNum"));
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
+            finish();
         }
 
 

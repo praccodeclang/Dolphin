@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity{
     private ListView mainNoticeListView;
     private ListView mainFreeBoardListView;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,6 +115,11 @@ public class MainActivity extends AppCompatActivity{
                 startActivity(intent);
             }
         });
+        /*여기아래부터 작성해주세요*/
+        
+
+
+
     }//onCreate End
     public static void setListViewHeightBasedOnChildren(ListView listView) {
         ListAdapter listAdapter = listView.getAdapter();
