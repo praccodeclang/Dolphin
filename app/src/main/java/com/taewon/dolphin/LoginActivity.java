@@ -21,6 +21,11 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 public class LoginActivity extends AppCompatActivity {
 
     @Override
@@ -38,13 +43,32 @@ public class LoginActivity extends AppCompatActivity {
         final CheckBox autoLogin =(CheckBox)findViewById(R.id.autoLogin);
 
 
+        //읽어오는 부분
         SharedPreferences auto = getSharedPreferences("auto", LoginActivity.MODE_PRIVATE);
-        String autoID = auto.getString("userID", null);
-        String autoPW = auto.getString("userPW", null);
-        String autoUName = auto.getString("userName", null);
-        String autoUmajor = auto.getString("userMajor", null);
-        String autoUdept = auto.getString("userDept",null);
-        String autoUphoneNum = auto.getString("userPHoneNum", null);
+
+        //auto의 키값만 가져오려고 만들었어요~
+        HashMap<String, String> instanceHash = (HashMap<String, String>)auto.getAll();
+        Iterator<String> it = instanceHash.keySet().iterator();
+
+        HashMap<String, String> userMap = new HashMap<String, String>();
+
+        while(it.hasNext())
+        {
+            String key = it.next();
+            userMap.put(key, auto.getString(key, null));
+        }
+
+        if(!userMap.containsValue(null))
+        {
+            //UserData.class 에 데이터를 저장.
+            UserData.getInstance().setUserID(userMap.get("userID"));
+            UserData.getInstance().setUserName(userMap.get("userName"));
+            UserData.getInstance().setUserMajor(userMap.get("userMajor"));
+            UserData.getInstance().setUserDept(userMap.get("userDept"));
+            UserData.getInstance().setUserPhoneNum(userMap.get("userPhoneNum"));
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
 
 
 
