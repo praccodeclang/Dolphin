@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity{
 
 
 
+
         //mainFreeBoardListView 아이템 추가(3개만 넣어볼게요.)
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override

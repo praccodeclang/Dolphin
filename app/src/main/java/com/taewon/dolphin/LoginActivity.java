@@ -62,6 +62,7 @@ public class LoginActivity extends AppCompatActivity {
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        //서버에서 응답을 받으면 실행.
                         try
                         {
                             JSONObject jsonObject = new JSONObject(response);
@@ -74,12 +75,13 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(LoginActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 
-                                //UserData.class 에 데이터를 저장.
+                                //1. UserData.class 에 데이터를 저장.
                                 UserData.getInstance().setUserID(jsonObject.getString("userID"));
                                 UserData.getInstance().setUserName(jsonObject.getString("userName"));
                                 UserData.getInstance().setUserMajor(jsonObject.getString("userMajor"));
                                 UserData.getInstance().setUserDept(jsonObject.getString("userDept"));
                                 UserData.getInstance().setUserPhoneNum(jsonObject.getString("userPhoneNum"));
+
                                 startActivity(intent);
                                 finish();
                             }

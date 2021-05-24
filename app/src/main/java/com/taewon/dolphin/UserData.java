@@ -10,8 +10,13 @@ public class UserData {
     }
     private UserData(){ }
     /* 싱글턴 패턴 end */
+
     private String userID, userName, userMajor, userDept, userPhoneNum;
 
+
+
+
+    //getters, setters.
     public String getUserID() {
         return userID;
     }

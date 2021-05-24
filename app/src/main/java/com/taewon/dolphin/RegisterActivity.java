@@ -309,6 +309,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+        //메이저 선택시,
         userMajor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
