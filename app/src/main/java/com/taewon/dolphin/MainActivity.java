@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity{
     private TextView profileUserDept;
     private ListView mainNoticeListView;
     private ListView mainFreeBoardListView;
+    private ImageView myPageBtn;
 
 
     @Override
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity{
         profileUserDept = (TextView)findViewById(R.id.profileUserDept);
         mainNoticeListView = findViewById(R.id.mainNoticeListView);
         mainFreeBoardListView = findViewById(R.id.mainFreeBoardListView);
+        myPageBtn = findViewById(R.id.myPageBtn);
 
         //로그인 창에서 넘어오면, 프로필의 이름과 학과를 UserData 클래스에 저장된 이름과 학과로 초기화합니다.
         profileUserName.setText(UserData.getInstance().getUserName());
@@ -116,7 +119,15 @@ public class MainActivity extends AppCompatActivity{
             }
         });
         /*여기아래부터 작성해주세요*/
-        
+        myPageBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+
+        });
 
 
 
