@@ -1,9 +1,12 @@
 package com.taewon.dolphin;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +35,18 @@ public class LoginActivity extends AppCompatActivity {
         final Button loginBtn = (Button)findViewById(R.id.loginBtn);
         final TextView register = (TextView)findViewById(R.id.register);
         final TextView findIDPW = (TextView)findViewById(R.id.find);
+        final CheckBox autoLogin =(CheckBox)findViewById(R.id.autoLogin);
+
+
+        SharedPreferences auto = getSharedPreferences("auto", LoginActivity.MODE_PRIVATE);
+        String autoID = auto.getString("userID", null);
+        String autoPW = auto.getString("userPW", null);
+        String autoUName = auto.getString("userName", null);
+        String autoUmajor = auto.getString("userMajor", null);
+        String autoUdept = auto.getString("userDept",null);
+        String autoUphoneNum = auto.getString("userPHoneNum", null);
+
+
 
         try{
             //만약 유저가 회원가입을 했다면, 자동으로 설정합니다.
@@ -55,6 +70,9 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+
+
+
         //로그인 버튼 클릭 시, 서버에 데이터를 요청하고, 만약 성공적으로 이루어졌다면 받아온 데이터를 UserData.class에저장합니다.
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +80,6 @@ public class LoginActivity extends AppCompatActivity {
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        //서버에서 응답을 받으면 실행.
                         try
                         {
                             JSONObject jsonObject = new JSONObject(response);
@@ -75,13 +92,24 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(LoginActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 
-                                //1. UserData.class 에 데이터를 저장.
+                                //UserData.class 에 데이터를 저장.
                                 UserData.getInstance().setUserID(jsonObject.getString("userID"));
                                 UserData.getInstance().setUserName(jsonObject.getString("userName"));
                                 UserData.getInstance().setUserMajor(jsonObject.getString("userMajor"));
                                 UserData.getInstance().setUserDept(jsonObject.getString("userDept"));
                                 UserData.getInstance().setUserPhoneNum(jsonObject.getString("userPhoneNum"));
-
+                                /* 만약 로그인에 성공했으면 메인 엑티비티로 넘어감 근데 자동로그인을 곁들인*/
+                                if(autoLogin.isChecked()){
+                                    SharedPreferences auto = getSharedPreferences("auto",LoginActivity.MODE_PRIVATE);
+                                    SharedPreferences.Editor autoLogin = auto.edit();
+                                    autoLogin.putString("userID", UserData.getInstance().getUserID());
+                                    autoLogin.putString("userPW", userPassword.getText().toString());
+                                    autoLogin.putString("userName", UserData.getInstance().getUserName());
+                                    autoLogin.putString("userMajor", UserData.getInstance().getUserMajor());
+                                    autoLogin.putString("userDept", UserData.getInstance().getUserDept());
+                                    autoLogin.putString("userPHoneNum", UserData.getInstance().getUserPhoneNum());
+                                    autoLogin.commit();
+                                }
                                 startActivity(intent);
                                 finish();
                             }
