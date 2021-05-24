@@ -3,6 +3,7 @@ package com.taewon.dolphin;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -124,12 +125,14 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                SharedPreferences auto = getSharedPreferences("auto", LoginActivity.MODE_PRIVATE);
+                SharedPreferences.Editor editor = auto.edit();
+                editor.clear();
+                editor.commit();
                 startActivity(intent);
             }
 
         });
-
-
 
     }//onCreate End
     public static void setListViewHeightBasedOnChildren(ListView listView) {

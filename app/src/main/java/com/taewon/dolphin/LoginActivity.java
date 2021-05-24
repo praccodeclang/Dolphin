@@ -45,31 +45,33 @@ public class LoginActivity extends AppCompatActivity {
 
         //읽어오는 부분
         SharedPreferences auto = getSharedPreferences("auto", LoginActivity.MODE_PRIVATE);
-
-        //auto의 키값만 가져오려고 만들었어요~
         HashMap<String, String> instanceHash = (HashMap<String, String>)auto.getAll();
-        Iterator<String> it = instanceHash.keySet().iterator();
-
-        HashMap<String, String> userMap = new HashMap<String, String>();
-        while(it.hasNext())
+        if(instanceHash.size()>0)
         {
-            String key = it.next();
-            userMap.put(key, auto.getString(key, null));
-        }
+            //auto의 키값만 가져오려고 만들었어요~
+            Iterator<String> it = instanceHash.keySet().iterator();
 
-        if(!userMap.containsValue(null))
-        {
-            //UserData.class 에 데이터를 저장.
-            UserData.getInstance().setUserID(userMap.get("userID"));
-            UserData.getInstance().setUserName(userMap.get("userName"));
-            UserData.getInstance().setUserMajor(userMap.get("userMajor"));
-            UserData.getInstance().setUserDept(userMap.get("userDept"));
-            UserData.getInstance().setUserPhoneNum(userMap.get("userPhoneNum"));
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
+            HashMap<String, String> userMap = new HashMap<String, String>();
+            while(it.hasNext())
+            {
+                String key = it.next();
+                userMap.put(key, auto.getString(key, null));
+                System.out.println(userMap.keySet());
+            }
+            if(!userMap.containsValue(null))
+            {
+                System.out.println(userMap.keySet());
+                //UserData.class 에 데이터를 저장.
+                UserData.getInstance().setUserID(userMap.get("userID"));
+                UserData.getInstance().setUserName(userMap.get("userName"));
+                UserData.getInstance().setUserMajor(userMap.get("userMajor"));
+                UserData.getInstance().setUserDept(userMap.get("userDept"));
+                UserData.getInstance().setUserPhoneNum(userMap.get("userPhoneNum"));
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
         }
-
 
 
         try{
@@ -122,6 +124,7 @@ public class LoginActivity extends AppCompatActivity {
                                 UserData.getInstance().setUserMajor(jsonObject.getString("userMajor"));
                                 UserData.getInstance().setUserDept(jsonObject.getString("userDept"));
                                 UserData.getInstance().setUserPhoneNum(jsonObject.getString("userPhoneNum"));
+
                                 /* 만약 로그인에 성공했으면 메인 엑티비티로 넘어감 근데 자동로그인을 곁들인*/
                                 if(autoLogin.isChecked()){
                                     SharedPreferences auto = getSharedPreferences("auto",LoginActivity.MODE_PRIVATE);

@@ -7,10 +7,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.telephony.SmsManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,6 +21,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -53,6 +57,8 @@ public class RegisterActivity extends AppCompatActivity {
         final EditText nameText = (EditText)findViewById(R.id.nameText);
         final EditText idText = (EditText)findViewById(R.id.idText);
         final EditText passwordText = (EditText)findViewById(R.id.passwordText);
+        final EditText passwordTextChk = (EditText)findViewById(R.id.passwordTextChk);
+        final TextView warningText = (TextView)findViewById(R.id.warningText);
         final Spinner userMajor = (Spinner)findViewById(R.id.userMajor);
         final Spinner userDept = (Spinner)findViewById(R.id.userDept);
         final EditText PHONE = (EditText)findViewById(R.id.PHONE);
@@ -73,6 +79,14 @@ public class RegisterActivity extends AppCompatActivity {
                 {
                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                     builder.setIcon(R.drawable.icon_dolphins).setTitle("빈칸인데요?!").setMessage("\t아이디를 비우지말아요.\n\t우리는 당신이 궁금하거든요.").setNegativeButton("확인", null);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                    return;
+                }
+                if(userID.length() < 4)
+                {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                    builder.setIcon(R.drawable.icon_dolphins).setTitle("아이디가 너무 짧아요.").setMessage("\t아이디는 4자리가 넘게해주세요.").setNegativeButton("확인", null);
                     AlertDialog dialog = builder.create();
                     dialog.show();
                     return;
@@ -122,6 +136,33 @@ public class RegisterActivity extends AppCompatActivity {
                 RequestUserValidate validateRequest = new RequestUserValidate(userID, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
                 queue.add(validateRequest);
+            }
+        });
+
+        //패스워드 확인
+        passwordTextChk.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                warningText.setVisibility(View.VISIBLE);
+                if(passwordText.getText().toString().equals(passwordTextChk.getText().toString()))
+                {
+                    warningText.setTextColor(Color.GREEN);
+                    warningText.setText("비밀번호가 일치합니다.");
+                }
+                else
+                {
+                    warningText.setTextColor(Color.RED);
+                    warningText.setText("비밀번호가 다릅니다.");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
 
@@ -191,32 +232,44 @@ public class RegisterActivity extends AppCompatActivity {
         certifyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int userInput = Integer.parseInt(certifyNum.getText().toString());
-                if(isComparePhone(userInput, userRandNum))
-                {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                    builder.setMessage("\t인증되었습니다.").setNegativeButton("확인",null);
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-                    isCertified = true;
+                int userInput;
+                try {
+                    userInput = Integer.parseInt(certifyNum.getText().toString());
+                    if(isCompareCertifyNum(userInput, userRandNum))
+                    {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                        builder.setMessage("\t인증되었습니다.").setNegativeButton("확인",null);
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                        isCertified = true;
 
-                    ceritifyZone.setVisibility(View.GONE);
-                    certifyPhone.setEnabled(false);
-                    certifyPhone.setBackgroundColor(getResources().getColor(R.color.LockColor));
-                    PHONE.setEnabled(false);
-                    PHONE.setBackgroundColor(getResources().getColor(R.color.LockColor));
-                    certifyBtn.setEnabled(false);
-                    certifyBtn.setBackgroundColor(getResources().getColor(R.color.LockColor));
-                    return;
+                        ceritifyZone.setVisibility(View.GONE);
+                        certifyPhone.setEnabled(false);
+                        certifyPhone.setBackgroundColor(getResources().getColor(R.color.LockColor));
+                        PHONE.setEnabled(false);
+                        PHONE.setBackgroundColor(getResources().getColor(R.color.LockColor));
+                        certifyBtn.setEnabled(false);
+                        certifyBtn.setBackgroundColor(getResources().getColor(R.color.LockColor));
+                        return;
+                    }
+                    else
+                    {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                        builder.setIcon(R.drawable.icon_dolphins).setTitle("그게 아닌것 같아요.").setMessage("\t당신의 휴대폰이 맞나요?").setNegativeButton("확인",null);
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                        return;
+                    }
                 }
-                else
+                catch (Exception e)
                 {
                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                    builder.setTitle("그게 아닌것 같아요.").setMessage("\t메시지가 안왔다면, 권한이 설정되어있는지 확인해주세요.!").setNegativeButton("확인",null);
+                    builder.setIcon(R.drawable.icon_dolphins).setTitle("우리는 4자리 숫자를 보냈어요").setMessage("\t4자리 숫자가 맞는지 확인해주세요!").setNegativeButton("확인",null);
                     AlertDialog dialog = builder.create();
                     dialog.show();
                     return;
                 }
+
             }
         });
 
@@ -224,7 +277,6 @@ public class RegisterActivity extends AppCompatActivity {
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if(!isValidate)
                 {
                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
@@ -251,6 +303,14 @@ public class RegisterActivity extends AppCompatActivity {
                 {
                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                     builder.setTitle("빈 공간이 있습니다.").setMessage("\t우리는 철벽수비를 자랑한다구요!").setNegativeButton("확인",null);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                    return;
+                }
+                if(userPassword.length()<6)
+                {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                    builder.setIcon(R.drawable.icon_dolphins).setTitle("비밀번호가 너무 짧습니다.").setMessage("\t비밀번호는 6자리 이상이었으면 좋겠어요.").setNegativeButton("확인",null);
                     AlertDialog dialog = builder.create();
                     dialog.show();
                     return;
@@ -405,7 +465,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     //두 정수가 맞는지 리턴합니다.
-    Boolean isComparePhone(int num1, int num2){
+    Boolean isCompareCertifyNum(int num1, int num2){
         return num1 == num2;
     }
 
