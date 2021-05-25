@@ -9,16 +9,17 @@ import com.android.volley.toolbox.StringRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RequestUserValidate extends StringRequest {
+public class RequestUserIdValidate extends StringRequest {
 
-    private final static String URL = "http://xodnjs2546.cafe24.com/userValidate.php";
+    private final static String URL = "http://xodnjs2546.cafe24.com/userIdValidate.php";
     private Map<String, String> mHash;
 
-    public RequestUserValidate(String userID, Response.Listener<String> listener) {
+    public RequestUserIdValidate(String userID, Response.Listener<String> listener) {
         super(Method.POST, URL, listener, null); // 여기가 실질적으로 요청을 보내는 곳입니다.
         mHash = new HashMap<>();
         mHash.put("userID", userID);
     }
+
 
     @Override
     protected Map<String, String> getParams() throws AuthFailureError {

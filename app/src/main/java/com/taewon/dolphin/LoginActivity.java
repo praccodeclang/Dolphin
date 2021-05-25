@@ -60,6 +60,7 @@ public class LoginActivity extends AppCompatActivity{
             if(!userMap.containsValue(null))
             {
                 //UserData.class 에 데이터를 저장.
+                UserData.getInstance().setUserStudentCode(userMap.get("userStudentCode"));
                 UserData.getInstance().setUserID(userMap.get("userID"));
                 UserData.getInstance().setUserName(userMap.get("userName"));
                 UserData.getInstance().setUserMajor(userMap.get("userMajor"));
@@ -117,6 +118,7 @@ public class LoginActivity extends AppCompatActivity{
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 
                                 //UserData.class 에 데이터를 저장.
+                                UserData.getInstance().setUserStudentCode(jsonObject.getString("userStudentCode"));
                                 UserData.getInstance().setUserID(jsonObject.getString("userID"));
                                 UserData.getInstance().setUserName(jsonObject.getString("userName"));
                                 UserData.getInstance().setUserMajor(jsonObject.getString("userMajor"));
@@ -127,6 +129,7 @@ public class LoginActivity extends AppCompatActivity{
                                 if(autoLogin.isChecked()){
                                     SharedPreferences auto = getSharedPreferences("auto",LoginActivity.MODE_PRIVATE);
                                     SharedPreferences.Editor autoLogin = auto.edit();
+                                    autoLogin.putString("userStudentCode", UserData.getInstance().getUserStudentCode());
                                     autoLogin.putString("userID", UserData.getInstance().getUserID());
                                     autoLogin.putString("userPW", userPassword.getText().toString());
                                     autoLogin.putString("userName", UserData.getInstance().getUserName());
@@ -148,6 +151,13 @@ public class LoginActivity extends AppCompatActivity{
                         }
                         catch (JSONException e)
                         {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                            builder.setIcon(R.drawable.ic_baseline_arrow_back_24)
+                                    .setTitle("서버가 불안정합니다.")
+                                    .setMessage("\t잠시 후에 다시 시도해보세요.")
+                                    .setNegativeButton("확인", null);
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
                             e.printStackTrace();
                         }
 

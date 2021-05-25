@@ -13,16 +13,18 @@ public class UserData {
     private UserData(){ }
     /* 싱글턴 패턴 end */
 
-    private String userID, userName, userMajor, userDept, userPhoneNum;
+    private String userStudentCode,userID, userName, userMajor, userDept, userPhoneNum;
 
 
 
 
     //getters, setters.
+    public String getUserStudentCode() { return userStudentCode; }
+    public void setUserStudentCode(String userStudentCode) { this.userStudentCode = userStudentCode; }
+
     public String getUserID() {
         return userID;
     }
-
     public void setUserID(String userID) {
         this.userID = userID;
     }
@@ -30,7 +32,6 @@ public class UserData {
     public String getUserName() {
         return userName;
     }
-
     public void setUserName(String userName) {
         this.userName = userName;
     }
@@ -38,7 +39,6 @@ public class UserData {
     public String getUserMajor() {
         return userMajor;
     }
-
     public void setUserMajor(String userMajor) {
         this.userMajor = userMajor;
     }
@@ -46,7 +46,6 @@ public class UserData {
     public String getUserDept() {
         return userDept;
     }
-
     public void setUserDept(String userDept) {
         this.userDept = userDept;
     }
@@ -54,7 +53,6 @@ public class UserData {
     public String getUserPhoneNum() {
         return userPhoneNum;
     }
-
     public void setUserPhoneNum(String userPhoneNum) {
         this.userPhoneNum = userPhoneNum;
     }
