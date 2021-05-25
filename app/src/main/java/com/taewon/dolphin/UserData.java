@@ -1,5 +1,4 @@
 package com.taewon.dolphin;
-
 public class UserData {
     /* 현재 어플을 사용하고있는 유저의 데이터로, 로그인 성공 시, 초기화 되며 앱 실행 중 하나만 존재해야합니다.*/
     /* 어플 사용 중 하나만 존재해아합니다.*/

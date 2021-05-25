@@ -53,6 +53,46 @@ public class MainActivity extends AppCompatActivity{
         profileUserDept.setText(UserData.getInstance().getUserDept());
 
 
+        //온클릭 리스너들
+        moreViewNotice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //인텐트 생성해서 공지사항 페이지로 이동합니다.
+            }
+        });
+        moreViewFreeBoard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, FreeBoardActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        //마이페이지 및 설정 액티비티로 넘어갑니다.
+        myPageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                SharedPreferences auto = getSharedPreferences("auto", LoginActivity.MODE_PRIVATE);
+                SharedPreferences.Editor editor = auto.edit();
+                editor.clear();
+                editor.commit();
+                startActivity(intent);
+                finish();
+            }
+
+        });
+
+    }//onCreate End
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //mainNoticeListView에 아이템 추가(3개만 넣어볼게요.)
+        JsoupAsyncTask jsoupAsyncTask = new JsoupAsyncTask(this, "https://www.uc.ac.kr/computer/index.php?pCode=noticeall", mainNoticeListView, 3);
+        jsoupAsyncTask.execute();
+        setListViewHeightBasedOnChildren(mainNoticeListView);
+
         //mainFreeBoardListView 아이템 추가(3개만 넣어볼게요.)
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
@@ -88,47 +128,6 @@ public class MainActivity extends AppCompatActivity{
         RequestGetFreeBoard freeBoardRequest = new RequestGetFreeBoard(responseListener);
         RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
         queue.add(freeBoardRequest);
-
-
-
-        //온클릭 리스너들
-        moreViewNotice.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //인텐트 생성해서 공지사항 페이지로 이동합니다.
-            }
-        });
-        moreViewFreeBoard.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, FreeBoardActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        //마이페이지 및 설정 액티비티로 넘어갑니다.
-        myPageBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                SharedPreferences auto = getSharedPreferences("auto", LoginActivity.MODE_PRIVATE);
-                SharedPreferences.Editor editor = auto.edit();
-                editor.clear();
-                editor.commit();
-                startActivity(intent);
-            }
-
-        });
-
-    }//onCreate End
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        //mainNoticeListView에 아이템 추가(3개만 넣어볼게요.)
-        JsoupAsyncTask jsoupAsyncTask = new JsoupAsyncTask(this, "https://www.uc.ac.kr/computer/index.php?pCode=noticeall", mainNoticeListView, 3);
-        jsoupAsyncTask.execute();
-        setListViewHeightBasedOnChildren(mainNoticeListView);
     }
 
     public static void setListViewHeightBasedOnChildren(ListView listView) {
