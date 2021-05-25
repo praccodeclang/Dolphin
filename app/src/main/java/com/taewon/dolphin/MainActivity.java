@@ -6,9 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -32,7 +34,6 @@ public class MainActivity extends AppCompatActivity{
     private ListView mainFreeBoardListView;
     private ImageView myPageBtn;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,9 +43,9 @@ public class MainActivity extends AppCompatActivity{
         moreViewNotice = (TextView) findViewById(R.id.moreViewNotice);
         profileUserName = (TextView)findViewById(R.id.profileUserName);
         profileUserDept = (TextView)findViewById(R.id.profileUserDept);
-        mainNoticeListView = findViewById(R.id.mainNoticeListView);
-        mainFreeBoardListView = findViewById(R.id.mainFreeBoardListView);
-        myPageBtn = findViewById(R.id.myPageBtn);
+        mainNoticeListView = (ListView)findViewById(R.id.mainNoticeListView);
+        mainFreeBoardListView = (ListView)findViewById(R.id.mainFreeBoardListView);
+        myPageBtn = (ImageView)findViewById(R.id.myPageBtn);
 
         //로그인 창에서 넘어오면, 프로필의 이름과 학과를 UserData 클래스에 저장된 이름과 학과로 초기화합니다.
         profileUserName.setText(UserData.getInstance().getUserName());
@@ -122,6 +123,7 @@ public class MainActivity extends AppCompatActivity{
         queue.add(freeBoardRequest);
     }
 
+    //Custom Methods
     public static void setListViewHeightBasedOnChildren(ListView listView) {
         ListAdapter listAdapter = listView.getAdapter();
         if (listAdapter == null) {
