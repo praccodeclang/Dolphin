@@ -12,9 +12,11 @@ public class RequestUserRegister extends StringRequest {
     private final static String URL = "http://xodnjs2546.cafe24.com/userRegister.php";
     private Map<String, String> mHash;
 
-    public RequestUserRegister(String userID, String userPassword, String userName, String userMajor, String userDept, String PHONE , Response.Listener<String> listener) {
+    public RequestUserRegister(String userStudentCode, String userID, String userPassword, String userName, String userMajor,
+                               String userDept, String PHONE , Response.Listener<String> listener) {
         super(Method.POST, URL, listener, null); // 여기가 실질적으로 요청을 보내는 곳입니다.
         mHash = new HashMap<>();
+        mHash.put("userStudentCode", userStudentCode);
         mHash.put("userID", userID);
         mHash.put("userPassword", userPassword);
         mHash.put("userName", userName);

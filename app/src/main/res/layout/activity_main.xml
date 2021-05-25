@@ -39,7 +39,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:background="@drawable/border_layout_profile"
-                    android:src="@drawable/metamong" />
+                    android:src="@drawable/metamong"/>
 
                 <TextView
                     android:id="@+id/profileUserName"

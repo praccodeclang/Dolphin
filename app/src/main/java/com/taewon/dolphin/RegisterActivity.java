@@ -32,21 +32,23 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
-
-import java.util.ArrayList;
+import org.jsoup.internal.StringUtil;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
 
-    Boolean isValidate = false;
+    Boolean isValidateID = false;
+    Boolean isValidateStudentCode = false;
     Boolean isCertified = false;
     Boolean isPassSame = false;
     private int userRandNum;
 
-    private Button validateBtn;
+    private Button validateIDBtn;
+    private Button validateStudentCodeBtn;
     private Button registerBtn;
     private Button certifyPhone;
     private Button certifyBtn;
     private EditText nameText;
+    private EditText studentCodeText;
     private EditText idText;
     private EditText passwordText;
     private EditText passwordTextChk;
@@ -60,17 +62,20 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        isValidate = false;
+        isValidateID = false;
         isCertified = false;
         isPassSame = false;
+        isValidateStudentCode = false;
 
         /* Views */
-        validateBtn = (Button)findViewById(R.id.validateBtn);
+        validateIDBtn = (Button)findViewById(R.id.validateIDBtn);
+        validateStudentCodeBtn=(Button)findViewById(R.id.validateStudentCodeBtn);
         registerBtn = (Button)findViewById(R.id.registerBtn);
         certifyPhone = (Button)findViewById(R.id.certifyPhone);
         certifyBtn = (Button)findViewById(R.id.certifyBtn);
 
         nameText = (EditText)findViewById(R.id.nameText);
+        studentCodeText = (EditText)findViewById(R.id.studentCodeText);
         idText = (EditText)findViewById(R.id.idText);
         passwordText = (EditText)findViewById(R.id.passwordText);
         passwordTextChk = (EditText)findViewById(R.id.passwordTextChk);
@@ -86,7 +91,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
 
         //1. 중복확인 버튼
-        validateBtn.setOnClickListener(this);
+        validateIDBtn.setOnClickListener(this);
+        validateStudentCodeBtn.setOnClickListener(this);
         //2. 전화번호 인증 버튼
         certifyPhone.setOnClickListener(this);
         //3. 유저가 받은 인증번호를 입력하고 인증버튼을 누르면, 실행
@@ -223,7 +229,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         switch (v.getId())
         {
             //중복확인버튼
-            case R.id.validateBtn:
+            case R.id.validateIDBtn:
                 String userID = idText.getText().toString();
                 if(userID.equals(""))
                 {
@@ -265,9 +271,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                     public void onClick(DialogInterface dialog, int which) {
                                         idText.setBackgroundColor(getResources().getColor(R.color.LockColor));
                                         idText.setEnabled(false);
-                                        validateBtn.setBackgroundColor(getResources().getColor(R.color.LockColor));
-                                        validateBtn.setEnabled(false);
-                                        isValidate = true;
+                                        validateIDBtn.setBackgroundColor(getResources().getColor(R.color.LockColor));
+                                        validateIDBtn.setEnabled(false);
+                                        isValidateID = true;
                                         dialog.dismiss();
                                     }
                                 });
@@ -283,9 +289,67 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     }
                 };
 
-                RequestUserValidate validateRequest = new RequestUserValidate(userID, responseListener);
+                RequestUserIdValidate validateRequest = new RequestUserIdValidate(userID, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
                 queue.add(validateRequest);
+                break;
+
+            case R.id.validateStudentCodeBtn:
+                //학번 중복확인
+                String userStdCode = studentCodeText.getText().toString();
+                if(!StringUtil.isNumeric(userStdCode))
+                {
+                    Toast.makeText(RegisterActivity.this,"학번은 숫자여야합니다.",Toast.LENGTH_SHORT);
+                    return;
+                }
+                Response.Listener<String> responseListener2 = new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) { // 서버 응답시 실행
+                        try
+                        {
+                            JSONObject jsonObject = new JSONObject(response);
+                            boolean isExistUser = jsonObject.getBoolean("success");
+                            if(isExistUser)
+                            {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                                builder.setIcon(R.drawable.icon_dolphins).setTitle("학번을 확인해주세요.").setMessage("\t이미 존재하는 학생입니다.").setNegativeButton("확인", null);
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
+                            }
+                            else
+                            {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                                builder.setIcon(R.drawable.icon_dolphins)
+                                        .setTitle("한 번만 가입할 수 있습니다.")
+                                        .setMessage("\t이 학번으로 하시겠어요??")
+                                        .setNegativeButton("취소", null)
+                                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                studentCodeText.setBackgroundColor(getResources().getColor(R.color.LockColor));
+                                                studentCodeText.setEnabled(false);
+                                                validateStudentCodeBtn.setBackgroundColor(getResources().getColor(R.color.LockColor));
+                                                validateStudentCodeBtn.setEnabled(false);
+                                                isValidateStudentCode = true;
+                                                dialog.dismiss();
+                                    }
+                                });
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            System.out.println("진짜 큰일났다.");
+                            e.printStackTrace();
+                        }
+                    }
+                };
+
+                RequestUserStdCodeValidate validateRequest2 = new RequestUserStdCodeValidate(userStdCode, responseListener2);
+                RequestQueue queue2 = Volley.newRequestQueue(RegisterActivity.this);
+                queue2.add(validateRequest2);
                 break;
 
             case R.id.certifyPhone:
@@ -296,7 +360,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 if(userPhone.length() != 11)
                 {
                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                    builder.setIcon(R.drawable.icon_dolphins).setTitle("휴대폰이 맞나요?").setMessage("제가 아는 휴대폰은 11자리 숫자인걸요?").setNegativeButton("확인",null);
+                    builder.setIcon(R.drawable.icon_dolphins).setTitle("휴대폰이 맞나요?").setMessage("\t제가 아는 휴대폰은 11자리 숫자인걸요?").setNegativeButton("확인",null);
                     AlertDialog dialog = builder.create();
                     dialog.show();
                     return;
@@ -306,7 +370,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 try {
                     //문자가 보내지지 않으면, 사용자가 권한을 설정하지 않은것이므로, 앱정보로 이동해 권한을 설정할 수 있도록 합니다.
                     android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(RegisterActivity.this);
-                    builder.setIcon(R.drawable.icon_dolphins).setTitle("휴대폰 인증").setMessage("핸드폰으로 문자 한 개만 보낼게요!\n대부분 문자는 공짜입니다!");
+                    builder.setIcon(R.drawable.icon_dolphins).setTitle("휴대폰 인증").setMessage("\t핸드폰으로 문자 한 개만 보낼게요!\n\t대부분 문자는 공짜입니다!");
                     builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -327,7 +391,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 {
                     //문자가 보내지지 않으면, 사용자가 권한을 설정하지 않은것이므로, 앱정보로 이동해 권한을 설정할 수 있도록 합니다.
                     android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(RegisterActivity.this);
-                    builder.setIcon(R.drawable.icon_dolphins).setTitle("앱 권한").setMessage("우리 앱을 원활하게 사용하려면, 애플리케이션 정보>권한 에서 모든 권한을 허용해주세요.");
+                    builder.setIcon(R.drawable.icon_dolphins).setTitle("앱 권한").setMessage("\t우리 앱을 원활하게 사용하려면, 애플리케이션 정보>권한 에서 모든 권한을 허용해주세요.");
                     builder.setPositiveButton("권한설정", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -387,7 +451,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
             case R.id.registerBtn:
                 //중복확인 안했을 시.
-                if(!isValidate)
+                if(!isValidateID || !isValidateStudentCode)
                 {
                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                     builder.setIcon(R.drawable.icon_dolphins).setMessage("\t중복 확인을 해주세요.").setNegativeButton("확인",null);
@@ -413,13 +477,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     dialog.show();
                     break;
                 }
-                String UID = idText.getText().toString();
-                String userPassword = passwordText.getText().toString();
-                String userName = nameText.getText().toString();
-                String Major = userMajor.getSelectedItem().toString();
-                String department = userDept.getSelectedItem().toString();
-                String UPhone = PHONE.getText().toString();
-                if(UID.isEmpty() || userPassword.isEmpty() || userName.isEmpty() || Major.isEmpty() || department.isEmpty() || UPhone.isEmpty())
+                String uStudentCode = studentCodeText.getText().toString();
+                String uID = idText.getText().toString();
+                String uPassword = passwordText.getText().toString();
+                String uName = nameText.getText().toString();
+                String uMajor = userMajor.getSelectedItem().toString();
+                String uDept = userDept.getSelectedItem().toString();
+                String uPhone = PHONE.getText().toString();
+                if(uID.isEmpty() || uPassword.isEmpty() || uName.isEmpty() || uMajor.isEmpty() || uDept.isEmpty() || uPhone.isEmpty())
                 {
                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                     builder.setTitle("빈 공간이 있습니다.").setMessage("\t우리는 철벽수비를 자랑한다구요!").setNegativeButton("확인",null);
@@ -427,7 +492,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     dialog.show();
                     break;
                 }
-                if(userPassword.length()<6)
+                if(uPassword.length()<6)
                 {
                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                     builder.setIcon(R.drawable.icon_dolphins).setTitle("비밀번호가 너무 짧습니다.").setMessage("\t비밀번호는 6자리 이상이었으면 좋겠어요.").setNegativeButton("확인",null);
@@ -437,7 +502,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 }
 
 
-                Response.Listener<String> responseListener2 = new Response.Listener<String>()
+                Response.Listener<String> responseListener3 = new Response.Listener<String>()
                 {
                     @Override
                     public void onResponse(String response) { // 서버 응답시 실행
@@ -452,8 +517,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                                        intent.putExtra("userID", UID);
-                                        intent.putExtra("userPassword", userPassword);
+                                        intent.putExtra("userID", uID);
+                                        intent.putExtra("userPassword", uPassword);
                                         startActivity(intent);
                                         dialog.dismiss();
                                         finish();
@@ -483,9 +548,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     }
                 };
 
-                RequestUserRegister validateRequest2 = new RequestUserRegister(UID, userPassword, userName, Major, department, UPhone, responseListener2);
-                RequestQueue queue2 = Volley.newRequestQueue(RegisterActivity.this);
-                queue2.add(validateRequest2);
+                RequestUserRegister validateRequest3 = new RequestUserRegister(uStudentCode, uID, uPassword, uName, uMajor, uDept, uPhone, responseListener3);
+                RequestQueue queue3 = Volley.newRequestQueue(RegisterActivity.this);
+                queue3.add(validateRequest3);
                 break;
         }
     }
