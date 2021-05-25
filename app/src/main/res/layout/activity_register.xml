@@ -85,7 +85,7 @@
                      <Button
                          android:layout_width="90dp"
                          android:layout_height="wrap_content"
-                         android:id="@+id/validate"
+                         android:id="@+id/validateBtn"
                          android:text="중복확인"
                          android:backgroundTint="@color/Dolphin"
                          android:layout_marginLeft="10dp"/>

@@ -113,7 +113,7 @@ public class LoginActivity extends AppCompatActivity{
                                 //로그인에 성공했다면,
                                 //UserData.class 에 데이터를 저장합니다.
                                 //UserData.Instance().get ~~ 혹은, UserData.Instance().set~~ 으로 사용하면됩니다.
-                                Toast.makeText(LoginActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 
                                 //UserData.class 에 데이터를 저장.

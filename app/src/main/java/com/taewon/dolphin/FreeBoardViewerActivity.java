@@ -39,7 +39,7 @@ public class FreeBoardViewerActivity extends AppCompatActivity {
         
         //update&deleteBtn을 담는 레이아웃
         LinearLayout udBtns = (LinearLayout)findViewById(R.id.udBtns);
-        LinearLayout FreeBoardViewBack = (LinearLayout)findViewById(R.id.FreeBoardViewBack);
+        ImageButton FreeBoardViewBackBtn = (ImageButton)findViewById(R.id.FreeBoardViewBackBtn);
         Button deleteBtn = (Button)findViewById(R.id.deleteBtn);
         Button modifyBtn = (Button)findViewById(R.id.modifyBtn);
 
@@ -50,14 +50,14 @@ public class FreeBoardViewerActivity extends AppCompatActivity {
         board_contents.setText(freeBoardIntent.getStringExtra("Contents"));
 
         //돌아가기 버튼입니다.
-        FreeBoardViewBack.setOnClickListener(new View.OnClickListener() {
+        FreeBoardViewBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
 
-        //ClickListener들
+        //onClickListener들
         //profile을 누르면 전화를 걸 수 있도록 합니다.
         profileLayout.setOnClickListener(new View.OnClickListener() {
             @Override
