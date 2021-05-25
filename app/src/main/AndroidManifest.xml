@@ -14,6 +14,8 @@
         android:theme="@style/Theme.Dolphin"
         android:usesCleartextTraffic="true"
         android:networkSecurityConfig="@xml/network_security_config">
+
+
         <!--activity 추가해주세요.-->
         <activity android:name=".StartActivity">
             <intent-filter>
@@ -27,5 +29,6 @@
         <activity android:name=".FreeBoardActivity"/>
         <activity android:name=".FreeBoardViewerActivity"/>
         <activity android:name=".FreeBoardWritingActivity"/>
+        <activity android:name=".MyPageActivity"/>
     </application>
 </manifest>

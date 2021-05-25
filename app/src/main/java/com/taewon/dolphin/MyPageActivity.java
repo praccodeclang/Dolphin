@@ -1,10 +1,7 @@
 package com.taewon.dolphin;
 
 import android.os.Bundle;
-
-
 import androidx.appcompat.app.AppCompatActivity;
-
 
 public class MyPageActivity extends AppCompatActivity {
     @Override

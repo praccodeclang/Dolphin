@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -14,26 +15,23 @@
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/metamong"
-            />
+            android:src="@drawable/metamong"/>
         <TextView
-            android:id="@+id/profileUserDept"
+            android:id="@+id/myPageUserDept"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:text="학과"
             android:layout_marginTop="10dp"
-            android:textSize="24sp"
-            />
+            android:textSize="24sp"/>
         <TextView
-            android:id="@+id/profileUserName"
+            android:id="@+id/myPageUserName"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"
             android:text="이름"
-            android:textSize="24sp"
-            />
+            android:textSize="24sp"/>
     </LinearLayout>
     <ScrollView
         android:layout_width="wrap_content"
@@ -46,12 +44,12 @@
             android:layout_margin="5dp">
             <LinearLayout
                 android:layout_width="400dp"
-                android:layout_height="400dp">
-
+                android:layout_height="400dp"
+                android:orientation="vertical">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/logOut"
+                    android:id="@+id/logOutBtn"
                     android:text="로그아웃"
                     android:textSize="16sp"
                     android:layout_margin="6dp"
@@ -59,7 +57,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/secession"
+                    android:id="@+id/secessionBtn"
                     android:text="회원탈퇴"
                     android:textSize="16sp"
                     android:layout_margin="6dp"
@@ -67,7 +65,4 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
-
-
 </LinearLayout>
