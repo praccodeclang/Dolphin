@@ -52,11 +52,6 @@ public class MainActivity extends AppCompatActivity{
         profileUserName.setText(UserData.getInstance().getUserName());
         profileUserDept.setText(UserData.getInstance().getUserDept());
 
-        //mainNoticeListView에 아이템 추가(3개만 넣어볼게요.)
-
-
-
-
 
         //mainFreeBoardListView 아이템 추가(3개만 넣어볼게요.)
         Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -96,15 +91,6 @@ public class MainActivity extends AppCompatActivity{
 
 
 
-
-
-
-
-
-
-
-
-
         //온클릭 리스너들
         moreViewNotice.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,9 +105,9 @@ public class MainActivity extends AppCompatActivity{
                 startActivity(intent);
             }
         });
-        /*여기아래부터 작성해주세요*/
-        myPageBtn.setOnClickListener(new View.OnClickListener() {
 
+        //마이페이지 및 설정 액티비티로 넘어갑니다.
+        myPageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
@@ -135,6 +121,16 @@ public class MainActivity extends AppCompatActivity{
         });
 
     }//onCreate End
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //mainNoticeListView에 아이템 추가(3개만 넣어볼게요.)
+        JsoupAsyncTask jsoupAsyncTask = new JsoupAsyncTask(this, "https://www.uc.ac.kr/computer/index.php?pCode=noticeall", mainNoticeListView, 3);
+        jsoupAsyncTask.execute();
+        setListViewHeightBasedOnChildren(mainNoticeListView);
+    }
+
     public static void setListViewHeightBasedOnChildren(ListView listView) {
         ListAdapter listAdapter = listView.getAdapter();
         if (listAdapter == null) {
@@ -149,7 +145,7 @@ public class MainActivity extends AppCompatActivity{
             View listItem = listAdapter.getView(i, null, listView);
             //listItem.measure(0, 0);
             listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
-            totalHeight += listItem.getMeasuredHeight();
+            totalHeight += listItem.getMeasuredHeight() * 1.25;
         }
         ViewGroup.LayoutParams params = listView.getLayoutParams();
 

@@ -56,11 +56,9 @@ public class LoginActivity extends AppCompatActivity {
             {
                 String key = it.next();
                 userMap.put(key, auto.getString(key, null));
-                System.out.println(userMap.keySet());
             }
             if(!userMap.containsValue(null))
             {
-                System.out.println(userMap.keySet());
                 //UserData.class 에 데이터를 저장.
                 UserData.getInstance().setUserID(userMap.get("userID"));
                 UserData.getInstance().setUserName(userMap.get("userName"));
