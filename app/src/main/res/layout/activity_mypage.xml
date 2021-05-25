@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="left"
+    android:background="@drawable/border_layout_under_bar"
+    android:orientation="horizontal">
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/metamong"
+        />
+    <TextView
+        android:id="@+id/profileUserDept"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:text="학과"
+        android:layout_marginTop="10dp"
+        android:textSize="24sp"
+        />
+    <TextView
+        android:id="@+id/profileUserName"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:text="이름"
+        android:textSize="24sp"
+        />
+</LinearLayout>
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/border_layout_profile"
+    android:orientation="vertical"
+    android:layout_margin="5dp">
+
+</LinearLayout>
+        <LinearLayout
+            android:layout_width="400dp"
+            android:layout_height="400dp"
+            >
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:id="@+id/logOut"
+           android:text="로그아웃"
+           android:textSize="16sp"
+           android:layout_margin="6dp"
+           android:textStyle="bold"/>
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:id="@+id/secession"
+           android:text="회원탈퇴"
+           android:textSize="16sp"
+           android:layout_margin="6dp"
+           android:textStyle="bold"/>
+        </LinearLayout>
+    </ScrollView>
+
+
+
+</LinearLayout>
