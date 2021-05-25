@@ -39,6 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     Boolean isValidate = false;
     Boolean isCertified = false;
+    Boolean isPassSame = false;
     private View decorView;
     private int uiOption;
     private int userRandNum;
@@ -48,7 +49,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         isValidate = false;
         isCertified = false;
-
+        isPassSame = false;
         final Button validateBtn = (Button)findViewById(R.id.validate);
         final Button registerBtn = (Button)findViewById(R.id.registerBtn);
         final Button certifyPhone = (Button)findViewById(R.id.certifyPhone);
@@ -152,11 +153,13 @@ public class RegisterActivity extends AppCompatActivity {
                 {
                     warningText.setTextColor(Color.GREEN);
                     warningText.setText("비밀번호가 일치합니다.");
+                    isPassSame = true;
                 }
                 else
                 {
                     warningText.setTextColor(Color.RED);
                     warningText.setText("비밀번호가 다릅니다.");
+                    isPassSame = false;
                 }
             }
 
@@ -277,18 +280,31 @@ public class RegisterActivity extends AppCompatActivity {
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //중복확인 안했을 시.
                 if(!isValidate)
                 {
                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                    builder.setMessage("\t중복 확인을 해주세요.").setNegativeButton("확인",null);
+                    builder.setIcon(R.drawable.icon_dolphins).setMessage("\t중복 확인을 해주세요.").setNegativeButton("확인",null);
                     AlertDialog dialog = builder.create();
                     dialog.show();
                     return;
                 }
+
+                //휴대폰 인증 안했을 시.
                 if(!isCertified)
                 {
                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                    builder.setMessage("\t휴대폰을 인증해주세요.").setNegativeButton("확인",null);
+                    builder.setIcon(R.drawable.icon_dolphins).setMessage("\t휴대폰을 인증해주세요.").setNegativeButton("확인",null);
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                    return;
+                }
+                //비밀번호 다를 시.
+                if(!isPassSame)
+                {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                    builder.setIcon(R.drawable.icon_dolphins).setMessage("\t휴대폰을 인증해주세요.").setNegativeButton("확인",null);
                     AlertDialog dialog = builder.create();
                     dialog.show();
                     return;

@@ -94,7 +94,7 @@
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
                      android:id="@+id/passwordText"
-                     android:hint="비밀번호"
+                     android:hint="패스워드"
                      android:inputType="textPassword"
                      android:textAlignment="textStart"
                      android:layout_marginRight="100dp"/>
@@ -106,7 +106,7 @@
                          android:layout_width="match_parent"
                          android:layout_height="wrap_content"
                          android:id="@+id/passwordTextChk"
-                         android:hint="비밀번호 확인"
+                         android:hint="패스워드 확인"
                          android:inputType="textPassword"
                          android:textAlignment="textStart"
                          android:layout_marginRight="100dp"/>
