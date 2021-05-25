@@ -39,29 +39,58 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/border_layout_profile"
             android:orientation="vertical"
             android:layout_margin="5dp">
             <LinearLayout
                 android:layout_width="400dp"
                 android:layout_height="400dp"
                 android:orientation="vertical">
-                <TextView
+                <androidx.cardview.widget.CardView
+                    android:layout_width="400dp"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal"
+                    app:cardElevation="10dp"
+                    android:id="@+id/card_Logout">
+                    <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/logOutBtn"
                     android:text="로그아웃"
                     android:textSize="16sp"
-                    android:layout_margin="6dp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:drawableStart="@drawable/logout"/>
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="400dp"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal"
+                    app:cardElevation="10dp"
+                    android:id="@+id/card_Secession">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/secessionBtn"
                     android:text="회원탈퇴"
                     android:textSize="16sp"
-                    android:layout_margin="6dp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:drawableStart="@drawable/secession"/>
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="400dp"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal"
+                    app:cardElevation="10dp"
+                    android:id="@+id/card_notice">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/notice_Btn"
+                        android:text="공지사항"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:drawableStart="@drawable/uc_logo"
+                        android:layout_gravity="center"/>
+                </androidx.cardview.widget.CardView>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
