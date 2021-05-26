@@ -7,12 +7,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+<<<<<<< HEAD
 import android.widget.AdapterView;
 import android.widget.Button;
+=======
+>>>>>>> parent of 90479e2 (메인 액티비티 최적화)
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -36,7 +38,12 @@ public class MainActivity extends AppCompatActivity{
     private ListView mainNoticeListView;
     private ListView mainFreeBoardListView;
     private ImageView myPageBtn;
+<<<<<<< HEAD
     private List<FreeBoardItem> freeBoardItemList;
+=======
+
+
+>>>>>>> parent of 90479e2 (메인 액티비티 최적화)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,10 +53,16 @@ public class MainActivity extends AppCompatActivity{
         moreViewNotice = (TextView) findViewById(R.id.moreViewNotice);
         profileUserName = (TextView)findViewById(R.id.profileUserName);
         profileUserDept = (TextView)findViewById(R.id.profileUserDept);
+<<<<<<< HEAD
         mainNoticeListView = (ListView)findViewById(R.id.mainNoticeListView);
         mainFreeBoardListView = (ListView)findViewById(R.id.mainFreeBoardListView);
         myPageBtn = (ImageView)findViewById(R.id.myPageBtn);
         freeBoardItemList = new ArrayList<>();
+=======
+        mainNoticeListView = findViewById(R.id.mainNoticeListView);
+        mainFreeBoardListView = findViewById(R.id.mainFreeBoardListView);
+        myPageBtn = findViewById(R.id.myPageBtn);
+>>>>>>> parent of 90479e2 (메인 액티비티 최적화)
 
         //로그인 창에서 넘어오면, 프로필의 이름과 학과를 UserData 클래스에 저장된 이름과 학과로 초기화합니다.
         profileUserName.setText(UserData.getInstance().getUserName());
@@ -136,7 +149,6 @@ public class MainActivity extends AppCompatActivity{
         queue.add(freeBoardRequest);
     }
 
-    //Custom Methods
     public static void setListViewHeightBasedOnChildren(ListView listView) {
         ListAdapter listAdapter = listView.getAdapter();
         if (listAdapter == null) {
