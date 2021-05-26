@@ -3,10 +3,20 @@ package com.taewon.dolphin;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.JavascriptInterface;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -14,6 +24,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -22,7 +33,11 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +52,7 @@ public class MainActivity extends AppCompatActivity{
     private ListView mainFreeBoardListView;
     private ImageView myPageBtn;
 
-    private List<FreeBoardItem> freeBoardItemList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,12 +68,15 @@ public class MainActivity extends AppCompatActivity{
         mainFreeBoardListView = (ListView)findViewById(R.id.mainFreeBoardListView);
         myPageBtn = (ImageView)findViewById(R.id.myPageBtn);
 
-        freeBoardItemList = new ArrayList<>();
+
+
+
+
 
         //로그인 창에서 넘어오면, 프로필의 이름과 학과를 UserData 클래스에 저장된 이름과 학과로 초기화합니다.
         profileUserName.setText(UserData.getInstance().getUserName());
         profileUserDept.setText(UserData.getInstance().getUserDept());
-        //해당 학부의 공지사항을 띄웁니다.
+        //해당 공지사항이 어떤 학부 공지사항인지알려줍니다.
         noticeDeptText.setText("  "+UserData.getInstance().getUserMajor() + " 공지사항");
 
         //익명함수 리스너들
@@ -112,6 +130,7 @@ public class MainActivity extends AppCompatActivity{
         });
 
     }//onCreate End
+
 
     @Override
     protected void onResume() {
@@ -177,6 +196,7 @@ public class MainActivity extends AppCompatActivity{
         queue.add(freeBoardRequest);
     }
 
+
     //Custom Methods
     public static void setListViewHeightBasedOnChildren(ListView listView) {
         ListAdapter listAdapter = listView.getAdapter();
@@ -201,5 +221,6 @@ public class MainActivity extends AppCompatActivity{
 
         listView.requestLayout();
     }
+
 
 }

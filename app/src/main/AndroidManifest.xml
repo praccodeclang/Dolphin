@@ -30,5 +30,6 @@
         <activity android:name=".FreeBoardViewerActivity"/>
         <activity android:name=".FreeBoardWritingActivity"/>
         <activity android:name=".MyPageActivity"/>
+        <activity android:name=".NfcActivity"/>
     </application>
 </manifest>

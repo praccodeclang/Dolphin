@@ -14,6 +14,7 @@ import android.widget.ListView;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -30,7 +31,7 @@ public class FreeBoardActivity extends AppCompatActivity{ //클릭 리스너 인
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_freeboard);
-        final Button writingBtn = (Button)findViewById(R.id.writingBtn);
+        final FloatingActionButton writingBtn = (FloatingActionButton)findViewById(R.id.writingBtn);
         final ImageButton freeBoardBackBtn = (ImageButton)findViewById(R.id.FreeBoardBackBtn);
         freeBoardListView = (ListView)findViewById(R.id.freeBoardListView);
         freeBoardItemList = new ArrayList<>();
