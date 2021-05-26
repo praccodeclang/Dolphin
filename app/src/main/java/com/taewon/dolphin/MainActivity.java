@@ -7,7 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> parent of 90b4b8b (띄어쓰기 수정)
 import android.widget.AdapterView;
 >>>>>>> parent of 90b4b8b (띄어쓰기 수정)
 import android.widget.Button;
@@ -38,10 +41,13 @@ public class MainActivity extends AppCompatActivity{
     private ListView mainFreeBoardListView;
     private ImageView myPageBtn;
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
     private List<FreeBoardItem> freeBoardItemList;
->>>>>>> parent of 90b4b8b (띄어쓰기 수정)
+
+    private List<FreeBoardItem> freeBoardItemList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +61,10 @@ public class MainActivity extends AppCompatActivity{
         mainFreeBoardListView = (ListView)findViewById(R.id.mainFreeBoardListView);
         myPageBtn = (ImageView)findViewById(R.id.myPageBtn);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+        freeBoardItemList = new ArrayList<>();
+>>>>>>> parent of 90b4b8b (띄어쓰기 수정)
 =======
         freeBoardItemList = new ArrayList<>();
 >>>>>>> parent of 90b4b8b (띄어쓰기 수정)
