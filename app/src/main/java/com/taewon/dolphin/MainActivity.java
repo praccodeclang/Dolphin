@@ -3,9 +3,11 @@ package com.taewon.dolphin;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
@@ -21,6 +23,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +36,7 @@ public class MainActivity extends AppCompatActivity{
     private ListView mainNoticeListView;
     private ListView mainFreeBoardListView;
     private ImageView myPageBtn;
-
+    private List<FreeBoardItem> freeBoardItemList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,13 +49,14 @@ public class MainActivity extends AppCompatActivity{
         mainNoticeListView = (ListView)findViewById(R.id.mainNoticeListView);
         mainFreeBoardListView = (ListView)findViewById(R.id.mainFreeBoardListView);
         myPageBtn = (ImageView)findViewById(R.id.myPageBtn);
+        freeBoardItemList = new ArrayList<>();
 
         //로그인 창에서 넘어오면, 프로필의 이름과 학과를 UserData 클래스에 저장된 이름과 학과로 초기화합니다.
         profileUserName.setText(UserData.getInstance().getUserName());
         profileUserDept.setText(UserData.getInstance().getUserDept());
 
 
-        //온클릭 리스너들
+        //익명 함수리스너들
         moreViewNotice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,13 +80,22 @@ public class MainActivity extends AppCompatActivity{
             }
         });
 
+        mainNoticeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                final NoticeItem instance = (NoticeItem)parent.getAdapter().getItem(position);
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(instance.getUrl()));
+                startActivity(browserIntent);
+            }
+        });
+
     }//onCreate End
 
     @Override
     protected void onResume() {
         super.onResume();
         //mainNoticeListView에 아이템 추가(3개만 넣어볼게요.)
-        JsoupAsyncTask jsoupAsyncTask = new JsoupAsyncTask(this, "https://www.uc.ac.kr/computer/index.php?pCode=noticeall", mainNoticeListView, 3);
+        JsoupAsyncTask jsoupAsyncTask = new JsoupAsyncTask(this, UserData.getInstance().getUserDeptNoticeUrl(), mainNoticeListView, 3);
         jsoupAsyncTask.execute();
         setListViewHeightBasedOnChildren(mainNoticeListView);
 
@@ -91,9 +104,9 @@ public class MainActivity extends AppCompatActivity{
             @Override
             public void onResponse(String response) {
                 try {
+                    freeBoardItemList.clear();
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray jsonArray = jsonObject.getJSONArray("DATA");
-                    List<FreeBoardItem> freeBoardItemList = new ArrayList<>();
 
                     int boardID;
 

@@ -11,11 +11,22 @@
         android:gravity="right"
         android:background="@drawable/border_layout_under_bar">
         <ImageView
+            android:layout_weight="1"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:src="@drawable/logo_main"
+            android:layout_margin="15dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"/>
+        <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:id="@+id/myPageBtn"
             android:src="@drawable/ic_baseline_person_24"
-            android:layout_margin="15dp"/>
+            android:layout_margin="15dp"
+            android:layout_weight="1"/>
     </LinearLayout>
 
     <ScrollView
@@ -40,7 +51,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:id="@+id/test"
-                    android:background="@drawable/border_layout_profile"
+                    android:background="@drawable/border_layout_rad5"
                     android:src="@drawable/metamong"/>
 
                 <TextView
@@ -64,82 +75,89 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:orientation="horizontal"
-                android:paddingBottom="5dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp"
+                android:padding="10dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="start|bottom"
-                    android:layout_weight="1"
-                    android:drawableStart="@drawable/uc_logo"
-                    android:text="  공지사항"
-                    android:textColor="#00596E"
-                    android:textSize="16dp" />
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|bottom"
+                        android:layout_weight="1"
+                        android:drawableStart="@drawable/uc_logo"
+                        android:text="  공지사항"
+                        android:textColor="#00596E"
+                        android:textSize="16dp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="3"
-                    android:background="@drawable/border_layout_under_bar" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:background="@drawable/border_layout_under_bar" />
 
-                <TextView
-                    android:id="@+id/moreViewNotice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/border_layout_under_bar"
-                    android:gravity="end|bottom"
-                    android:text="더보기"
-                    android:textSize="14dp" />
+                    <TextView
+                        android:id="@+id/moreViewNotice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_layout_under_bar"
+                        android:gravity="end|bottom"
+                        android:text="더보기"
+                        android:textSize="14dp" />
+                </LinearLayout>
+
+                <ListView
+                    android:id="@+id/mainNoticeListView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
-
-            <ListView
-                android:id="@+id/mainNoticeListView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
             <!--공지사항 END-->
             <!--자유게시판-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal"
-                android:paddingBottom="5dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="start|bottom"
-                    android:layout_weight="1"
-                    android:drawableStart="@drawable/ic_baseline_people_24"
-                    android:text="  자유게시판"
-                    android:textColor="@color/Dolphin"
-                    android:textSize="16dp" />
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="3"
-                    android:background="@drawable/border_layout_under_bar" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start|bottom"
+                        android:layout_weight="1"
+                        android:drawableStart="@drawable/ic_baseline_people_24"
+                        android:text="  자유게시판"
+                        android:textColor="@color/Dolphin"
+                        android:textSize="16dp" />
 
-                <TextView
-                    android:id="@+id/moreViewFreeBoard"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/border_layout_under_bar"
-                    android:gravity="end|bottom"
-                    android:text="더보기"
-                    android:textSize="14dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3"
+                        android:background="@drawable/border_layout_under_bar" />
+
+                    <TextView
+                        android:id="@+id/moreViewFreeBoard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_layout_under_bar"
+                        android:gravity="end|bottom"
+                        android:text="더보기"
+                        android:textSize="14dp" />
+                </LinearLayout>
+                <ListView
+                    android:id="@+id/mainFreeBoardListView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp" />
             </LinearLayout>
-
-            <ListView
-                android:id="@+id/mainFreeBoardListView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp" />
             <!--자유게시판END-->
         </LinearLayout>
     </ScrollView>
