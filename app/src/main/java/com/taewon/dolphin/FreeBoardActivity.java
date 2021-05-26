@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.android.volley.RequestQueue;
@@ -30,6 +31,7 @@ public class FreeBoardActivity extends AppCompatActivity{ //클릭 리스너 인
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_freeboard);
         final Button writingBtn = (Button)findViewById(R.id.writingBtn);
+        final ImageButton freeBoardBackBtn = (ImageButton)findViewById(R.id.FreeBoardBackBtn);
         freeBoardListView = (ListView)findViewById(R.id.freeBoardListView);
         freeBoardItemList = new ArrayList<>();
 
@@ -39,7 +41,6 @@ public class FreeBoardActivity extends AppCompatActivity{ //클릭 리스너 인
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //실행할거 적으세요..
                 Intent intent = new Intent(FreeBoardActivity.this, FreeBoardViewerActivity.class);
-
                 //누른 게시판의 인스턴스를 생성해 FreeBoardViewerActivity.class 인텐트로 넘겨준다.
                 FreeBoardItem instance = freeBoardItemList.get(position);
                 intent.putExtra("Name", instance.getUserName());
@@ -58,6 +59,14 @@ public class FreeBoardActivity extends AppCompatActivity{ //클릭 리스너 인
             public void onClick(View v) {
                 Intent intent = new Intent(FreeBoardActivity.this, FreeBoardWritingActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        //뒤로가기 버튼 누르면, 실행
+        freeBoardBackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }

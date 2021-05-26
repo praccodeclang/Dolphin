@@ -3,4 +3,25 @@
     <string-array name="search_option_array">
 
     </string-array>
+
+    <string-array name="DeptNoticeUrl">
+        <item>https://www.uc.ac.kr/computer/index.php?pCode=noticeall</item>
+        <item>https://www.uc.ac.kr/nursing/?pCode=notice</item>
+        <item>https://www.uc.ac.kr/baby/?pCode=notice</item>
+        <item>https://www.uc.ac.kr/sports/?pCode=notice</item>
+        <item>https://www.uc.ac.kr/design/?pCode=notice</item>
+        <item>https://www.uc.ac.kr/physical/?pCode=notice</item>
+        <item>https://www.uc.ac.kr/family/?pCode=notice</item>
+        <item>https://www.uc.ac.kr/me/?pCode=deptboard</item>
+        <item>https://www.uc.ac.kr/dental/?pCode=notice</item>
+        <item>https://www.uc.ac.kr/account/?pCode=notice</item>
+        <item>https://www.uc.ac.kr/electric/?pCode=notice</item>
+        <item>https://www.uc.ac.kr/fn/?pCode=notice</item>
+        <item>https://www.uc.ac.kr/flow/?pCode=notice</item>
+        <item>https://www.uc.ac.kr/industry/index.php?pCode=notice</item>
+        <item>https://www.uc.ac.kr/hotel/?pCode=notice</item>
+        <item>https://www.uc.ac.kr/global/?pCode=notice</item>
+        <item>https://www.uc.ac.kr/cdesign/?pCode=notice</item>
+        <item>https://www.uc.ac.kr/chemical/?pCode=notice</item>
+    </string-array>
 </resources>

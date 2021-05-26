@@ -3,16 +3,11 @@ package com.taewon.dolphin;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> parent of 90b4b8b (띄어쓰기 수정)
 import android.widget.AdapterView;
->>>>>>> parent of 90b4b8b (띄어쓰기 수정)
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
@@ -37,14 +32,10 @@ public class MainActivity extends AppCompatActivity{
     private TextView moreViewNotice;
     private TextView profileUserName;
     private TextView profileUserDept;
+    private TextView noticeDeptText;
     private ListView mainNoticeListView;
     private ListView mainFreeBoardListView;
     private ImageView myPageBtn;
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
-    private List<FreeBoardItem> freeBoardItemList;
 
     private List<FreeBoardItem> freeBoardItemList;
 
@@ -57,28 +48,50 @@ public class MainActivity extends AppCompatActivity{
         moreViewNotice = (TextView) findViewById(R.id.moreViewNotice);
         profileUserName = (TextView)findViewById(R.id.profileUserName);
         profileUserDept = (TextView)findViewById(R.id.profileUserDept);
+        noticeDeptText = (TextView)findViewById(R.id.noticeDeptText);
         mainNoticeListView = (ListView)findViewById(R.id.mainNoticeListView);
         mainFreeBoardListView = (ListView)findViewById(R.id.mainFreeBoardListView);
         myPageBtn = (ImageView)findViewById(R.id.myPageBtn);
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
+
         freeBoardItemList = new ArrayList<>();
->>>>>>> parent of 90b4b8b (띄어쓰기 수정)
-=======
-        freeBoardItemList = new ArrayList<>();
->>>>>>> parent of 90b4b8b (띄어쓰기 수정)
 
         //로그인 창에서 넘어오면, 프로필의 이름과 학과를 UserData 클래스에 저장된 이름과 학과로 초기화합니다.
         profileUserName.setText(UserData.getInstance().getUserName());
         profileUserDept.setText(UserData.getInstance().getUserDept());
+        //해당 학부의 공지사항을 띄웁니다.
+        noticeDeptText.setText("  "+UserData.getInstance().getUserMajor() + " 공지사항");
 
-
-        //온클릭 리스너들
+        //익명함수 리스너들
         moreViewNotice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //인텐트 생성해서 공지사항 페이지로 이동합니다.
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(UserData.getInstance().getUserMajorNoticeUrl()));
+                startActivity(browserIntent);
+            }
+        });
+        mainNoticeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                NoticeItem instance = (NoticeItem)parent.getAdapter().getItem(position);
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(instance.getUrl()));
+                startActivity(browserIntent);
+            }
+        });
+
+        mainFreeBoardListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(MainActivity.this, FreeBoardViewerActivity.class);
+
+                //누른 게시판의 인스턴스를 생성해 FreeBoardViewerActivity.class 인텐트로 넘겨준다.
+                FreeBoardItem instance = (FreeBoardItem)parent.getAdapter().getItem(position);
+                intent.putExtra("Name", instance.getUserName());
+                intent.putExtra("Date", instance.getDate());
+                intent.putExtra("Title", instance.getTitle());
+                intent.putExtra("Contents", instance.getContents());
+                intent.putExtra("userPhone", instance.getUserPhone());
+                intent.putExtra("BoardID", Integer.toString(instance.getBoardId()));
+                startActivity(intent);
             }
         });
         moreViewFreeBoard.setOnClickListener(new View.OnClickListener() {
@@ -104,7 +117,7 @@ public class MainActivity extends AppCompatActivity{
     protected void onResume() {
         super.onResume();
         //mainNoticeListView에 아이템 추가(3개만 넣어볼게요.)
-        JsoupAsyncTask jsoupAsyncTask = new JsoupAsyncTask(this, "https://www.uc.ac.kr/computer/index.php?pCode=noticeall", mainNoticeListView, 3);
+        JsoupAsyncTask jsoupAsyncTask = new JsoupAsyncTask(this, UserData.getInstance().getUserMajorNoticeUrl(), mainNoticeListView, 3);
         jsoupAsyncTask.execute();
         setListViewHeightBasedOnChildren(mainNoticeListView);
 
@@ -119,21 +132,40 @@ public class MainActivity extends AppCompatActivity{
 
                     int boardID;
 
-                    for(int i=0; i<3; i++)
+                    if(jsonArray.length() < 3)
                     {
-                        String title, contents, date, userName, PHONE;
-                        JSONObject object = jsonArray.getJSONObject(i);
-                        title = object.get("title").toString();
-                        contents = object.get("contents").toString();
-                        date = object.get("DATE").toString();
-                        userName = object.get("userName").toString();
-                        PHONE = object.get("PHONE").toString();
-                        boardID = object.getInt("no");
-                        freeBoardItemList.add(new FreeBoardItem(title, contents, date, userName, PHONE, boardID));
+                        for(int i=0; i<jsonArray.length(); i++)
+                        {
+                            String title, contents, date, userName, PHONE;
+                            JSONObject object = jsonArray.getJSONObject(i);
+                            title = object.get("title").toString();
+                            contents = object.get("contents").toString();
+                            date = object.get("DATE").toString();
+                            userName = object.get("userName").toString();
+                            PHONE = object.get("PHONE").toString();
+                            boardID = object.getInt("no");
+                            freeBoardItemList.add(new FreeBoardItem(title, contents, date, userName, PHONE, boardID));
+                        }
+                        FreeBoardAdapter freeBoardAdapter = new FreeBoardAdapter(MainActivity.this, freeBoardItemList);
+                        mainFreeBoardListView.setAdapter(freeBoardAdapter);
+                        setListViewHeightBasedOnChildren(mainFreeBoardListView);
                     }
-                    FreeBoardAdapter freeBoardAdapter = new FreeBoardAdapter(MainActivity.this, freeBoardItemList);
-                    mainFreeBoardListView.setAdapter(freeBoardAdapter);
-                    setListViewHeightBasedOnChildren(mainFreeBoardListView);
+                    else {
+                        for (int i = 0; i < 3; i++) {
+                            String title, contents, date, userName, PHONE;
+                            JSONObject object = jsonArray.getJSONObject(i);
+                            title = object.get("title").toString();
+                            contents = object.get("contents").toString();
+                            date = object.get("DATE").toString();
+                            userName = object.get("userName").toString();
+                            PHONE = object.get("PHONE").toString();
+                            boardID = object.getInt("no");
+                            freeBoardItemList.add(new FreeBoardItem(title, contents, date, userName, PHONE, boardID));
+                        }
+                        FreeBoardAdapter freeBoardAdapter = new FreeBoardAdapter(MainActivity.this, freeBoardItemList);
+                        mainFreeBoardListView.setAdapter(freeBoardAdapter);
+                        setListViewHeightBasedOnChildren(mainFreeBoardListView);
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();
