@@ -40,7 +40,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:id="@+id/test"
+<<<<<<< HEAD
                     android:background="@drawable/border_layout_profile"
+=======
+                    android:background="@drawable/border_layout_rad5"
+>>>>>>> parent of 90b4b8b (띄어쓰기 수정)
                     android:src="@drawable/metamong"/>
 
                 <TextView
