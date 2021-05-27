@@ -17,8 +17,10 @@ public class MyPageActivity extends AppCompatActivity {
     private CardView card_Logout;
     private CardView card_Secession;
     private CardView card_Notice;
+    private CardView card_Freeboard;
     private TextView myPageUserDept;
     private TextView myPageUserName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +30,7 @@ public class MyPageActivity extends AppCompatActivity {
         card_Notice = (CardView)findViewById(R.id.card_notice);
         myPageUserDept =(TextView)findViewById(R.id.myPageUserDept);
         myPageUserName =(TextView)findViewById(R.id.myPageUserName);
-
+        card_Freeboard =(CardView)findViewById(R.id.card_Freeboard);
         myPageUserName.setText(UserData.getInstance().getUserName());
         myPageUserDept.setText(UserData.getInstance().getUserDept());
         card_Logout.setOnClickListener(new View.OnClickListener() {
@@ -51,6 +53,13 @@ public class MyPageActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        card_Freeboard.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MyPageActivity.this, FreeBoardActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        }));
     }
 }
