@@ -54,8 +54,8 @@ public class MyPageActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor =pref.edit();
                 editor.clear();
                 editor.commit();
-                Intent intent = new Intent(MyPageActivity.this, LoginActivity.class);
-                startActivity(intent);
+                ActivityCompat.finishAffinity(MyPageActivity.this);
+                startActivity(new Intent(MyPageActivity.this, StartActivity.class));
                 finish();
             }
         });
