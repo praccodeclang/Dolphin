@@ -62,9 +62,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /* Sensor */
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
+        /* Views */
         moreViewFreeBoard = (TextView) findViewById(R.id.moreViewFreeBoard);
         moreViewNotice = (TextView) findViewById(R.id.moreViewNotice);
         profileUserName = (TextView)findViewById(R.id.profileUserName);
@@ -82,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         //로그인 창에서 넘어오면, 프로필의 이름과 학과를 UserData 클래스에 저장된 이름과 학과로 초기화합니다.
         profileUserName.setText(UserData.getInstance().getUserName());
         profileUserDept.setText(UserData.getInstance().getUserDept());
+
         //해당 공지사항이 어떤 학부 공지사항인지알려줍니다.
         noticeDeptText.setText("  "+UserData.getInstance().getUserMajor() + " 공지사항");
 
@@ -107,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(MainActivity.this, FreeBoardViewerActivity.class);
 
-                //누른 게시판의 인스턴스를 생성해 FreeBoardViewerActivity.class 인텐트로 넘겨준다.
+                //누른 게시판의 인스턴스를 생성해 FreeBoardViewerActivity.class에 인텐트로 넘겨준다.
                 FreeBoardItem instance = (FreeBoardItem)parent.getAdapter().getItem(position);
                 intent.putExtra("Name", instance.getUserName());
                 intent.putExtra("Date", instance.getDate());
@@ -141,6 +144,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     protected void onResume() {
         super.onResume();
+        /*사용자가 다시 돌아오면 실행합니다.*/
         //센서 AWAKE
         mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
         //mainNoticeListView에 아이템 추가(3개만 넣어볼게요.)

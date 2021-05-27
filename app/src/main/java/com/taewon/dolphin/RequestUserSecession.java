@@ -9,21 +9,21 @@ import com.android.volley.toolbox.StringRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-public class RequestUserStdCodeValidate extends StringRequest {
+public class RequestUserSecession extends StringRequest {
 
-    private final static String URL = "http://xodnjs2546.cafe24.com/userStdCodeValidate.php";
+    private final static String URL = "http://xodnjs2546.cafe24.com/userSecession.php";
     private Map<String, String> mHash;
 
-    public RequestUserStdCodeValidate(String userStudentCode, Response.Listener<String> listener) {
+    public RequestUserSecession(String userID, String userStudentCode,Response.Listener<String> listener) {
         super(Method.POST, URL, listener, null); // 여기가 실질적으로 요청을 보내는 곳입니다.
-        //요청에 의해 서버로 보낼 파라미터를 저장합니다.
         mHash = new HashMap<>();
+        mHash.put("userID", userID);
         mHash.put("userStudentCode", userStudentCode);
     }
 
+
     @Override
     protected Map<String, String> getParams() throws AuthFailureError {
-        //서버에서 가져갈 파라미터(HashMap<String, String> 형식)입니다.
         return mHash;
     }
 }

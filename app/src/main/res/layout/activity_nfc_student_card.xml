@@ -9,5 +9,4 @@
         android:text="NFC"
         android:gravity="center"
         android:textSize="50sp"/>
-
 </LinearLayout>

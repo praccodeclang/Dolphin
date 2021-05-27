@@ -30,7 +30,6 @@ public class StartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
-
     }
 
     @Override
@@ -60,7 +59,7 @@ public class StartActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        //퍼미션 권한 설정 결과를 받습니다.
+        //퍼미션 권한 설정 결과를 요청하여 받습니다.
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode){
             case  MULTIPLE_PERMISSION:

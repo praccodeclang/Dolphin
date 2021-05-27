@@ -42,6 +42,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     Boolean isPassSame = false;
     private int userRandNum;
 
+    /*Views*/
     private Button validateIDBtn;
     private Button validateStudentCodeBtn;
     private Button registerBtn;
@@ -58,6 +59,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText PHONE;
     private EditText certifyNum;
     private LinearLayout ceritifyZone;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,7 +102,34 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         //4.회원가입 버튼
         registerBtn.setOnClickListener(this);
 
-        //패스워드 확인에 입력을 시작하면 실행합니다.
+        passwordText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(passwordText.getText().toString().equals(passwordTextChk.getText().toString()))
+                {
+                    warningText.setTextColor(Color.GREEN);
+                    warningText.setText("비밀번호가 일치합니다.");
+                    isPassSame = true;
+                }
+                else
+                {
+                    warningText.setTextColor(Color.RED);
+                    warningText.setText("비밀번호가 다릅니다.");
+                    isPassSame = false;
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        //유저가 패스워드 확인에 입력을 시작하면 실행합니다.
         passwordTextChk.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -129,7 +158,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             }
         });
 
-        //메이저 선택시,
+        //메이저(Spinner)에서 아이템 선택시,
         userMajor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -294,6 +323,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 queue.add(validateRequest);
                 break;
 
+                //학번확인 버튼
             case R.id.validateStudentCodeBtn:
                 //학번 중복확인
                 String userStdCode = studentCodeText.getText().toString();
@@ -312,6 +342,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             boolean isExistUser = jsonObject.getBoolean("success");
                             if(isExistUser)
                             {
+                                //유저가 존재하면 실행.
                                 AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                                 builder.setIcon(R.drawable.icon_dolphins).setTitle("학번을 확인해주세요.").setMessage("\t이미 존재하는 학생입니다.").setNegativeButton("확인", null);
                                 AlertDialog dialog = builder.create();
@@ -352,6 +383,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 queue2.add(validateRequest2);
                 break;
 
+                //전화번호 인증 버튼
             case R.id.certifyPhone:
                 //클릭되면 실행.
                 String userPhone = PHONE.getText().toString();
@@ -401,6 +433,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         }
                     });
                     builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                        //사용자가 권한 설정을 하지 않기로 한 경우, 해당 액티비티를 종료합니다.
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.cancel();
@@ -410,10 +443,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 }
                 break;
 
+                //인증번호 확인 버튼
             case R.id.certifyBtn:
                 int userInput;
                 try {
                     userInput = Integer.parseInt(certifyNum.getText().toString());
+                    //랜덤으로 만든 숫자와, 사용자가 입력한 숫자가 같은지 체크합니다.
                     if(isCompareCertifyNum(userInput, userRandNum))
                     {
                         AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
@@ -442,6 +477,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 }
                 catch (Exception e)
                 {
+                    //문자열을 입력하면, Integer.parseInt에서 예외를 발생시키므로, 해당 예외를 처리해줍니다.
                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                     builder.setIcon(R.drawable.icon_dolphins).setTitle("우리는 4자리 숫자를 보냈어요").setMessage("\t4자리 숫자가 맞는지 확인해주세요!").setNegativeButton("확인",null);
                     AlertDialog dialog = builder.create();
@@ -449,8 +485,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     break;
                 }
 
+                //회원가입 버튼
             case R.id.registerBtn:
-                //중복확인 안했을 시.
+                //ID와 학번 중복확인 안했을 시.
                 if(!isValidateID || !isValidateStudentCode)
                 {
                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
