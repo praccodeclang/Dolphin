@@ -50,7 +50,7 @@ public class MyPageActivity extends AppCompatActivity {
         card_Logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences pref =getSharedPreferences("auto", MyPageActivity.MODE_PRIVATE);
+                SharedPreferences pref =getSharedPreferences("auto", LoginActivity.MODE_PRIVATE);
                 SharedPreferences.Editor editor =pref.edit();
                 editor.clear();
                 editor.commit();

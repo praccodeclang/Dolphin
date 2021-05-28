@@ -4,112 +4,181 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical">
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="left"
         android:background="@drawable/border_layout_under_bar"
-        android:orientation="horizontal">
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/metamong"/>
-        <TextView
-            android:id="@+id/myPageUserDept"
-            android:layout_width="125dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:text="학과"
-            android:layout_marginTop="10dp"
-            android:textSize="16sp"/>
-        <TextView
-            android:id="@+id/myPageUserName"
-            android:layout_width="75dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="20dp"
-            android:text="이름"
-            android:textSize="16sp"/>
-    </LinearLayout>
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <LinearLayout
+        android:orientation="horizontal"
+        android:paddingVertical="10dp">
+        <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/MyPageBackBtn"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            android:layout_gravity="center_vertical"
+            android:backgroundTint="#ffffff"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/black"
+            android:text="내 정보"
+            android:textSize="16sp"
+            android:layout_gravity="center_vertical"/>
+    </LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_margin="5dp">
+            android:gravity="left">
             <LinearLayout
-                android:layout_width="400dp"
-                android:layout_height="400dp"
-                android:orientation="vertical">
-                <androidx.cardview.widget.CardView
-                    android:layout_width="400dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:orientation="horizontal"
+                android:layout_margin="10dp">
+                <ImageView
+                    android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:orientation="horizontal"
-                    app:cardElevation="10dp"
-                    android:id="@+id/card_Logout">
-                    <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/logOutBtn"
-                    android:text="로그아웃"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:drawableStart="@drawable/logout"
-                        android:layout_gravity="center"/>
-                </androidx.cardview.widget.CardView>
-                <androidx.cardview.widget.CardView
-                    android:layout_width="400dp"
-                    android:layout_height="50dp"
-                    android:orientation="horizontal"
-                    app:cardElevation="10dp"
-                    android:id="@+id/card_Secession">
+                    android:src="@drawable/metamong"/>
                 <TextView
+                    android:id="@+id/myPageUserDept"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/secessionBtn"
-                    android:text="회원탈퇴"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:drawableStart="@drawable/secession"
-                    android:layout_gravity="center"/>
-                </androidx.cardview.widget.CardView>
-                <androidx.cardview.widget.CardView
-                    android:layout_width="400dp"
-                    android:layout_height="50dp"
-                    android:orientation="horizontal"
-                    app:cardElevation="10dp"
-                    android:id="@+id/card_notice">
+                    android:layout_marginLeft="30dp"
+                    android:text="학과"
+                    android:layout_marginTop="10dp"
+                    android:textSize="16sp"/>
+                <TextView
+                    android:id="@+id/myPageUserName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:text="이름"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+
+            <!-- items -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+                <!--커뮤니티-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginVertical="5dp"
+                    android:background="@drawable/border_layout_basic"
+                    android:padding="15dp">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/notice_Btn"
-                        android:text="공지사항"
-                        android:textSize="16sp"
+                        android:text="커뮤니티"
                         android:textStyle="bold"
-                        android:drawableStart="@drawable/uc_logo"
-                        android:layout_gravity="center"/>
-                </androidx.cardview.widget.CardView>
-                <androidx.cardview.widget.CardView
-                    android:layout_width="400dp"
-                    android:layout_height="50dp"
-                    android:orientation="horizontal"
-                    app:cardElevation="10dp"
-                    android:id="@+id/card_Freeboard">
+                        android:textSize="16sp"
+                        android:layout_marginBottom="10dp"
+                        android:textColor="@color/black"/>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal"
+                        android:id="@+id/card_notice"
+                        android:layout_margin="1dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/notice_Btn"
+                            android:text="  공지사항"
+                            android:textSize="14sp"
+                            android:textColor="@color/black"
+                            android:drawableStart="@drawable/uc_logo"
+                            android:layout_gravity="left|center_vertical"
+                            android:gravity="center"
+                            android:layout_marginLeft="10dp"/>
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal"
+                        android:id="@+id/card_Freeboard"
+                        android:layout_margin="1dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:drawableStart="@drawable/ic_baseline_people_24"
+                            android:text="  자유게시판"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:layout_gravity="left|center_vertical"
+                            android:gravity="center"
+                            android:layout_marginLeft="10dp"/>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+
+                <!-- 기타 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginVertical="5dp"
+                    android:background="@drawable/border_layout_basic"
+                    android:padding="15dp">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/freeboardBtn"
-                        android:drawableStart="@drawable/ic_baseline_people_24"
-                        android:text="자유게시판"
-                        android:textSize="16sp"
+                        android:text="기타"
+                        android:textColor="@color/black"
                         android:textStyle="bold"
-                        android:layout_gravity="center"/>
-                </androidx.cardview.widget.CardView>
+                        android:textSize="16sp"
+                        android:layout_marginBottom="10dp"/>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal"
+                        android:id="@+id/card_Logout"
+                        android:layout_margin="1dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/logOutBtn"
+                            android:text="  로그아웃"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:drawableStart="@drawable/logout"
+                            android:layout_gravity="left|center_vertical"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center"/>
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:orientation="horizontal"
+                        android:id="@+id/card_Secession"
+                        android:layout_margin="1dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/secessionBtn"
+                            android:text="  회원탈퇴"
+                            android:textColor="@color/warning"
+                            android:textSize="14sp"
+                            android:drawableStart="@drawable/exit"
+                            android:layout_gravity="left|center_vertical"
+                            android:layout_marginLeft="10dp"
+                            android:gravity="center"/>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
+
