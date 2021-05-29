@@ -2,12 +2,15 @@ package com.taewon.dolphin;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,15 +25,28 @@ import org.json.JSONObject;
 
 public class FreeBoardViewerActivity extends AppCompatActivity {
     Intent freeBoardIntent;
+
+    private ListView freeBoardCommentListView;
+    private EditText writeCommentEditText;
+    private ImageButton writeCommentBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_freeboard_viewer);
 
+
+        /* Views */
+        /* 댓글 작성시 필요한 뷰 */
+        freeBoardCommentListView = (ListView)findViewById(R.id.freeBoardCommentListView);
+        writeCommentEditText = (EditText)findViewById(R.id.writeCommentEditText);
+        writeCommentBtn = (ImageButton)findViewById(R.id.writeCommentBtn);
+
+
         //Name, Date, Title, Contents, userPhone, BoardID 이라는 이름으로 넘겨받습니다.
         freeBoardIntent = getIntent();
 
-        //각 뷰들 초기화
+        //인텐트로 넘겨받은 데이터로 뷰들 초기화
         TextView writer = (TextView)findViewById(R.id.writer);
         TextView writtenDate = (TextView)findViewById(R.id.writtenDate);
         TextView board_title = (TextView)findViewById(R.id.board_title);
@@ -122,7 +138,6 @@ public class FreeBoardViewerActivity extends AppCompatActivity {
         {
             udBtns.setVisibility(View.VISIBLE);
         }
-
 
     }
 }

@@ -54,58 +54,75 @@ public class UserData {
         switch (this.userMajor)
         {
             case "IT응용기술학부":
-                userProfile = R.drawable.ic_baseline_arrow_back_24;
+                userProfile = R.drawable.it_profile;
                 this.userMajorNoticeUrl = "https://www.uc.ac.kr/computer/index.php?pCode=noticeall";
                 break;
             case "간호학과":
+                userProfile = R.drawable.nursing_profile;
                 this.userMajorNoticeUrl = "https://www.uc.ac.kr/nursing/?pCode=notice";
                 break;
             case "유아교육과":
+                userProfile = R.drawable.baby_profile;
                 this.userMajorNoticeUrl = "https://www.uc.ac.kr/baby/?pCode=notice";
                 break;
             case "스포츠지도학과":
+                userProfile = R.drawable.sports_profile;
                 this.userMajorNoticeUrl = "https://www.uc.ac.kr/sports/?pCode=notice";
                 break;
             case "건축디자인학부":
+                userProfile = R.drawable.design_profile;
                 this.userMajorNoticeUrl = "https://www.uc.ac.kr/design/?pCode=notice";
                 break;
             case "물리치료학과":
+                userProfile = R.drawable.physical_profile;
                 this.userMajorNoticeUrl = "https://www.uc.ac.kr/physical/?pCode=notice";
                 break;
             case "사회복지학과":
+                userProfile = R.drawable.social_profile;
                 this.userMajorNoticeUrl = "https://www.uc.ac.kr/family/?pCode=notice";
                 break;
             case "기계공학부":
+                userProfile = R.drawable.mechanic_profile;
                 this.userMajorNoticeUrl = "https://www.uc.ac.kr/me/?pCode=deptboard";
                 break;
             case "치위생학과":
+                userProfile = R.drawable.dental_profile;
                 this.userMajorNoticeUrl = "https://www.uc.ac.kr/dental/?pCode=notice";
                 break;
             case "세무회계학과":
+                userProfile = R.drawable.account_profile;
                 this.userMajorNoticeUrl = "https://www.uc.ac.kr/account/?pCode=notice";
                 break;
             case "전기전자공학부":
+                userProfile = R.drawable.electric_profile;
                 this.userMajorNoticeUrl = "https://www.uc.ac.kr/electric/?pCode=notice";
                 break;
             case "식품영양학과":
+                userProfile = R.drawable.food_profile;
                 this.userMajorNoticeUrl = "https://www.uc.ac.kr/fn/?pCode=notice";
                 break;
             case "유통물류경영학과":
+                userProfile = R.drawable.flow_profile;
                 this.userMajorNoticeUrl = "https://www.uc.ac.kr/flow/?pCode=notice";
                 break;
             case "안전 및 산업공학과":
+                userProfile = R.drawable.industry_profile;
                 this.userMajorNoticeUrl = "https://www.uc.ac.kr/industry/index.php?pCode=notice";
                 break;
             case "호텔조리제빵과":
+                userProfile = R.drawable.chef_profile;
                 this.userMajorNoticeUrl = "https://www.uc.ac.kr/hotel/?pCode=notice";
                 break;
             case "글로벌비즈니스학과":
+                userProfile = R.drawable.global_profile;
                 this.userMajorNoticeUrl = "https://www.uc.ac.kr/global/?pCode=notice";
                 break;
             case "디지털콘텐츠디자인학과":
+                userProfile = R.drawable.cdesign_profile;
                 this.userMajorNoticeUrl = "https://www.uc.ac.kr/cdesign/?pCode=notice";
                 break;
             case "화학공학과":
+                userProfile = R.drawable.chemical_profile;
                 this.userMajorNoticeUrl = "https://www.uc.ac.kr/chemical/?pCode=notice";
                 break;
             default:
@@ -125,4 +142,6 @@ public class UserData {
     public void setUserPhoneNum(String userPhoneNum) {
         this.userPhoneNum = userPhoneNum;
     }
+
+    public int getUserProfile() { return userProfile; }
 }

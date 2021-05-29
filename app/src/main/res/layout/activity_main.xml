@@ -36,7 +36,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="30dp"
             android:layout_marginTop="30dp"
             android:orientation="vertical">
             <!-- 프로필 -->
@@ -44,10 +43,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingHorizontal="30dp">
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"/>
+                    android:layout_height="300dp"
+                    android:id="@+id/deptProfile"
+                    android:scaleType="fitXY"
+                    android:background="@drawable/border_layout_profile"/>
                 <TextView
                     android:id="@+id/profileUserName"
                     android:layout_width="wrap_content"
@@ -65,88 +68,147 @@
                     android:textSize="18sp" />
             </LinearLayout>
 
-            <!--공지사항-->
+            <!-- 가로 스크롤 뷰 -->
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none">
+                <!-- icons -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageButton
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:scaleType="fitXY"
+                        android:background="@drawable/border_layout_round"
+                        android:backgroundTint="#aaaaaa"
+                        android:layout_marginHorizontal="20dp"/>
+                    <ImageButton
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:scaleType="fitXY"
+                        android:background="@drawable/border_layout_round"
+                        android:backgroundTint="#aaaaaa"
+                        android:layout_marginHorizontal="20dp"/>
+                    <ImageButton
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:scaleType="fitXY"
+                        android:background="@drawable/border_layout_round"
+                        android:backgroundTint="#aaaaaa"
+                        android:layout_marginHorizontal="20dp"/>
+                    <ImageButton
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:scaleType="fitXY"
+                        android:background="@drawable/border_layout_round"
+                        android:backgroundTint="#aaaaaa"
+                        android:layout_marginHorizontal="20dp"/>
+
+                </LinearLayout>
+            </HorizontalScrollView>
+            <!--게시판들-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:orientation="horizontal"
-                android:paddingBottom="5dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginHorizontal="30dp">
+                <!--공지사항-->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="start|bottom"
-                    android:id="@+id/noticeDeptText"
-                    android:layout_weight="1"
-                    android:drawableStart="@drawable/uc_logo"
-                    android:text="  공지사항"
-                    android:textColor="#00596E"
-                    android:textSize="16dp" />
+                    android:orientation="vertical"
+                    android:layout_marginTop="15dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingBottom="5dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="3"
-                    android:background="@drawable/border_layout_under_bar" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start|bottom"
+                            android:id="@+id/noticeDeptText"
+                            android:layout_weight="1"
+                            android:drawableStart="@drawable/uc_logo"
+                            android:text="  공지사항"
+                            android:textColor="#00596E"
+                            android:textSize="16dp" />
 
-                <TextView
-                    android:id="@+id/moreViewNotice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/border_layout_under_bar"
-                    android:gravity="end|bottom"
-                    android:text="더보기"
-                    android:textSize="14dp" />
-            </LinearLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="3"
+                            android:background="@drawable/border_layout_under_bar" />
 
-            <ListView
-                android:id="@+id/mainNoticeListView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            <!--공지사항 END-->
-            <!--자유게시판-->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal"
-                android:paddingBottom="5dp">
+                        <TextView
+                            android:id="@+id/moreViewNotice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/border_layout_under_bar"
+                            android:gravity="end|bottom"
+                            android:text="더보기 >"
+                            android:textSize="14dp" />
+                    </LinearLayout>
+                    <ListView
+                        android:id="@+id/mainNoticeListView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <!--공지사항 END-->
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <!--자유게시판-->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="start|bottom"
-                    android:layout_weight="1"
-                    android:drawableStart="@drawable/ic_baseline_people_24"
-                    android:text="  자유게시판"
-                    android:textColor="@color/Dolphin"
-                    android:textSize="16dp" />
+                    android:orientation="vertical"
+                    android:layout_marginTop="15dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingBottom="5dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="3"
-                    android:background="@drawable/border_layout_under_bar" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start|bottom"
+                            android:layout_weight="1"
+                            android:drawableStart="@drawable/ic_baseline_people_24"
+                            android:text="  자유게시판"
+                            android:textColor="@color/Dolphin"
+                            android:textSize="16dp" />
 
-                <TextView
-                    android:id="@+id/moreViewFreeBoard"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/border_layout_under_bar"
-                    android:gravity="end|bottom"
-                    android:text="더보기"
-                    android:textSize="14dp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="3"
+                            android:background="@drawable/border_layout_under_bar" />
+
+                        <TextView
+                            android:id="@+id/moreViewFreeBoard"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/border_layout_under_bar"
+                            android:gravity="end|bottom"
+                            android:text="더보기 >"
+                            android:textSize="14dp" />
+                    </LinearLayout>
+
+                    <ListView
+                        android:id="@+id/mainFreeBoardListView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp" />
+                </LinearLayout>
+                <!-- 자유게시판 END -->
             </LinearLayout>
-
-            <ListView
-                android:id="@+id/mainFreeBoardListView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp" />
-            <!--자유게시판END-->
+            <!-- 게시판들 END -->
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

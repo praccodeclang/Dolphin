@@ -74,7 +74,7 @@ public class FreeBoardActivity extends AppCompatActivity{ //클릭 리스너 인
 
     @Override
     protected void onResume() {
-        //사용자가 FreeBoardActivity로 돌아오면 실행.
+        //사용자가 FreeBoardActivity로 돌아오면 자유게시판을 로드합니다.
         super.onResume();
 
         freeBoardItemList.clear();

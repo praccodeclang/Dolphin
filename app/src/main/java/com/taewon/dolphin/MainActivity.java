@@ -1,13 +1,17 @@
 package com.taewon.dolphin;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.GradientDrawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -38,6 +42,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class MainActivity extends AppCompatActivity implements SensorEventListener{
 
     private long mShakeTime;
@@ -53,9 +58,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private TextView noticeDeptText;
     private ListView mainNoticeListView;
     private ListView mainFreeBoardListView;
+    private ImageView deptProfile;
     private ImageView myPageBtn;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +79,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mainNoticeListView = (ListView)findViewById(R.id.mainNoticeListView);
         mainFreeBoardListView = (ListView)findViewById(R.id.mainFreeBoardListView);
         myPageBtn = (ImageView)findViewById(R.id.myPageBtn);
+        deptProfile = (ImageView)findViewById(R.id.deptProfile);
+
+        deptProfile.setImageResource(UserData.getInstance().getUserProfile());
+        deptProfile.setBackgroundResource(R.drawable.border_layout_profile);
+        deptProfile.setClipToOutline(true);
 
 
 
@@ -239,7 +248,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         listView.requestLayout();
     }
 
-
+    /* Sensors */
     @Override
     public void onSensorChanged(SensorEvent event) {
         if(event.sensor.getType() == Sensor.TYPE_ACCELEROMETER)
