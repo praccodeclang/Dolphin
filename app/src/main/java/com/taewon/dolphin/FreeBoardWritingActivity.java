@@ -29,13 +29,14 @@ public class FreeBoardWritingActivity extends AppCompatActivity {
         final EditText writtenTitle =(EditText)findViewById(R.id.writtenTitle);
         final EditText writtenContents =(EditText)findViewById(R.id.writtenContents);
         final ImageButton FreeBoardWriteBackBtn = (ImageButton)findViewById(R.id.FreeBoardWriteBackBtn);
+
+        //버튼 클릭 리스너
         FreeBoardWriteBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
-        //버튼 클릭 리스너
         writeOkBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

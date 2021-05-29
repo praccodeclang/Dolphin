@@ -30,14 +30,13 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/mainScrollView"
-        android:overScrollMode="never">
-
+        android:overScrollMode="never"
+        android:layout_weight="1">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
             android:orientation="vertical">
             <!-- 프로필 -->
             <LinearLayout
@@ -51,7 +50,8 @@
                     android:layout_height="300dp"
                     android:id="@+id/deptProfile"
                     android:scaleType="fitXY"
-                    android:background="@drawable/border_layout_profile"/>
+                    android:background="@drawable/border_layout_profile"
+                    android:layout_marginTop="50dp"/>
                 <TextView
                     android:id="@+id/profileUserName"
                     android:layout_width="wrap_content"
@@ -74,7 +74,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scrollbars="none"
-                android:overScrollMode="never">
+                android:overScrollMode="never"
+                android:layout_marginVertical="50dp">
                 <!-- icons -->
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -86,28 +87,32 @@
                         android:scaleType="fitXY"
                         android:background="@drawable/border_layout_round"
                         android:backgroundTint="#aaaaaa"
-                        android:layout_marginHorizontal="20dp"/>
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_weight="1"/>
                     <ImageButton
                         android:layout_width="75dp"
                         android:layout_height="75dp"
                         android:scaleType="fitXY"
                         android:background="@drawable/border_layout_round"
                         android:backgroundTint="#aaaaaa"
-                        android:layout_marginHorizontal="20dp"/>
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_weight="1"/>
                     <ImageButton
                         android:layout_width="75dp"
                         android:layout_height="75dp"
                         android:scaleType="fitXY"
                         android:background="@drawable/border_layout_round"
                         android:backgroundTint="#aaaaaa"
-                        android:layout_marginHorizontal="20dp"/>
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_weight="1"/>
                     <ImageButton
                         android:layout_width="75dp"
                         android:layout_height="75dp"
                         android:scaleType="fitXY"
                         android:background="@drawable/border_layout_round"
                         android:backgroundTint="#aaaaaa"
-                        android:layout_marginHorizontal="20dp"/>
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_weight="1"/>
 
                 </LinearLayout>
             </HorizontalScrollView>
@@ -126,8 +131,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:paddingBottom="5dp">
+                        android:orientation="horizontal">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -159,7 +163,8 @@
                     <ListView
                         android:id="@+id/mainNoticeListView"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="350dp"
+                        android:overScrollMode="never"/>
                 </LinearLayout>
                 <!--공지사항 END-->
 
@@ -167,13 +172,11 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginTop="15dp">
+                    android:orientation="vertical">
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:paddingBottom="5dp">
+                        android:orientation="horizontal">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -201,12 +204,11 @@
                             android:text="더보기 >"
                             android:textSize="14dp" />
                     </LinearLayout>
-
                     <ListView
                         android:id="@+id/mainFreeBoardListView"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp" />
+                        android:layout_height="350dp"
+                        android:overScrollMode="never"/>
                 </LinearLayout>
                 <!-- 자유게시판 END -->
             </LinearLayout>

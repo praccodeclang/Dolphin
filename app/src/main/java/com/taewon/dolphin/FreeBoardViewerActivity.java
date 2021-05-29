@@ -48,6 +48,12 @@ public class FreeBoardViewerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_freeboard_viewer);
         mContext = this;
 
+        //Name, Date, Title, Contents, userPhone, BoardID 키값 으로 넘겨받습니다.
+        freeBoardIntent = getIntent();
+        /* 보드의 ID입니다.*/
+        BoardID = freeBoardIntent.getStringExtra("BoardID");
+
+
         /* Views */
         /* 댓글 구현 시 필요한 뷰 */
         commentArea = (LinearLayout)findViewById(R.id.commentArea);
@@ -55,16 +61,16 @@ public class FreeBoardViewerActivity extends AppCompatActivity {
         writeCommentEditText = (EditText) findViewById(R.id.writeCommentEditText);
         writeCommentBtn = (ImageButton) findViewById(R.id.writeCommentBtn);
 
-        TextView writer = (TextView) findViewById(R.id.writer);
-        TextView writtenDate = (TextView) findViewById(R.id.writtenDate);
-        TextView board_title = (TextView) findViewById(R.id.board_title);
-        TextView board_contents = (TextView) findViewById(R.id.board_contents);
-        LinearLayout profileLayout = (LinearLayout) findViewById(R.id.board_profileLayout);
-
-        //Name, Date, Title, Contents, userPhone, BoardID 이라는 이름으로 넘겨받습니다.
-        freeBoardIntent = getIntent();
-
-
+        final TextView writer = (TextView) findViewById(R.id.writer);
+        final TextView writtenDate = (TextView) findViewById(R.id.writtenDate);
+        final TextView board_title = (TextView) findViewById(R.id.board_title);
+        final TextView board_contents = (TextView) findViewById(R.id.board_contents);
+        final LinearLayout profileLayout = (LinearLayout) findViewById(R.id.board_profileLayout);
+        //TextView 텍스트 초기화
+        writer.setText(freeBoardIntent.getStringExtra("Name"));
+        writtenDate.setText(freeBoardIntent.getStringExtra("Date"));
+        board_title.setText(freeBoardIntent.getStringExtra("Title"));
+        board_contents.setText(freeBoardIntent.getStringExtra("Contents"));
 
         //update&deleteBtn을 담는 레이아웃
         LinearLayout udBtns = (LinearLayout) findViewById(R.id.udBtns);
@@ -72,14 +78,12 @@ public class FreeBoardViewerActivity extends AppCompatActivity {
         TextView deleteBtn = (TextView) findViewById(R.id.deleteBtn);
         TextView modifyBtn = (TextView) findViewById(R.id.modifyBtn);
 
+        //만약 내가 작성한 글이라면, 수정 삭제를 가능하게 합니다.
+        if (writer.getText().equals(UserData.getInstance().getUserName())) {
+            udBtns.setVisibility(View.VISIBLE);
+        }
 
-        BoardID = freeBoardIntent.getStringExtra("BoardID");
-        //TextView 텍스트 초기화
-        writer.setText(freeBoardIntent.getStringExtra("Name"));
-        writtenDate.setText(freeBoardIntent.getStringExtra("Date"));
-        board_title.setText(freeBoardIntent.getStringExtra("Title"));
-        board_contents.setText(freeBoardIntent.getStringExtra("Contents"));
-
+        //onClickListener들
         //돌아가기 버튼입니다.
         FreeBoardViewBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,16 +92,6 @@ public class FreeBoardViewerActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
-        //만약 내가 작성한 글이라면, 수정 삭제를 가능하게 합니다.
-        if (writer.getText().equals(UserData.getInstance().getUserName())) {
-            udBtns.setVisibility(View.VISIBLE);
-        }
-
-        //onClickListener들
         //profile을 누르면 전화를 걸 수 있도록 합니다.
         profileLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,12 +150,17 @@ public class FreeBoardViewerActivity extends AppCompatActivity {
         writeCommentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //유저가 작성한 댓글의 문자열을 가져옵니다.
                 String comment = writeCommentEditText.getText().toString();
+
+                //키보드 닫습니다.
                 InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(FreeBoardActivity.INPUT_METHOD_SERVICE);
                 inputMethodManager.hideSoftInputFromWindow(writeCommentEditText.getWindowToken(), 0);
 
+                // 중복입력이 되지 않도록, 버튼을 비활성화시킵니다.
                 writeCommentBtn.setBackgroundColor(getResources().getColor(R.color.LockColor));
                 writeCommentBtn.setEnabled(false);
+
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -245,7 +244,6 @@ public class FreeBoardViewerActivity extends AppCompatActivity {
                         commentArea.setVisibility(View.VISIBLE);
                         CommentAdapter adapter = new CommentAdapter(FreeBoardViewerActivity.this, commentItemList);
                         freeBoardCommentListView.setAdapter(adapter);
-                        MainActivity.setListViewHeightBasedOnChildren(freeBoardCommentListView);
                     }
 
                 }

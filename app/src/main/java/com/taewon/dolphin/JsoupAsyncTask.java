@@ -2,8 +2,11 @@ package com.taewon.dolphin;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+
+import androidx.annotation.RequiresApi;
 
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
@@ -60,10 +63,10 @@ public class JsoupAsyncTask extends AsyncTask<Void, Void, Void>
         return null;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onPostExecute(Void result) {
         NoticeAdapter noticeAdapter = new NoticeAdapter(context, noticeItemList);
         listView.setAdapter(noticeAdapter);
-        MainActivity.setListViewHeightBasedOnChildren(listView);
     }
 }

@@ -1,5 +1,6 @@
 package com.taewon.dolphin;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private ListView mainFreeBoardListView;
     private ImageView deptProfile;
     private ImageView myPageBtn;
+    private ScrollView mainScrollView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mainFreeBoardListView = (ListView)findViewById(R.id.mainFreeBoardListView);
         myPageBtn = (ImageView)findViewById(R.id.myPageBtn);
         deptProfile = (ImageView)findViewById(R.id.deptProfile);
+        mainScrollView = (ScrollView)findViewById(R.id.mainScrollView);
 
         deptProfile.setImageResource(UserData.getInstance().getUserProfile());
         deptProfile.setBackgroundResource(R.drawable.border_layout_profile);
@@ -156,10 +159,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         /*사용자가 다시 돌아오면 실행합니다.*/
         //센서 AWAKE
         mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+
         //mainNoticeListView에 아이템 추가(3개만 넣어볼게요.)
         JsoupAsyncTask jsoupAsyncTask = new JsoupAsyncTask(this, UserData.getInstance().getUserMajorNoticeUrl(), mainNoticeListView, 3);
         jsoupAsyncTask.execute();
-        setListViewHeightBasedOnChildren(mainNoticeListView);
+
 
         //mainFreeBoardListView 아이템 추가(3개만 넣어볼게요.)
         Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -188,7 +192,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                         }
                         FreeBoardAdapter freeBoardAdapter = new FreeBoardAdapter(MainActivity.this, freeBoardItemList);
                         mainFreeBoardListView.setAdapter(freeBoardAdapter);
-                        setListViewHeightBasedOnChildren(mainFreeBoardListView);
+                        mainScrollView.fullScroll(ScrollView.FOCUS_UP);
                     }
                     else {
                         for (int i = 0; i < 3; i++) {
@@ -204,7 +208,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                         }
                         FreeBoardAdapter freeBoardAdapter = new FreeBoardAdapter(MainActivity.this, freeBoardItemList);
                         mainFreeBoardListView.setAdapter(freeBoardAdapter);
-                        setListViewHeightBasedOnChildren(mainFreeBoardListView);
+                        mainScrollView.fullScroll(ScrollView.FOCUS_UP);
                     }
 
                 } catch (JSONException e) {
@@ -221,31 +225,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     protected void onPause() {
         super.onPause();
         mSensorManager.unregisterListener(this);
-    }
-
-    //Custom Methods
-    public static void setListViewHeightBasedOnChildren(ListView listView) {
-        ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null) {
-            // pre-condition
-            return;
-        }
-
-        int totalHeight = 0;
-
-        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.AT_MOST);
-        for (int i = 0; i < listAdapter.getCount(); i++) {
-            View listItem = listAdapter.getView(i, null, listView);
-            //listItem.measure(0, 0);
-            listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
-            totalHeight += listItem.getMeasuredHeight() * 1.25;
-        }
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-
-        params.height = totalHeight;
-        listView.setLayoutParams(params);
-
-        listView.requestLayout();
     }
 
     /* Sensors */

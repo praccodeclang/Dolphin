@@ -94,6 +94,10 @@ public class MyPageActivity extends AppCompatActivity {
                                             boolean success = jsonObject.getBoolean("success");
                                             if(success)
                                             {
+                                                SharedPreferences pref =getSharedPreferences("auto", LoginActivity.MODE_PRIVATE);
+                                                SharedPreferences.Editor editor = pref.edit();
+                                                editor.clear();
+                                                editor.commit();
                                                 Toast.makeText(MyPageActivity.this, "탈퇴되었습니다.", Toast.LENGTH_LONG).show();
                                                 ActivityCompat.finishAffinity(MyPageActivity.this);
                                                 startActivity(new Intent(MyPageActivity.this, StartActivity.class));

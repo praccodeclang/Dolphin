@@ -44,34 +44,8 @@ public class LoginActivity extends AppCompatActivity{
         final CheckBox autoLogin =(CheckBox)findViewById(R.id.autoLogin);
 
 
-        //읽어오는 부분
-        SharedPreferences auto = getSharedPreferences("auto", LoginActivity.MODE_PRIVATE);
-        HashMap<String, String> instanceHash = (HashMap<String, String>)auto.getAll();
-        if(instanceHash.size()>0)
-        {
-            //auto의 키값만 가져오려고 만들었어요~
-            Iterator<String> it = instanceHash.keySet().iterator();
-
-            HashMap<String, String> userMap = new HashMap<String, String>();
-            while(it.hasNext())
-            {
-                String key = it.next();
-                userMap.put(key, auto.getString(key, null));
-            }
-            if(!userMap.containsValue(null))
-            {
-                //UserData.class 에 데이터를 저장.
-                UserData.getInstance().setUserStudentCode(userMap.get("userStudentCode"));
-                UserData.getInstance().setUserID(userMap.get("userID"));
-                UserData.getInstance().setUserName(userMap.get("userName"));
-                UserData.getInstance().setUserMajor(userMap.get("userMajor"));
-                UserData.getInstance().setUserDept(userMap.get("userDept"));
-                UserData.getInstance().setUserPhoneNum(userMap.get("userPhoneNum"));
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        }
+        //자동로그인
+        autoLogin();
 
 
         try{
@@ -133,15 +107,15 @@ public class LoginActivity extends AppCompatActivity{
                                 /* 만약 로그인에 성공했으면 메인 엑티비티로 넘어감 근데 자동로그인을 곁들인*/
                                 if(autoLogin.isChecked()){
                                     SharedPreferences auto = getSharedPreferences("auto",LoginActivity.MODE_PRIVATE);
-                                    SharedPreferences.Editor autoLogin = auto.edit();
-                                    autoLogin.putString("userStudentCode", UserData.getInstance().getUserStudentCode());
-                                    autoLogin.putString("userID", UserData.getInstance().getUserID());
-                                    autoLogin.putString("userPW", userPassword.getText().toString());
-                                    autoLogin.putString("userName", UserData.getInstance().getUserName());
-                                    autoLogin.putString("userMajor", UserData.getInstance().getUserMajor());
-                                    autoLogin.putString("userDept", UserData.getInstance().getUserDept());
-                                    autoLogin.putString("userPHoneNum", UserData.getInstance().getUserPhoneNum());
-                                    autoLogin.commit();
+                                    SharedPreferences.Editor editor = auto.edit();
+                                    editor.putString("userStudentCode", UserData.getInstance().getUserStudentCode());
+                                    editor.putString("userID", UserData.getInstance().getUserID());
+                                    editor.putString("userPW", userPassword.getText().toString());
+                                    editor.putString("userName", UserData.getInstance().getUserName());
+                                    editor.putString("userMajor", UserData.getInstance().getUserMajor());
+                                    editor.putString("userDept", UserData.getInstance().getUserDept());
+                                    editor.putString("userPhoneNum", UserData.getInstance().getUserPhoneNum());
+                                    editor.commit();
                                 }
                                 startActivity(intent);
                                 finish();
@@ -180,6 +154,45 @@ public class LoginActivity extends AppCompatActivity{
             }
         });
 
+    }
+    /* custom method */
+    private void autoLogin(){
+        SharedPreferences auto = getSharedPreferences("auto", LoginActivity.MODE_PRIVATE);
+        HashMap<String, String> instanceHash = (HashMap<String, String>)auto.getAll();
+        if(instanceHash.size()>0)
+        {
+            //auto의 키값만 가져오려고 만들었어요~
+            Iterator<String> it = instanceHash.keySet().iterator();
+
+            HashMap<String, String> userMap = new HashMap<String, String>();
+            while(it.hasNext())
+            {
+                String key = it.next();
+                userMap.put(key, auto.getString(key, null));
+            }
+            if(!userMap.containsValue(null) || !userMap.containsValue(""))
+            {
+                //UserData.class 에 데이터를 저장.
+                UserData.getInstance().setUserStudentCode(userMap.get("userStudentCode"));
+                UserData.getInstance().setUserID(userMap.get("userID"));
+                UserData.getInstance().setUserName(userMap.get("userName"));
+                UserData.getInstance().setUserMajor(userMap.get("userMajor"));
+                UserData.getInstance().setUserDept(userMap.get("userDept"));
+                UserData.getInstance().setUserPhoneNum(userMap.get("userPhoneNum"));
+
+                System.out.println(UserData.getInstance().getUserStudentCode());
+                System.out.println(UserData.getInstance().getUserID());
+                System.out.println(UserData.getInstance().getUserName());
+                System.out.println(UserData.getInstance().getUserMajor());
+                System.out.println(UserData.getInstance().getUserDept());
+                System.out.println(UserData.getInstance().getUserPhoneNum());
+
+
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        }
     }
 
 
