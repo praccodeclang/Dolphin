@@ -38,7 +38,7 @@ public class CommentAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View convertView, ViewGroup parent) {
-        View v = View.inflate(context, R.layout.freeboard_item, null);
+        View v = View.inflate(context, R.layout.comment_item, null);
         TextView commentUserName = (TextView)v.findViewById(R.id.commentUserName);
         TextView commentDate = (TextView)v.findViewById(R.id.commentDate);
         TextView commentText = (TextView)v.findViewById(R.id.commentText);

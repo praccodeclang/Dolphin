@@ -8,7 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="20dp"
+        android:paddingVertical="10dp"
         android:orientation="horizontal">
         <ImageButton
             android:id="@+id/FreeBoardViewBackBtn"
@@ -25,39 +25,7 @@
             />
     </LinearLayout>
 
-    <!-- 프로필 레이아웃 -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/board_profileLayout"
-        android:orientation="horizontal"
-        android:layout_marginHorizontal="30dp"
-        >
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon_dolphins"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="vertical"
-            android:layout_marginLeft="10dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/writer"
-                android:text="이름"
-                android:textSize="20sp"
-                android:fontFamily="@font/maplestory_bold"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/writtenDate"
-                android:text="writtenDate"
-                android:textSize="15sp"/>
-        </LinearLayout>
-    </LinearLayout>
+
 
     <!--제목과 컨텐츠 표시-->
     <ScrollView
@@ -68,16 +36,49 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginHorizontal="30dp"
-            android:layout_marginTop="30dp"
+            android:padding="15dp"
             android:layout_weight="1">
+            <!-- 프로필 레이아웃 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/board_profileLayout"
+                android:orientation="horizontal"
+                android:layout_gravity="center_vertical">
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/icon_dolphins"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="bottom">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/writer"
+                        android:text="이름"
+                        android:textSize="20sp"
+                        android:fontFamily="@font/maplestory_bold"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/writtenDate"
+                        android:text="writtenDate"
+                        android:textSize="15sp"/>
+                </LinearLayout>
+            </LinearLayout>
+            <!-- 프로필 레이아웃 END-->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/board_title"
                 android:text="제목부분입니다."
                 android:textSize="30sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:layout_marginTop="20dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -85,35 +86,39 @@
                 android:id="@+id/board_contents"
                 android:text="내용부분입니다"
                 android:textSize="16sp"
-                android:layout_marginTop="6dp"/>
+                android:layout_marginTop="6dp"
+                android:singleLine="false"/>
             <!--update & deleteBtns-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/udBtns"
                 android:orientation="horizontal"
-                android:layout_marginBottom="30dp"
                 android:gravity="right"
-                android:visibility="visible">
-                <Button
+                android:visibility="gone"
+                android:layout_marginTop="20dp">
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/modifyBtn"
                     android:text="수정"
+                    android:textColor="@color/Dolphin"
+                    android:backgroundTint="#ffffff"
                     android:layout_marginHorizontal="5dp"/>
-                <Button
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/deleteBtn"
                     android:text="삭제"
-                    android:backgroundTint="@color/warning"
+                    android:textColor="@color/warning"
                     android:layout_marginHorizontal="5dp"/>
             </LinearLayout>
             <!-- 댓글 -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginTop="50dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -125,7 +130,8 @@
                     android:scrollbars="none"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
-                    android:clickable="false"/>
+                    android:clickable="false"
+                    android:listSelector="@android:color/transparent"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

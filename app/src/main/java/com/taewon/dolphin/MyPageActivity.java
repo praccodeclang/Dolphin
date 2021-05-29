@@ -31,7 +31,7 @@ public class MyPageActivity extends AppCompatActivity {
     private CardView card_Freeboard;
     private TextView myPageUserDept;
     private TextView myPageUserName;
-
+    private ImageView myPageBackBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +43,7 @@ public class MyPageActivity extends AppCompatActivity {
         myPageUserDept =(TextView)findViewById(R.id.myPageUserDept);
         myPageUserName =(TextView)findViewById(R.id.myPageUserName);
         card_Freeboard =(CardView)findViewById(R.id.card_Freeboard);
-
+        myPageBackBtn = (ImageView)findViewById(R.id.MyPageBackBtn);
 
         myPageUserName.setText(UserData.getInstance().getUserName());
         myPageUserDept.setText(UserData.getInstance().getUserDept());
@@ -115,6 +115,12 @@ public class MyPageActivity extends AppCompatActivity {
                                 queue.add(validateRequest);
                             }
                         }).setNegativeButton("취소",null).show();
+            }
+        });
+        myPageBackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
