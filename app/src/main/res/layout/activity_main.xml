@@ -72,48 +72,92 @@
             <!-- 가로 스크롤 뷰 -->
             <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="100dp"
                 android:scrollbars="none"
                 android:overScrollMode="never"
-                android:layout_marginVertical="50dp">
+                android:layout_marginVertical="50dp"
+                android:forceHasOverlappingRendering="true">
                 <!-- icons -->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal">
-                    <ImageButton
-                        android:layout_width="75dp"
-                        android:layout_height="75dp"
-                        android:scaleType="fitXY"
-                        android:background="@drawable/border_layout_round"
-                        android:backgroundTint="#aaaaaa"
-                        android:layout_marginHorizontal="20dp"
-                        android:layout_weight="1"/>
-                    <ImageButton
-                        android:layout_width="75dp"
-                        android:layout_height="75dp"
-                        android:scaleType="fitXY"
-                        android:background="@drawable/border_layout_round"
-                        android:backgroundTint="#aaaaaa"
-                        android:layout_marginHorizontal="20dp"
-                        android:layout_weight="1"/>
-                    <ImageButton
-                        android:layout_width="75dp"
-                        android:layout_height="75dp"
-                        android:scaleType="fitXY"
-                        android:background="@drawable/border_layout_round"
-                        android:backgroundTint="#aaaaaa"
-                        android:layout_marginHorizontal="20dp"
-                        android:layout_weight="1"/>
-                    <ImageButton
-                        android:layout_width="75dp"
-                        android:layout_height="75dp"
-                        android:scaleType="fitXY"
-                        android:background="@drawable/border_layout_round"
-                        android:backgroundTint="#aaaaaa"
-                        android:layout_marginHorizontal="20dp"
-                        android:layout_weight="1"/>
-
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:id="@+id/iconBtn1"
+                        android:orientation="vertical"
+                        android:layout_marginHorizontal="50dp">
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:scaleType="fitXY"
+                            android:background="@drawable/border_layout_round"
+                            android:backgroundTint="#aaaaaa"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="버튼 1"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:id="@+id/iconBtn2"
+                        android:orientation="vertical"
+                        android:layout_marginRight="50dp">
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:scaleType="fitXY"
+                            android:background="@drawable/border_layout_round"
+                            android:backgroundTint="#aaaaaa"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="버튼 2"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:id="@+id/iconBtn3"
+                        android:orientation="vertical"
+                        android:layout_marginRight="50dp">
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:scaleType="fitXY"
+                            android:background="@drawable/border_layout_round"
+                            android:backgroundTint="#aaaaaa"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="버튼 3"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:id="@+id/iconBtn4"
+                        android:orientation="vertical"
+                        android:layout_marginRight="50dp">
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:scaleType="fitXY"
+                            android:background="@drawable/border_layout_round"
+                            android:backgroundTint="#aaaaaa"
+                            />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="버튼 4"/>
+                    </LinearLayout>
                 </LinearLayout>
             </HorizontalScrollView>
             <!--게시판들-->
