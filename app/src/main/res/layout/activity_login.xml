@@ -66,13 +66,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/userID"
-                android:hint="아이디"/>
+                android:hint="아이디"
+                android:textIsSelectable="true"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/userPassword"
                 android:inputType="textPassword"
-                android:hint="비밀번호"/>
+                android:hint="비밀번호"
+                android:textIsSelectable="true"/>
         </LinearLayout>
 
         <LinearLayout

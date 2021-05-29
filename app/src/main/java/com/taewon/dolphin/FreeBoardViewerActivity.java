@@ -39,6 +39,7 @@ public class FreeBoardViewerActivity extends AppCompatActivity {
     private EditText writeCommentEditText;
     private ImageButton writeCommentBtn;
     private String BoardID;
+    private LinearLayout commentArea;
 
 
     @Override
@@ -49,6 +50,7 @@ public class FreeBoardViewerActivity extends AppCompatActivity {
 
         /* Views */
         /* 댓글 구현 시 필요한 뷰 */
+        commentArea = (LinearLayout)findViewById(R.id.commentArea);
         freeBoardCommentListView = (ListView) findViewById(R.id.freeBoardCommentListView);
         writeCommentEditText = (EditText) findViewById(R.id.writeCommentEditText);
         writeCommentBtn = (ImageButton) findViewById(R.id.writeCommentBtn);
@@ -233,9 +235,19 @@ public class FreeBoardViewerActivity extends AppCompatActivity {
                         CommentItem instance = new CommentItem(freeBoardIntent.getStringExtra("BoardID"), userName, date, userComment);
                         commentItemList.add(instance);
                     }
-                    CommentAdapter adapter = new CommentAdapter(FreeBoardViewerActivity.this, commentItemList);
-                    freeBoardCommentListView.setAdapter(adapter);
-                    MainActivity.setListViewHeightBasedOnChildren(freeBoardCommentListView);
+                    if(commentItemList.size()==0)
+                    {
+                        commentArea.setVisibility(View.GONE);
+                        return;
+                    }
+                    else
+                    {
+                        commentArea.setVisibility(View.VISIBLE);
+                        CommentAdapter adapter = new CommentAdapter(FreeBoardViewerActivity.this, commentItemList);
+                        freeBoardCommentListView.setAdapter(adapter);
+                        MainActivity.setListViewHeightBasedOnChildren(freeBoardCommentListView);
+                    }
+
                 }
                 catch (Exception e)
                 {

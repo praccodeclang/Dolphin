@@ -64,6 +64,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/commentText"
             android:textColor="@color/black"
-            android:text="내용입니다."/>
+            android:text="내용입니다."
+            android:textIsSelectable="true"/>
     </LinearLayout>
 </LinearLayout>

@@ -31,7 +31,8 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/mainScrollView">
+        android:id="@+id/mainScrollView"
+        android:overScrollMode="never">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -72,7 +73,8 @@
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:scrollbars="none">
+                android:scrollbars="none"
+                android:overScrollMode="never">
                 <!-- icons -->
                 <LinearLayout
                     android:layout_width="match_parent"

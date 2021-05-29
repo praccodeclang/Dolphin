@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -102,6 +103,10 @@ public class LoginActivity extends AppCompatActivity{
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(FreeBoardActivity.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(loginBtn.getWindowToken(), 0);
+                loginBtn.setEnabled(false);
+                loginBtn.setBackgroundColor(getResources().getColor(R.color.LockColor));
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -114,7 +119,7 @@ public class LoginActivity extends AppCompatActivity{
                                 //로그인에 성공했다면,
                                 //UserData.class 에 데이터를 저장합니다.
                                 //UserData.Instance().get ~~ 혹은, UserData.Instance().set~~ 으로 사용하면됩니다.
-                                Toast.makeText(LoginActivity.this, "", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "안녕하세요.", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 
                                 //UserData.class 에 데이터를 저장.
@@ -143,6 +148,8 @@ public class LoginActivity extends AppCompatActivity{
                             }
                             else
                             {
+                                loginBtn.setEnabled(true);
+                                loginBtn.setBackgroundColor(getResources().getColor(R.color.Dolphin));
                                 AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
                                 builder.setIcon(R.drawable.icon_dolphins).setTitle("우리한텐 없습니다.").setMessage("\t아이디나 비밀번호가 틀렸습니다.\n\t다시 시도해보세요.").setNegativeButton("확인", null);
                                 AlertDialog dialog = builder.create();
@@ -151,6 +158,8 @@ public class LoginActivity extends AppCompatActivity{
                         }
                         catch (JSONException e)
                         {
+                            loginBtn.setEnabled(true);
+                            loginBtn.setBackgroundColor(getResources().getColor(R.color.Dolphin));
                             AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
                             builder.setIcon(R.drawable.ic_baseline_arrow_back_24)
                                     .setTitle("서버가 불안정합니다.")
