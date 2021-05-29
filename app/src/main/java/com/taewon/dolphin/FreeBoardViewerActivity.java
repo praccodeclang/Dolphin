@@ -204,19 +204,21 @@ public class FreeBoardViewerActivity extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray jsonArray = jsonObject.getJSONArray("DATA");
                     List<CommentItem> commentItemList = new ArrayList<>();
+                    String userName, date, userComment;
                     for(int i = 0; i < jsonArray.length(); i++)
                     {
-                        String userName, date, userComment;
                         JSONObject obj = jsonArray.getJSONObject(i);
 
                         userName = obj.get("userName").toString();
                         userComment = obj.get("userComment").toString();
                         date = obj.get("date").toString();
 
-                        commentItemList.add(new CommentItem(userName, date, userComment));
+                        CommentItem instance = new CommentItem(freeBoardIntent.getStringExtra("BoardID"), userName, date, userComment);
+                        commentItemList.add(instance);
                     }
                     CommentAdapter adapter = new CommentAdapter(FreeBoardViewerActivity.this, commentItemList);
                     freeBoardCommentListView.setAdapter(adapter);
+                    freeBoardCommentListView.getDivider();
                     MainActivity.setListViewHeightBasedOnChildren(freeBoardCommentListView);
                 }
                 catch (Exception e)
