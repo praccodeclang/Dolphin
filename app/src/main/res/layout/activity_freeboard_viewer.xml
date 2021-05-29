@@ -147,6 +147,8 @@
             android:id="@+id/writeCommentEditText"
             android:layout_marginHorizontal="10dp"
             android:layout_gravity="center"
+            android:singleLine="true"
+            android:imeOptions="actionDone"
             android:background="@drawable/border_layout_basic"
             android:layout_weight="1"
             android:padding="10dp"

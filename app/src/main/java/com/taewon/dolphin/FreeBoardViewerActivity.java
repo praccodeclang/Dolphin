@@ -1,5 +1,6 @@
 package com.taewon.dolphin;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.Image;
@@ -7,6 +8,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -30,8 +32,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FreeBoardViewerActivity extends AppCompatActivity {
-    Intent freeBoardIntent;
+    public static Context mContext;
 
+    Intent freeBoardIntent;
     private ListView freeBoardCommentListView;
     private EditText writeCommentEditText;
     private ImageButton writeCommentBtn;
@@ -42,7 +45,7 @@ public class FreeBoardViewerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_freeboard_viewer);
-
+        mContext = this;
 
         /* Views */
         /* 댓글 구현 시 필요한 뷰 */
@@ -152,6 +155,11 @@ public class FreeBoardViewerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String comment = writeCommentEditText.getText().toString();
+                InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(FreeBoardActivity.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(writeCommentEditText.getWindowToken(), 0);
+
+                writeCommentBtn.setBackgroundColor(getResources().getColor(R.color.LockColor));
+                writeCommentBtn.setEnabled(false);
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -160,7 +168,11 @@ public class FreeBoardViewerActivity extends AppCompatActivity {
                             boolean success = jsonObject.getBoolean("success");
                             if(success)
                             {
-                                onResume();
+                                loadComments();
+                                writeCommentBtn.setEnabled(true);
+                                writeCommentBtn.setBackgroundColor(getResources().getColor(R.color.Dolphin));
+
+                                writeCommentEditText.setText("");
                             }
                             else
                             {
@@ -195,6 +207,11 @@ public class FreeBoardViewerActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        loadComments();
+    }
+
+    //댓글을 로드하는 함수입니다.
+    public void loadComments(){
         //댓글을 로드합니다.
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -218,7 +235,6 @@ public class FreeBoardViewerActivity extends AppCompatActivity {
                     }
                     CommentAdapter adapter = new CommentAdapter(FreeBoardViewerActivity.this, commentItemList);
                     freeBoardCommentListView.setAdapter(adapter);
-                    freeBoardCommentListView.getDivider();
                     MainActivity.setListViewHeightBasedOnChildren(freeBoardCommentListView);
                 }
                 catch (Exception e)
@@ -233,4 +249,5 @@ public class FreeBoardViewerActivity extends AppCompatActivity {
         queue.add(validateRequest);
 
     }
+
 }
