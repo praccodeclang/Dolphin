@@ -94,6 +94,7 @@
                             android:scaleType="fitXY"
                             android:background="@drawable/border_layout_round"
                             android:backgroundTint="#aaaaaa"
+                            android:src="@drawable/Schoolnotice"
                             />
                         <TextView
                             android:layout_width="wrap_content"
@@ -113,6 +114,7 @@
                             android:scaleType="fitXY"
                             android:background="@drawable/border_layout_round"
                             android:backgroundTint="#aaaaaa"
+                            android:src="@drawable/cafeteria"
                             />
                         <TextView
                             android:layout_width="wrap_content"
@@ -132,6 +134,7 @@
                             android:scaleType="fitXY"
                             android:background="@drawable/border_layout_round"
                             android:backgroundTint="#aaaaaa"
+                            android:src="@drawable/weather"
                             />
                         <TextView
                             android:layout_width="wrap_content"
