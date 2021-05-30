@@ -35,7 +35,7 @@ import org.json.JSONObject;
 import org.jsoup.internal.StringUtil;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
-
+//asd
     Boolean isValidateID = false;
     Boolean isValidateStudentCode = false;
     Boolean isCertified = false;
