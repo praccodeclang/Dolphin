@@ -94,7 +94,7 @@
                             android:scaleType="fitXY"
                             android:background="@drawable/border_layout_round"
                             android:backgroundTint="#aaaaaa"
-                            android:src="@drawable/Schoolnotice"
+                            android:src="@drawable/schoolnotice"
                             />
                         <TextView
                             android:layout_width="wrap_content"
