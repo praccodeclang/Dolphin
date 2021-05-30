@@ -37,6 +37,8 @@ public class FreeBoardWritingActivity extends AppCompatActivity {
                 finish();
             }
         });
+        
+        //글쓰기 버튼
         writeOkBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

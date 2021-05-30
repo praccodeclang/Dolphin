@@ -8,11 +8,13 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -244,6 +246,7 @@ public class FreeBoardViewerActivity extends AppCompatActivity {
                         commentArea.setVisibility(View.VISIBLE);
                         CommentAdapter adapter = new CommentAdapter(FreeBoardViewerActivity.this, commentItemList);
                         freeBoardCommentListView.setAdapter(adapter);
+                        setListViewHeightBasedOnChildren(freeBoardCommentListView);
                     }
 
                 }
@@ -259,5 +262,20 @@ public class FreeBoardViewerActivity extends AppCompatActivity {
         queue.add(validateRequest);
 
     }
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        long timer= System.currentTimeMillis();
+        ListAdapter listAdapter = listView.getAdapter();
+        int totalHeight = 0;
+        if(listAdapter.getCount()> 0)
+        {
+            View listItem = listAdapter.getView(0, null, listView);
+            listItem.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+            totalHeight = listItem.getMeasuredHeight()* listAdapter.getCount();
+        }
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params); listView.requestLayout();
+    }
+
 
 }
