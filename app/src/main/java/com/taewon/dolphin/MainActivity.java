@@ -25,6 +25,7 @@ import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ScrollView;
@@ -43,7 +44,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
 public class MainActivity extends AppCompatActivity implements SensorEventListener{
 
     private long mShakeTime;
@@ -51,7 +52,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private static final float SHAKE_THRESHOLD_GRAVITY = 1.5F;
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
-
+    private LinearLayout iconBtn1;
+    private LinearLayout iconBtn2;
+    private LinearLayout iconBtn3;
+    private LinearLayout iconBtn4;
     private TextView moreViewFreeBoard;
     private TextView moreViewNotice;
     private TextView profileUserName;
@@ -83,12 +87,49 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         myPageBtn = (ImageView)findViewById(R.id.myPageBtn);
         deptProfile = (ImageView)findViewById(R.id.deptProfile);
         mainScrollView = (ScrollView)findViewById(R.id.mainScrollView);
+        iconBtn1 = (LinearLayout)findViewById(R.id.iconBtn1);
+        iconBtn2 = (LinearLayout)findViewById(R.id.iconBtn2);
+        iconBtn3 = (LinearLayout)findViewById(R.id.iconBtn3);
+        iconBtn4 = (LinearLayout)findViewById(R.id.iconBtn4);
+
 
         deptProfile.setImageResource(UserData.getInstance().getUserProfile());
         deptProfile.setBackgroundResource(R.drawable.border_layout_profile);
         deptProfile.setClipToOutline(true);
 
 
+        //버튼 클릭시 웹 이동
+        iconBtn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),SchoolNotice.class);
+                startActivity(intent);
+            }
+        });
+
+        iconBtn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),Diet.class);
+                startActivity(intent);
+            }
+        });
+
+        iconBtn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),Weather.class);
+                startActivity(intent);
+            }
+        });
+
+        iconBtn4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),Undefined.class);
+                startActivity(intent);
+            }
+        });
 
 
 

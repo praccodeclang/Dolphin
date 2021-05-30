@@ -1,35 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.taewon.dolphin">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SEND_SMS" />
-    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/icon_dolphins"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@drawable/icon_dolphins"
         android:supportsRtl="true"
         android:theme="@style/Theme.Dolphin"
-        android:usesCleartextTraffic="true"
-        android:networkSecurityConfig="@xml/network_security_config">
-
-
-        <!--activity 추가해주세요.-->
+        android:usesCleartextTraffic="true">
+        <activity android:name=".Undefined"></activity>
+        <activity android:name=".Weather" />
+        <activity android:name=".Diet" />
+        <activity android:name=".SchoolNotice" /> <!-- activity 추가해주세요. -->
         <activity android:name=".StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity"/>
-        <activity android:name=".RegisterActivity"/>
-        <activity android:name=".MainActivity"/>
-        <activity android:name=".FreeBoardActivity"/>
-        <activity android:name=".FreeBoardViewerActivity"/>
-        <activity android:name=".FreeBoardWritingActivity"/>
-        <activity android:name=".MyPageActivity"/>
-        <activity android:name=".NfcActivity"/>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".FreeBoardActivity" />
+        <activity android:name=".FreeBoardViewerActivity" />
+        <activity android:name=".FreeBoardWritingActivity" />
+        <activity android:name=".MyPageActivity" />
+        <activity android:name=".NfcActivity" />
     </application>
+
 </manifest>
