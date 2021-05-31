@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private ImageView myPageBtn;
     private ScrollView mainScrollView;
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +99,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         deptProfile.setClipToOutline(true);
 
 
+
+
+        //로그인 창에서 넘어오면, 프로필의 이름과 학과를 UserData 클래스에 저장된 이름과 학과로 초기화합니다.
+        profileUserName.setText(UserData.getInstance().getUserName());
+        profileUserDept.setText(UserData.getInstance().getUserDept());
+
+        //해당 공지사항이 어떤 학부 공지사항인지알려줍니다.
+        noticeDeptText.setText("  "+UserData.getInstance().getUserMajor() + " 공지사항");
+
+        //익명함수 리스너들
         //버튼 클릭시 웹 이동
         iconBtn1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,17 +142,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }
         });
 
-
-
-
-        //로그인 창에서 넘어오면, 프로필의 이름과 학과를 UserData 클래스에 저장된 이름과 학과로 초기화합니다.
-        profileUserName.setText(UserData.getInstance().getUserName());
-        profileUserDept.setText(UserData.getInstance().getUserDept());
-
-        //해당 공지사항이 어떤 학부 공지사항인지알려줍니다.
-        noticeDeptText.setText("  "+UserData.getInstance().getUserMajor() + " 공지사항");
-
-        //익명함수 리스너들
         moreViewNotice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,6 +149,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 startActivity(browserIntent);
             }
         });
+
         mainNoticeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
