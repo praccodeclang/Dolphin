@@ -28,8 +28,15 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class ActivityFreeBoardViewer extends AppCompatActivity {
     public static Context mContext;
@@ -198,8 +205,7 @@ public class ActivityFreeBoardViewer extends AppCompatActivity {
                         userName = obj.get("userName").toString();
                         userID = obj.get("userID").toString();
                         userComment = obj.get("userComment").toString();
-                        date = obj.get("date").toString();
-
+                        date = ActivityMain.calDate_ShouldReturnString(obj.get("date").toString());
                         CommentItem instance = new CommentItem(freeBoardIntent.getStringExtra("BoardID"), userName, userID, date, userComment);
                         commentItemList.add(instance);
                     }
@@ -227,6 +233,7 @@ public class ActivityFreeBoardViewer extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(ActivityFreeBoardViewer.this);
         queue.add(validateRequest);
     }
+
 
     //서버에 댓글을 작성을 요청하는 함수입니다.
     private void requestWriteComment()
@@ -306,7 +313,6 @@ public class ActivityFreeBoardViewer extends AppCompatActivity {
 
     //리스트뷰의 자식 뷰들의 높이를 계산하여 설정하는 함수입니다.
     public static void setListViewHeightBasedOnChildren(ListView listView) {
-        long timer= System.currentTimeMillis();
         ListAdapter listAdapter = listView.getAdapter();
         int totalHeight = 0;
         if(listAdapter.getCount()> 0)

@@ -29,8 +29,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 
 public class ActivityMain extends AppCompatActivity implements SensorEventListener{
@@ -72,6 +77,7 @@ public class ActivityMain extends AppCompatActivity implements SensorEventListen
         initBehavior();
         getFreeBoardsFromServer();
         getNoticesFromHomepage();
+        mainScrollView.fullScroll(View.FOCUS_UP);
     }//onCreate End
 
     @Override
@@ -115,8 +121,6 @@ public class ActivityMain extends AppCompatActivity implements SensorEventListen
         iconBtn2 = (LinearLayout)findViewById(R.id.iconBtn2);
         iconBtn3 = (LinearLayout)findViewById(R.id.iconBtn3);
         iconBtn4 = (LinearLayout)findViewById(R.id.iconBtn4);
-
-
 
     }
 
@@ -273,7 +277,7 @@ public class ActivityMain extends AppCompatActivity implements SensorEventListen
 
                         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 300);
                         lp.gravity = Gravity.CENTER;
-                        lp.setMargins(15, 20, 15, 20);
+                        lp.setMargins(15, 50, 15, 20);
                         imageView.setLayoutParams(lp);
                         textView.setLayoutParams(lp);
                         container.addView(imageView);
@@ -304,7 +308,7 @@ public class ActivityMain extends AppCompatActivity implements SensorEventListen
                             JSONObject object = jsonArray.getJSONObject(i);
                             title = object.get("title").toString();
                             contents = object.get("contents").toString();
-                            date = object.get("DATE").toString();
+                            date = ActivityMain.calDate_ShouldReturnString(object.get("DATE").toString());
                             userName = object.get("userName").toString();
                             userID = object.get("userID").toString();
                             PHONE = object.get("PHONE").toString();
@@ -314,7 +318,7 @@ public class ActivityMain extends AppCompatActivity implements SensorEventListen
                         FreeBoardAdapter freeBoardAdapter = new FreeBoardAdapter(ActivityMain.this, freeBoardItemList);
                         mainFreeBoardListView.setAdapter(freeBoardAdapter);
                     }
-                } catch (JSONException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -322,6 +326,27 @@ public class ActivityMain extends AppCompatActivity implements SensorEventListen
         RequestGetFreeBoard freeBoardRequest = new RequestGetFreeBoard(responseListener);
         RequestQueue queue = Volley.newRequestQueue(ActivityMain.this);
         queue.add(freeBoardRequest);
+    }
+
+    public static String calDate_ShouldReturnString(String dateString) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.KOREA);
+        TimeZone tz = TimeZone.getTimeZone("Asia/Seoul");
+        sdf.setTimeZone(tz);
+        Date writtenDate = sdf.parse(dateString);
+        Date currDate = sdf.parse(sdf.format(new Date()));
+
+        long lWrittenDate = writtenDate.getTime();
+        long lCurrDate = currDate.getTime();
+        long sec = (lCurrDate - lWrittenDate) / 1000;
+
+        int day = (int)(sec/86400) % 86400;
+        int hour = (int)((sec/3600) % 3600) % 24;
+        int min = (int)(sec/60) % 60;
+
+        if(day > 0) { return day+"일 전"; }
+        else if(hour > 0){ return hour+"시간 전"; }
+        else if(min > 3){ return min+"분 전"; }
+        else{ return "방금 전"; }
     }
 
 

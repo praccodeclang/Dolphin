@@ -34,7 +34,6 @@ public class ActivityFreeBoard extends AppCompatActivity{ //클릭 리스너 인
         setContentView(R.layout.activity_freeboard);
         initViews();
         initListeners();
-        requestLoadAllFreeBoard();
     }
 
     @Override
@@ -110,7 +109,7 @@ public class ActivityFreeBoard extends AppCompatActivity{ //클릭 리스너 인
                         JSONObject object = jsonArray.getJSONObject(i);
                         title = object.get("title").toString();
                         contents = object.get("contents").toString();
-                        date = object.get("DATE").toString();
+                        date = ActivityMain.calDate_ShouldReturnString(object.get("DATE").toString());
                         userName = object.get("userName").toString();
                         userID = object.get("userID").toString();
                         PHONE = object.get("PHONE").toString();
