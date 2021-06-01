@@ -6,16 +6,18 @@ public class FreeBoardItem {
     private String contents;
     private String date;
     private String userName;
+    private String userID;
     private String userPhone;
     private int boardId;
 
-    public FreeBoardItem(String title, String contents, String date, String userName, String userPhone, int boardId) {
+    public FreeBoardItem(int boardId, String title, String contents, String userName, String userID, String userPhone, String date) {
         this.title = title;
         this.contents = contents;
         this.date = date;
         this.userName = userName;
         this.userPhone = userPhone;
         this.boardId = boardId;
+        this.userID = userID;
     }
 
 
@@ -33,5 +35,8 @@ public class FreeBoardItem {
     }
     public int getBoardId() { return boardId; }
     public String getUserName() { return userName; }
+
+    public String getUserID() { return userID; }
+
     public String getUserPhone() { return userPhone; }
 }

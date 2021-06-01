@@ -59,7 +59,7 @@ public class CommentAdapter extends BaseAdapter{
         commentDate.setText(commentItemList.get(i).getCommentDate());
         commentText.setText(commentItemList.get(i).getCommentText());
 
-        if(commentItemList.get(i).getCommentUserName().equals(UserData.getInstance().getUserName()))
+        if(commentItemList.get(i).getCommentUserID().equals(UserData.getInstance().getUserID()))
         {
             commentUDBtns.setVisibility(View.VISIBLE);
             commentDelete.setOnClickListener(new View.OnClickListener() {

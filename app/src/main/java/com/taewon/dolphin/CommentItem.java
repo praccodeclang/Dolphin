@@ -8,11 +8,13 @@ public class CommentItem {
     private String commentDate;
     private String commentText;
     private String BoardID;
-    public CommentItem(String BoardID, String userName, String commentDate, String commentText){
+    private String commentUserID;
+    public CommentItem(String BoardID, String userName, String commentUserID, String commentDate, String commentText){
         this.BoardID = BoardID;
         this.commentUserName = userName;
         this.commentDate = commentDate;
         this.commentText = commentText;
+        this.commentUserID = commentUserID;
     }
 
 
@@ -29,4 +31,5 @@ public class CommentItem {
         return commentText;
     }
 
+    public String getCommentUserID() { return commentUserID; }
 }

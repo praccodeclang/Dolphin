@@ -22,8 +22,16 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:id="@+id/contactBtn"
+            android:src="@drawable/ic_call"
+            android:layout_marginVertical="15dp"
+            android:layout_gravity="center_vertical"
+            android:scaleType="center"/>
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:id="@+id/myPageBtn"
-            android:src="@drawable/ic_baseline_person_24"
+            android:src="@drawable/ic_baseline_person_user24"
             android:layout_margin="15dp"
             android:layout_gravity="center_vertical"/>
     </LinearLayout>
@@ -251,6 +259,11 @@
                             android:text="더보기 >"
                             android:textSize="14dp" />
                     </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/mainFreeBoardContainer"
+                        android:orientation="vertical"/>
                     <ListView
                         android:id="@+id/mainFreeBoardListView"
                         android:layout_width="match_parent"

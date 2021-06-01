@@ -41,14 +41,14 @@ public class LoginActivity extends AppCompatActivity{
         final Button loginBtn = (Button)findViewById(R.id.loginBtn);
         final TextView register = (TextView)findViewById(R.id.register);
         final TextView findIDPW = (TextView)findViewById(R.id.find);
-        final CheckBox autoLogin =(CheckBox)findViewById(R.id.autoLogin);
+        final CheckBox autoLoginChk =(CheckBox)findViewById(R.id.autoLogin);
 
 
         //자동로그인
         autoLogin();
 
-
-        try{
+        try
+        {
             //만약 유저가 회원가입을 했다면, 자동으로 설정합니다.
             userID.setText(resisterIntent.getStringExtra("userID"));
             userPassword.setText(resisterIntent.getStringExtra("userPassword"));
@@ -61,7 +61,8 @@ public class LoginActivity extends AppCompatActivity{
         }
 
 
-        /* 회원가입 클릭 시, 바로 회원가입 창으로 넘어갑니다.*/
+        /* OnClickListeners */
+        //회원가입 버튼 클릭 시, 회원가입 창으로 넘어갑니다.
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,7 +106,7 @@ public class LoginActivity extends AppCompatActivity{
                                 UserData.getInstance().setUserPhoneNum(jsonObject.getString("userPhoneNum"));
 
                                 /* 만약 로그인에 성공했으면 메인 엑티비티로 넘어감 근데 자동로그인을 곁들인*/
-                                if(autoLogin.isChecked()){
+                                if(autoLoginChk.isChecked()){
                                     SharedPreferences auto = getSharedPreferences("auto",LoginActivity.MODE_PRIVATE);
                                     SharedPreferences.Editor editor = auto.edit();
                                     editor.putString("userStudentCode", UserData.getInstance().getUserStudentCode());
@@ -149,13 +150,13 @@ public class LoginActivity extends AppCompatActivity{
                 RequestUserLogin validateRequest = new RequestUserLogin(userID.getText().toString(), userPassword.getText().toString(), responseListener);
                 RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
                 queue.add(validateRequest);
-
-
             }
         });
-
     }
-    /* custom method */
+
+    /* Custom Method */
+
+    //자동으로 로그인하기.
     private void autoLogin(){
         SharedPreferences auto = getSharedPreferences("auto", LoginActivity.MODE_PRIVATE);
         HashMap<String, String> instanceHash = (HashMap<String, String>)auto.getAll();
@@ -180,19 +181,12 @@ public class LoginActivity extends AppCompatActivity{
                 UserData.getInstance().setUserDept(userMap.get("userDept"));
                 UserData.getInstance().setUserPhoneNum(userMap.get("userPhoneNum"));
 
-                System.out.println(UserData.getInstance().getUserStudentCode());
-                System.out.println(UserData.getInstance().getUserID());
-                System.out.println(UserData.getInstance().getUserName());
-                System.out.println(UserData.getInstance().getUserMajor());
-                System.out.println(UserData.getInstance().getUserDept());
-                System.out.println(UserData.getInstance().getUserPhoneNum());
-
-
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }
         }
+        return;
     }
 
 

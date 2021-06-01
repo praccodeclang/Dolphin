@@ -16,10 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Dolphin"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Undefined"></activity>
-        <activity android:name=".Weather" />
-        <activity android:name=".Diet" />
-        <activity android:name=".SchoolNotice" /> <!-- activity 추가해주세요. -->
+        <!-- activity 추가해주세요. -->
         <activity android:name=".StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,6 +32,10 @@
         <activity android:name=".FreeBoardWritingActivity" />
         <activity android:name=".MyPageActivity" />
         <activity android:name=".NfcActivity" />
+        <activity android:name=".Undefined"/>
+        <activity android:name=".Weather" />
+        <activity android:name=".Diet" />
+        <activity android:name=".SchoolNotice" />
+        <activity android:name=".ContactActivity"/>
     </application>
-
 </manifest>

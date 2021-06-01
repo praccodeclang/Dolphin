@@ -16,6 +16,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.JavascriptInterface;
@@ -47,11 +48,14 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener{
 
+    /* Sensors */
     private long mShakeTime;
     private static final int SHAKE_SKIP_TIME = 500;
     private static final float SHAKE_THRESHOLD_GRAVITY = 1.5F;
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
+
+    /* Views */
     private LinearLayout iconBtn1;
     private LinearLayout iconBtn2;
     private LinearLayout iconBtn3;
@@ -66,6 +70,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private ImageView deptProfile;
     private ImageView myPageBtn;
     private ScrollView mainScrollView;
+    private ImageView contactBtn;
+
+
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -73,6 +80,35 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        initViews();
+        initListeners();
+        initBehavior();
+    }//onCreate End
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        /*사용자가 다시 돌아오면 실행합니다.*/
+        //센서 AWAKE
+        mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        //mainNoticeListView에 아이템 추가(3개만 넣어볼게요.)
+        getFreeBoardsFromServer();
+        getNoticesFromHomepage();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mSensorManager.unregisterListener(this);
+    }
+
+
+
+
+
+    /* Custom Method */
+    private void initViews()
+    {
         /* Sensor */
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -88,57 +124,25 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         myPageBtn = (ImageView)findViewById(R.id.myPageBtn);
         deptProfile = (ImageView)findViewById(R.id.deptProfile);
         mainScrollView = (ScrollView)findViewById(R.id.mainScrollView);
+        contactBtn = (ImageView)findViewById(R.id.contactBtn);
         iconBtn1 = (LinearLayout)findViewById(R.id.iconBtn1);
         iconBtn2 = (LinearLayout)findViewById(R.id.iconBtn2);
         iconBtn3 = (LinearLayout)findViewById(R.id.iconBtn3);
         iconBtn4 = (LinearLayout)findViewById(R.id.iconBtn4);
+        iconBtn1.setOnClickListener(iconBtnListener);
+        iconBtn2.setOnClickListener(iconBtnListener);
+        iconBtn3.setOnClickListener(iconBtnListener);
+        iconBtn4.setOnClickListener(iconBtnListener);
+    }
 
-
-        deptProfile.setImageResource(UserData.getInstance().getUserProfile());
-        deptProfile.setBackgroundResource(R.drawable.border_layout_profile);
-        deptProfile.setClipToOutline(true);
-
-
-
-
-        //로그인 창에서 넘어오면, 프로필의 이름과 학과를 UserData 클래스에 저장된 이름과 학과로 초기화합니다.
-        profileUserName.setText(UserData.getInstance().getUserName());
-        profileUserDept.setText(UserData.getInstance().getUserDept());
-
-        //해당 공지사항이 어떤 학부 공지사항인지알려줍니다.
-        noticeDeptText.setText("  "+UserData.getInstance().getUserMajor() + " 공지사항");
-
-        //익명함수 리스너들
-        //버튼 클릭시 웹 이동
-        iconBtn1.setOnClickListener(new View.OnClickListener() {
+    private void initListeners()
+    {
+        mainNoticeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),SchoolNotice.class);
-                startActivity(intent);
-            }
-        });
-
-        iconBtn2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),Diet.class);
-                startActivity(intent);
-            }
-        });
-
-        iconBtn3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),Weather.class);
-                startActivity(intent);
-            }
-        });
-
-        iconBtn4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),Undefined.class);
-                startActivity(intent);
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                NoticeItem instance = (NoticeItem)parent.getAdapter().getItem(position);
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(instance.getUrl()));
+                startActivity(browserIntent);
             }
         });
 
@@ -146,15 +150,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             @Override
             public void onClick(View v) {
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(UserData.getInstance().getUserMajorNoticeUrl()));
-                startActivity(browserIntent);
-            }
-        });
-
-        mainNoticeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                NoticeItem instance = (NoticeItem)parent.getAdapter().getItem(position);
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(instance.getUrl()));
                 startActivity(browserIntent);
             }
         });
@@ -170,11 +165,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 intent.putExtra("Date", instance.getDate());
                 intent.putExtra("Title", instance.getTitle());
                 intent.putExtra("Contents", instance.getContents());
+                intent.putExtra("userID", instance.getUserID());
                 intent.putExtra("userPhone", instance.getUserPhone());
                 intent.putExtra("BoardID", Integer.toString(instance.getBoardId()));
                 startActivity(intent);
             }
         });
+
         moreViewFreeBoard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -192,21 +189,70 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }
         });
 
-    }//onCreate End
+        // 연락처 버튼 클릭 시, 학부생들의 연락처 리스트로 이동합니다.
+        contactBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, FreeBoardActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    //아이콘 버튼 리스너
+    View.OnClickListener iconBtnListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent;
+            switch (v.getId())
+            {
+                case R.id.iconBtn1:
+                    intent = new Intent(getApplicationContext(),SchoolNotice.class);
+                    break;
+                case R.id.iconBtn2:
+                    intent = new Intent(getApplicationContext(),Diet.class);
+                    break;
+                case R.id.iconBtn3:
+                    intent = new Intent(getApplicationContext(),Weather.class);
+                    break;
+                case R.id.iconBtn4:
+                    intent = new Intent(getApplicationContext(),Undefined.class);
+                    break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + v.getId());
+            }
+            startActivity(intent);
+        }
+    };
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private void initBehavior()
+    {
+        // 1. 유저의 학과에 따라 프로필 사진을 다르게 설정합니다.
+        deptProfile.setImageResource(UserData.getInstance().getUserProfile());
+        deptProfile.setBackgroundResource(R.drawable.border_layout_profile);
+        deptProfile.setClipToOutline(true);
+        mainScrollView.fullScroll(ScrollView.FOCUS_UP);
+
+        //2. 로그인 창에서 넘어오면, 프로필의 이름과 학과를 UserData 클래스에 저장된 이름과 학과로 초기화합니다.
+        profileUserName.setText(UserData.getInstance().getUserName());
+        profileUserDept.setText(UserData.getInstance().getUserDept());
+
+        //3. 공지사항 텍스트를 유저의 학부에 맞게 변경합니다.
+        noticeDeptText.setText("  "+UserData.getInstance().getUserMajor() + " 공지사항");
+    }
 
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        /*사용자가 다시 돌아오면 실행합니다.*/
-        //센서 AWAKE
-        mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-
-        //mainNoticeListView에 아이템 추가(3개만 넣어볼게요.)
+    //서브쓰레드에서 공지사항 로드(3개만 가져옴.)를 수행합니다.
+    private void getNoticesFromHomepage()
+    {
         JsoupAsyncTask jsoupAsyncTask = new JsoupAsyncTask(this, UserData.getInstance().getUserMajorNoticeUrl(), mainNoticeListView, 3);
         jsoupAsyncTask.execute();
+    }
 
-
+    //서버에서 게시판 정보를 가져와 로드합니다.
+    private void getFreeBoardsFromServer()
+    {
         //mainFreeBoardListView 아이템 추가(3개만 넣어볼게요.)
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
@@ -215,42 +261,68 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray jsonArray = jsonObject.getJSONArray("DATA");
                     List<FreeBoardItem> freeBoardItemList = new ArrayList<>();
-
+                    LinearLayout container = (LinearLayout)findViewById(R.id.mainFreeBoardContainer);
+                    container.setVisibility(View.GONE);
+                    mainFreeBoardListView.setVisibility(View.VISIBLE);
                     int boardID;
 
-                    if(jsonArray.length() < 3)
+                    if(jsonArray.length() < 1)
+                    {
+                        container.setVisibility(View.VISIBLE);
+                        mainFreeBoardListView.setVisibility(View.GONE);
+                        container.removeAllViews();
+
+                        TextView textView = new TextView(MainActivity.this);
+                        ImageView imageView = new ImageView(MainActivity.this);
+
+                        textView.setText("게시판에 아무 글도 없네요! \n얼른 첫번째 게시글을 작성해보세요.");
+                        textView.setGravity(Gravity.CENTER_HORIZONTAL);
+                        imageView.setImageResource(R.drawable.dolphins_empty_board);
+                        imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+                        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 300);
+                        lp.gravity = Gravity.CENTER;
+                        lp.setMargins(15, 20, 15, 20);
+                        imageView.setLayoutParams(lp);
+                        textView.setLayoutParams(lp);
+                        container.addView(imageView);
+                        container.addView(textView);
+                        return;
+                    }
+                    else if(jsonArray.length()>0 && jsonArray.length() < 3)
                     {
                         for(int i=0; i<jsonArray.length(); i++)
                         {
-                            String title, contents, date, userName, PHONE;
+                            String title, contents, date, userName, userID, PHONE;
                             JSONObject object = jsonArray.getJSONObject(i);
                             title = object.get("title").toString();
                             contents = object.get("contents").toString();
                             date = object.get("DATE").toString();
                             userName = object.get("userName").toString();
+                            userID = object.get("userID").toString();
                             PHONE = object.get("PHONE").toString();
                             boardID = object.getInt("no");
-                            freeBoardItemList.add(new FreeBoardItem(title, contents, date, userName, PHONE, boardID));
+                            freeBoardItemList.add(new FreeBoardItem(boardID, title, contents, userName, userID, PHONE, date));
                         }
                         FreeBoardAdapter freeBoardAdapter = new FreeBoardAdapter(MainActivity.this, freeBoardItemList);
                         mainFreeBoardListView.setAdapter(freeBoardAdapter);
-                        mainScrollView.fullScroll(ScrollView.FOCUS_UP);
+
                     }
                     else {
                         for (int i = 0; i < 3; i++) {
-                            String title, contents, date, userName, PHONE;
+                            String title, contents, date, userName, userID, PHONE;
                             JSONObject object = jsonArray.getJSONObject(i);
                             title = object.get("title").toString();
                             contents = object.get("contents").toString();
                             date = object.get("DATE").toString();
                             userName = object.get("userName").toString();
+                            userID = object.get("userID").toString();
                             PHONE = object.get("PHONE").toString();
                             boardID = object.getInt("no");
-                            freeBoardItemList.add(new FreeBoardItem(title, contents, date, userName, PHONE, boardID));
+                            freeBoardItemList.add(new FreeBoardItem(boardID, title, contents, userName, userID, PHONE, date));
                         }
                         FreeBoardAdapter freeBoardAdapter = new FreeBoardAdapter(MainActivity.this, freeBoardItemList);
                         mainFreeBoardListView.setAdapter(freeBoardAdapter);
-                        mainScrollView.fullScroll(ScrollView.FOCUS_UP);
                     }
 
                 } catch (JSONException e) {
@@ -263,11 +335,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         queue.add(freeBoardRequest);
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        mSensorManager.unregisterListener(this);
-    }
 
     /* Sensors */
     @Override

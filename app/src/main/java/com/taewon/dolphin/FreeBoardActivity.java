@@ -45,6 +45,7 @@ public class FreeBoardActivity extends AppCompatActivity{ //클릭 리스너 인
                 //누른 게시판의 인스턴스를 생성해 FreeBoardViewerActivity.class 인텐트로 넘겨준다.
                 FreeBoardItem instance = freeBoardItemList.get(position);
                 intent.putExtra("Name", instance.getUserName());
+                intent.putExtra("userID", instance.getUserID());
                 intent.putExtra("Date", instance.getDate());
                 intent.putExtra("Title", instance.getTitle());
                 intent.putExtra("Contents", instance.getContents());
@@ -74,10 +75,17 @@ public class FreeBoardActivity extends AppCompatActivity{ //클릭 리스너 인
 
     @Override
     protected void onResume() {
-        //사용자가 FreeBoardActivity로 돌아오면 자유게시판을 로드합니다.
+        //사용자가 FreeBoardActivity로 돌아오면 모든 자유게시판을 로드합니다.
         super.onResume();
-
         freeBoardItemList.clear();
+        loadAllFreeBoard();
+    }
+
+
+
+    /* Custom Methods */
+    private void loadAllFreeBoard()
+    {
         Response.Listener<String> responseListener = new Response.Listener<String>() {
 
             @Override
@@ -89,15 +97,16 @@ public class FreeBoardActivity extends AppCompatActivity{ //클릭 리스너 인
 
                     for(int i=0; i<jsonArray.length(); i++)
                     {
-                        String title, contents, date, userName, PHONE;
+                        String title, contents, date, userName, userID, PHONE;
                         JSONObject object = jsonArray.getJSONObject(i);
                         title = object.get("title").toString();
                         contents = object.get("contents").toString();
                         date = object.get("DATE").toString();
                         userName = object.get("userName").toString();
+                        userID = object.get("userID").toString();
                         PHONE = object.get("PHONE").toString();
                         boardID = object.getInt("no");
-                        freeBoardItemList.add(new FreeBoardItem(title, contents, date, userName, PHONE, boardID));
+                        freeBoardItemList.add(new FreeBoardItem(boardID, title, contents, userName, userID, PHONE, date));
                     }
                     freeBoardAdapter = new FreeBoardAdapter(FreeBoardActivity.this, freeBoardItemList);
                     freeBoardListView.setAdapter(freeBoardAdapter);

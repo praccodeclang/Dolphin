@@ -13,11 +13,12 @@ public class RequestCommentWrite extends StringRequest {
 
     final private static String url = "https://xodnjs2546.cafe24.com/insertFreeBoardComment.php";
     private Map<String, String> mHash;
-    public RequestCommentWrite(String BoardID, String userName, String userComment, Response.Listener<String> listener) {
+    public RequestCommentWrite(String BoardID, String userName, String userID, String userComment, Response.Listener<String> listener) {
         super(Method.POST, url, listener, null);
         mHash = new HashMap<>();
         mHash.put("BoardID", BoardID);
         mHash.put("userName", userName);
+        mHash.put("userID", userID);
         mHash.put("userComment", userComment);
     }
 
