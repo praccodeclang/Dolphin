@@ -2,7 +2,6 @@ package com.taewon.dolphin;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,7 +17,7 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 
-public class FreeBoardWritingActivity extends AppCompatActivity {
+public class ActivityFreeBoardWriting extends AppCompatActivity {
 
     Button writeOkBtn;
     ImageButton FreeBoardWriteBackBtn;
@@ -53,7 +52,7 @@ public class FreeBoardWritingActivity extends AppCompatActivity {
                 if(isPassBoardWriteRule())
                 {
                     // 조건을 만족하면, 띄웁니다.
-                    AlertDialog.Builder builder = new AlertDialog.Builder(FreeBoardWritingActivity.this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ActivityFreeBoardWriting.this);
                     builder.setIcon(R.drawable.icon_dolphins)
                             .setTitle("게시글 작성")
                             .setMessage("글을 작성하시겠어요?")
@@ -70,7 +69,7 @@ public class FreeBoardWritingActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(FreeBoardWritingActivity.this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ActivityFreeBoardWriting.this);
                     builder.setIcon(R.drawable.icon_dolphins).setTitle("뭐라도 적으세요.").setMessage("제목이나 내용은 비워둘 수 없습니다.")
                             .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                                 @Override
@@ -113,18 +112,18 @@ public class FreeBoardWritingActivity extends AppCompatActivity {
 
                     if(success)
                     {
-                        Toast.makeText(FreeBoardWritingActivity.this,"게시글이 작성되었습니다.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(ActivityFreeBoardWriting.this,"게시글이 작성되었습니다.", Toast.LENGTH_LONG).show();
                         finish();
                     }
                     else
                     {
-                        Toast.makeText(FreeBoardWritingActivity.this,"실패했습니다. 잠시 후 다시시도해보세요.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(ActivityFreeBoardWriting.this,"실패했습니다. 잠시 후 다시시도해보세요.", Toast.LENGTH_LONG).show();
                     }
 
                 }
                 catch (Exception e)
                 {
-                    Toast.makeText(FreeBoardWritingActivity.this,"실패했습니다. 잠시 후 다시시도해보세요.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ActivityFreeBoardWriting.this,"실패했습니다. 잠시 후 다시시도해보세요.", Toast.LENGTH_LONG).show();
                     e.printStackTrace();
                 }
             }
@@ -137,7 +136,7 @@ public class FreeBoardWritingActivity extends AppCompatActivity {
                 UserData.getInstance().getUserPhoneNum(),
                 responseListener);
 
-        RequestQueue queue = Volley.newRequestQueue(FreeBoardWritingActivity.this);
+        RequestQueue queue = Volley.newRequestQueue(ActivityFreeBoardWriting.this);
         queue.add(validateRequest);
     }
 }

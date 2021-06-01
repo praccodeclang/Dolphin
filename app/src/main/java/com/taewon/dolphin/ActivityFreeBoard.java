@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
@@ -22,26 +21,47 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FreeBoardActivity extends AppCompatActivity{ //클릭 리스너 인터페이스 상속
+public class ActivityFreeBoard extends AppCompatActivity{ //클릭 리스너 인터페이스 상속
     private FreeBoardAdapter freeBoardAdapter;
     private ListView freeBoardListView;
     private List<FreeBoardItem> freeBoardItemList;
+    private FloatingActionButton writingBtn;
+    private ImageButton freeBoardBackBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_freeboard);
-        final FloatingActionButton writingBtn = (FloatingActionButton)findViewById(R.id.writingBtn);
-        final ImageButton freeBoardBackBtn = (ImageButton)findViewById(R.id.FreeBoardBackBtn);
+        initViews();
+        initListeners();
+        requestLoadAllFreeBoard();
+    }
+
+    @Override
+    protected void onResume() {
+        //사용자가 FreeBoardActivity로 돌아오면 모든 자유게시판을 로드합니다.
+        super.onResume();
+        requestLoadAllFreeBoard();
+    }
+
+
+    /* Custom Methods */
+    private void initViews()
+    {
         freeBoardListView = (ListView)findViewById(R.id.freeBoardListView);
         freeBoardItemList = new ArrayList<>();
+        writingBtn = (FloatingActionButton)findViewById(R.id.writingBtn);
+        freeBoardBackBtn = (ImageButton)findViewById(R.id.FreeBoardBackBtn);
+    }
 
+    private void initListeners()
+    {
         //자유게시판의 글을 클릭하면 실행.
         freeBoardListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //실행할거 적으세요..
-                Intent intent = new Intent(FreeBoardActivity.this, FreeBoardViewerActivity.class);
+                Intent intent = new Intent(ActivityFreeBoard.this, ActivityFreeBoardViewer.class);
                 //누른 게시판의 인스턴스를 생성해 FreeBoardViewerActivity.class 인텐트로 넘겨준다.
                 FreeBoardItem instance = freeBoardItemList.get(position);
                 intent.putExtra("Name", instance.getUserName());
@@ -59,7 +79,7 @@ public class FreeBoardActivity extends AppCompatActivity{ //클릭 리스너 인
         writingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FreeBoardActivity.this, FreeBoardWritingActivity.class);
+                Intent intent = new Intent(ActivityFreeBoard.this, ActivityFreeBoardWriting.class);
                 startActivity(intent);
             }
         });
@@ -73,21 +93,10 @@ public class FreeBoardActivity extends AppCompatActivity{ //클릭 리스너 인
         });
     }
 
-    @Override
-    protected void onResume() {
-        //사용자가 FreeBoardActivity로 돌아오면 모든 자유게시판을 로드합니다.
-        super.onResume();
-        freeBoardItemList.clear();
-        loadAllFreeBoard();
-    }
-
-
-
-    /* Custom Methods */
-    private void loadAllFreeBoard()
+    private void requestLoadAllFreeBoard()
     {
+        freeBoardItemList.clear();
         Response.Listener<String> responseListener = new Response.Listener<String>() {
-
             @Override
             public void onResponse(String response) {
                 try {
@@ -108,10 +117,10 @@ public class FreeBoardActivity extends AppCompatActivity{ //클릭 리스너 인
                         boardID = object.getInt("no");
                         freeBoardItemList.add(new FreeBoardItem(boardID, title, contents, userName, userID, PHONE, date));
                     }
-                    freeBoardAdapter = new FreeBoardAdapter(FreeBoardActivity.this, freeBoardItemList);
+                    freeBoardAdapter = new FreeBoardAdapter(ActivityFreeBoard.this, freeBoardItemList);
                     freeBoardListView.setAdapter(freeBoardAdapter);
                 } catch (Exception e) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(FreeBoardActivity.this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ActivityFreeBoard.this);
                     builder.setIcon(R.drawable.icon_dolphins)
                             .setTitle("오류")
                             .setMessage("게시판을 불러오는 중 오류가 발생했습니다.")
@@ -122,7 +131,7 @@ public class FreeBoardActivity extends AppCompatActivity{ //클릭 리스너 인
             }
         };
         RequestGetFreeBoard validateRequest = new RequestGetFreeBoard(responseListener);
-        RequestQueue queue = Volley.newRequestQueue(FreeBoardActivity.this);
+        RequestQueue queue = Volley.newRequestQueue(ActivityFreeBoard.this);
         queue.add(validateRequest);
     }
 }

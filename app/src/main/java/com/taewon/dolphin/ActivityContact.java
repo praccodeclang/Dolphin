@@ -5,7 +5,7 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class ContactActivity extends AppCompatActivity {
+public class ActivityContact extends AppCompatActivity {
 
     ListView contactListView;
     @Override

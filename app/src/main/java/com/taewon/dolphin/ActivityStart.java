@@ -1,27 +1,23 @@
 package com.taewon.dolphin;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 
-public class StartActivity extends AppCompatActivity {
+public class ActivityStart extends AppCompatActivity {
 
     private static final int MULTIPLE_PERMISSION = 10235;
     ImageView imageView;
@@ -33,8 +29,13 @@ public class StartActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onResume() {
+        super.onResume();
+        chkPermissions();
+    }
+
+    private void chkPermissions()
+    {
         /* 권한이 있는지 검사합니다. */
         String[] PEMISSIONS = { Manifest.permission.SEND_SMS, Manifest.permission.RECEIVE_SMS, Manifest.permission.READ_PHONE_STATE };
         if(hasPermissions(this, PEMISSIONS)){
@@ -46,15 +47,12 @@ public class StartActivity extends AppCompatActivity {
                 //3초 딜레이
                 @Override
                 public void run() {
-                    Intent intent = new Intent(StartActivity.this, LoginActivity.class);
+                    Intent intent = new Intent(ActivityStart.this, ActivityLogin.class);
                     startActivity(intent);
                     finish();
                 }
             }, 3000);
-
         }
-
-
     }
 
     @Override
@@ -65,7 +63,7 @@ public class StartActivity extends AppCompatActivity {
             case  MULTIPLE_PERMISSION:
                 if(grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
                     //사용자가 모든 권한을 허용하면 실행합니다.
-                    Intent intent = new Intent(StartActivity.this, LoginActivity.class);
+                    Intent intent = new Intent(ActivityStart.this, ActivityLogin.class);
                     startActivity(intent);
                     finish();
                 }

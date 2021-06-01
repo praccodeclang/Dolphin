@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -82,7 +81,7 @@ public class CommentAdapter extends BaseAdapter{
                                                 if(success)
                                                 {
                                                     Toast.makeText(context, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
-                                                    ((FreeBoardViewerActivity)FreeBoardViewerActivity.mContext).loadComments();
+                                                    ((ActivityFreeBoardViewer) ActivityFreeBoardViewer.mContext).requestLoadComments();
                                                 }
                                             }
                                             catch (Exception e)
@@ -105,7 +104,6 @@ public class CommentAdapter extends BaseAdapter{
         {
             commentUDBtns.setVisibility(View.GONE);
         }
-
 
         return v;
     }

@@ -1,12 +1,9 @@
 package com.taewon.dolphin;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.GradientDrawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -14,20 +11,11 @@ import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.webkit.JavascriptInterface;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -41,12 +29,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity implements SensorEventListener{
+public class ActivityMain extends AppCompatActivity implements SensorEventListener{
 
     /* Sensors */
     private long mShakeTime;
@@ -81,8 +68,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         setContentView(R.layout.activity_main);
 
         initViews();
-        initListeners();
         initBehavior();
+        getFreeBoardsFromServer();
+        getNoticesFromHomepage();
+        initListeners();
     }//onCreate End
 
     @Override
@@ -91,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         /*사용자가 다시 돌아오면 실행합니다.*/
         //센서 AWAKE
         mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-        //mainNoticeListView에 아이템 추가(3개만 넣어볼게요.)
+
         getFreeBoardsFromServer();
         getNoticesFromHomepage();
     }
@@ -101,9 +90,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onPause();
         mSensorManager.unregisterListener(this);
     }
-
-
-
 
 
     /* Custom Method */
@@ -129,10 +115,37 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         iconBtn2 = (LinearLayout)findViewById(R.id.iconBtn2);
         iconBtn3 = (LinearLayout)findViewById(R.id.iconBtn3);
         iconBtn4 = (LinearLayout)findViewById(R.id.iconBtn4);
+
+        //아이콘 버튼 리스너
+        View.OnClickListener iconBtnListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent;
+                switch (v.getId())
+                {
+                    case R.id.iconBtn1:
+                        intent = new Intent(getApplicationContext(),SchoolNotice.class);
+                        break;
+                    case R.id.iconBtn2:
+                        intent = new Intent(getApplicationContext(),Diet.class);
+                        break;
+                    case R.id.iconBtn3:
+                        intent = new Intent(getApplicationContext(),Weather.class);
+                        break;
+                    case R.id.iconBtn4:
+                        intent = new Intent(getApplicationContext(),Undefined.class);
+                        break;
+                    default:
+                        throw new IllegalStateException("Unexpected value: " + v.getId());
+                }
+                startActivity(intent);
+            }
+        };
         iconBtn1.setOnClickListener(iconBtnListener);
         iconBtn2.setOnClickListener(iconBtnListener);
         iconBtn3.setOnClickListener(iconBtnListener);
         iconBtn4.setOnClickListener(iconBtnListener);
+
     }
 
     private void initListeners()
@@ -157,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mainFreeBoardListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(MainActivity.this, FreeBoardViewerActivity.class);
+                Intent intent = new Intent(ActivityMain.this, ActivityFreeBoardViewer.class);
 
                 //누른 게시판의 인스턴스를 생성해 FreeBoardViewerActivity.class에 인텐트로 넘겨준다.
                 FreeBoardItem instance = (FreeBoardItem)parent.getAdapter().getItem(position);
@@ -175,7 +188,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         moreViewFreeBoard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, FreeBoardActivity.class);
+                Intent intent = new Intent(ActivityMain.this, ActivityFreeBoard.class);
                 startActivity(intent);
             }
         });
@@ -184,7 +197,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         myPageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, MyPageActivity.class);
+                Intent intent = new Intent(ActivityMain.this, ActivityMyPage.class);
                 startActivity(intent);
             }
         });
@@ -193,37 +206,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         contactBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, FreeBoardActivity.class);
+                Intent intent = new Intent(ActivityMain.this, ActivityFreeBoard.class);
                 startActivity(intent);
             }
         });
     }
 
-    //아이콘 버튼 리스너
-    View.OnClickListener iconBtnListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent;
-            switch (v.getId())
-            {
-                case R.id.iconBtn1:
-                    intent = new Intent(getApplicationContext(),SchoolNotice.class);
-                    break;
-                case R.id.iconBtn2:
-                    intent = new Intent(getApplicationContext(),Diet.class);
-                    break;
-                case R.id.iconBtn3:
-                    intent = new Intent(getApplicationContext(),Weather.class);
-                    break;
-                case R.id.iconBtn4:
-                    intent = new Intent(getApplicationContext(),Undefined.class);
-                    break;
-                default:
-                    throw new IllegalStateException("Unexpected value: " + v.getId());
-            }
-            startActivity(intent);
-        }
-    };
+
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void initBehavior()
@@ -272,8 +261,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                         mainFreeBoardListView.setVisibility(View.GONE);
                         container.removeAllViews();
 
-                        TextView textView = new TextView(MainActivity.this);
-                        ImageView imageView = new ImageView(MainActivity.this);
+                        TextView textView = new TextView(ActivityMain.this);
+                        ImageView imageView = new ImageView(ActivityMain.this);
 
                         textView.setText("게시판에 아무 글도 없네요! \n얼른 첫번째 게시글을 작성해보세요.");
                         textView.setGravity(Gravity.CENTER_HORIZONTAL);
@@ -304,9 +293,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                             boardID = object.getInt("no");
                             freeBoardItemList.add(new FreeBoardItem(boardID, title, contents, userName, userID, PHONE, date));
                         }
-                        FreeBoardAdapter freeBoardAdapter = new FreeBoardAdapter(MainActivity.this, freeBoardItemList);
+                        FreeBoardAdapter freeBoardAdapter = new FreeBoardAdapter(ActivityMain.this, freeBoardItemList);
                         mainFreeBoardListView.setAdapter(freeBoardAdapter);
-
                     }
                     else {
                         for (int i = 0; i < 3; i++) {
@@ -321,17 +309,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                             boardID = object.getInt("no");
                             freeBoardItemList.add(new FreeBoardItem(boardID, title, contents, userName, userID, PHONE, date));
                         }
-                        FreeBoardAdapter freeBoardAdapter = new FreeBoardAdapter(MainActivity.this, freeBoardItemList);
+                        FreeBoardAdapter freeBoardAdapter = new FreeBoardAdapter(ActivityMain.this, freeBoardItemList);
                         mainFreeBoardListView.setAdapter(freeBoardAdapter);
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         };
         RequestGetFreeBoard freeBoardRequest = new RequestGetFreeBoard(responseListener);
-        RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
+        RequestQueue queue = Volley.newRequestQueue(ActivityMain.this);
         queue.add(freeBoardRequest);
     }
 
@@ -360,8 +347,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     return;
                 }
                 mShakeTime = currentTime;
-                Toast.makeText(MainActivity.this,"흔들림 발생",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(MainActivity.this, NfcActivity.class);
+                Toast.makeText(ActivityMain.this,"흔들림 발생",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ActivityMain.this, ActivityNfc.class);
                 startActivity(intent);
             }
 

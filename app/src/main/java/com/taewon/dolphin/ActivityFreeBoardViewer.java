@@ -3,14 +3,12 @@ package com.taewon.dolphin;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -33,15 +31,25 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FreeBoardViewerActivity extends AppCompatActivity {
+public class ActivityFreeBoardViewer extends AppCompatActivity {
     public static Context mContext;
 
     Intent freeBoardIntent;
+
     private ListView freeBoardCommentListView;
     private EditText writeCommentEditText;
     private ImageButton writeCommentBtn;
     private String BoardID;
     private LinearLayout commentArea;
+    private TextView writer;
+    private TextView writtenDate;
+    private TextView board_title;
+    private TextView board_contents;
+    private LinearLayout profileLayout;
+    private LinearLayout udBtns;
+    private ImageButton FreeBoardViewBackBtn;
+    private TextView deleteBtn;
+    private TextView modifyBtn;
 
 
     @Override
@@ -50,43 +58,45 @@ public class FreeBoardViewerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_freeboard_viewer);
         mContext = this;
 
+        initViews();
+        initListeners();
+        initBehaviors();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        requestLoadComments();
+    }
+
+
+    /* Custom Methods */
+    private void initViews()
+    {
         //Name, Date, Title, Contents, userPhone, BoardID 키값 으로 넘겨받습니다.
         freeBoardIntent = getIntent();
-        /* 보드의 ID입니다.*/
         BoardID = freeBoardIntent.getStringExtra("BoardID");
+        //게시글 뷰입니다.
+        writer = (TextView) findViewById(R.id.writer);
+        writtenDate = (TextView) findViewById(R.id.writtenDate);
+        board_title = (TextView) findViewById(R.id.board_title);
+        board_contents = (TextView) findViewById(R.id.board_contents);
+        profileLayout = (LinearLayout) findViewById(R.id.board_profileLayout);
 
-        /* Views */
-        //댓글 구현시 필요한 뷰
+        //댓글 뷰들입니다.
         commentArea = (LinearLayout)findViewById(R.id.commentArea);
         freeBoardCommentListView = (ListView) findViewById(R.id.freeBoardCommentListView);
         writeCommentEditText = (EditText) findViewById(R.id.writeCommentEditText);
         writeCommentBtn = (ImageButton) findViewById(R.id.writeCommentBtn);
 
-        final TextView writer = (TextView) findViewById(R.id.writer);
-        final TextView writtenDate = (TextView) findViewById(R.id.writtenDate);
-        final TextView board_title = (TextView) findViewById(R.id.board_title);
-        final TextView board_contents = (TextView) findViewById(R.id.board_contents);
-        final LinearLayout profileLayout = (LinearLayout) findViewById(R.id.board_profileLayout);
-        //update&deleteBtns
-        LinearLayout udBtns = (LinearLayout) findViewById(R.id.udBtns);
-        ImageButton FreeBoardViewBackBtn = (ImageButton) findViewById(R.id.FreeBoardViewBackBtn);
-        TextView deleteBtn = (TextView) findViewById(R.id.deleteBtn);
-        TextView modifyBtn = (TextView) findViewById(R.id.modifyBtn);
+        udBtns = (LinearLayout) findViewById(R.id.udBtns);
+        FreeBoardViewBackBtn = (ImageButton) findViewById(R.id.FreeBoardViewBackBtn);
+        deleteBtn = (TextView) findViewById(R.id.deleteBtn);
+        modifyBtn = (TextView) findViewById(R.id.modifyBtn);
+    }
 
-        //넘겨받은 Intent에서 TextView 텍스트 초기화
-        writer.setText(freeBoardIntent.getStringExtra("Name"));
-        writtenDate.setText(freeBoardIntent.getStringExtra("Date"));
-        board_title.setText(freeBoardIntent.getStringExtra("Title"));
-        board_contents.setText(freeBoardIntent.getStringExtra("Contents"));
-        /* Views End */
-
-
-        //1. 만약 내가 작성한 글이라면, 수정 삭제를 가능하게 합니다.
-        if (freeBoardIntent.getStringExtra("userID").equals(UserData.getInstance().getUserID())) {
-            udBtns.setVisibility(View.VISIBLE);
-        }
-
-
+    private void initListeners()
+    {
         //onClickListener들
         //돌아가기 버튼입니다.
         FreeBoardViewBackBtn.setOnClickListener(new View.OnClickListener() {
@@ -104,7 +114,7 @@ public class FreeBoardViewerActivity extends AppCompatActivity {
                 {
                     return;
                 }
-                AlertDialog.Builder builder = new AlertDialog.Builder(FreeBoardViewerActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(ActivityFreeBoardViewer.this);
                 builder.setIcon(R.drawable.icon_dolphins)
                         .setTitle("전화걸기")
                         .setMessage("정말로 " + freeBoardIntent.getStringExtra("Name") + "님에게 전화를 거시겠습니까?")
@@ -120,18 +130,18 @@ public class FreeBoardViewerActivity extends AppCompatActivity {
             }
         });
 
-        //삭제버튼 클릭시,
+        //삭제 버튼 클릭시,
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(FreeBoardViewerActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(ActivityFreeBoardViewer.this);
                 builder.setIcon(R.drawable.ic_baseline_block_24)
                         .setTitle("게시글 삭제")
                         .setMessage("정말로 삭제하시겠습니까?")
                         .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                deleteBoard();
+                                requestDeleteBoard();
                             }
                         })
                         .setNegativeButton("취소", null)
@@ -144,29 +154,33 @@ public class FreeBoardViewerActivity extends AppCompatActivity {
         writeCommentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 //키보드 닫습니다.
-                InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(FreeBoardViewerActivity.INPUT_METHOD_SERVICE);
+                InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(ActivityFreeBoardViewer.INPUT_METHOD_SERVICE);
                 inputMethodManager.hideSoftInputFromWindow(writeCommentEditText.getWindowToken(), 0);
 
                 // 중복입력이 되지 않도록, 버튼을 비활성화시킵니다.
                 writeCommentBtn.setBackgroundColor(getResources().getColor(R.color.LockColor));
                 writeCommentBtn.setEnabled(false);
-                writeComment();
+                requestWriteComment();
             }
         });
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        loadComments();
+    private void initBehaviors()
+    {
+        //1. 넘겨받은 Intent에서 TextView 텍스트 초기화
+        writer.setText(freeBoardIntent.getStringExtra("Name"));
+        writtenDate.setText(freeBoardIntent.getStringExtra("Date"));
+        board_title.setText(freeBoardIntent.getStringExtra("Title"));
+        board_contents.setText(freeBoardIntent.getStringExtra("Contents"));
+        //2. 만약 내가 작성한 글이라면, 수정 삭제를 가능하게 합니다.
+        if (freeBoardIntent.getStringExtra("userID").equals(UserData.getInstance().getUserID())) {
+            udBtns.setVisibility(View.VISIBLE);
+        }
     }
 
-
-    /* Custom Methods */
-    //서버에서 댓글을 로드하는 함수입니다.
-    public void loadComments(){
+    //서버에서 댓글로드를 요청하는 함수입니다.
+    public void requestLoadComments(){
         //댓글을 로드합니다.
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -197,11 +211,10 @@ public class FreeBoardViewerActivity extends AppCompatActivity {
                     else
                     {
                         commentArea.setVisibility(View.VISIBLE);
-                        CommentAdapter adapter = new CommentAdapter(FreeBoardViewerActivity.this, commentItemList);
+                        CommentAdapter adapter = new CommentAdapter(ActivityFreeBoardViewer.this, commentItemList);
                         freeBoardCommentListView.setAdapter(adapter);
                         setListViewHeightBasedOnChildren(freeBoardCommentListView);
                     }
-
                 }
                 catch (Exception e)
                 {
@@ -211,12 +224,12 @@ public class FreeBoardViewerActivity extends AppCompatActivity {
             }
         };
         RequestGetComment validateRequest = new RequestGetComment(freeBoardIntent.getStringExtra("BoardID"), responseListener);
-        RequestQueue queue = Volley.newRequestQueue(FreeBoardViewerActivity.this);
+        RequestQueue queue = Volley.newRequestQueue(ActivityFreeBoardViewer.this);
         queue.add(validateRequest);
     }
 
-    //서버에 댓글을 작성하는 함수입니다.
-    private void writeComment()
+    //서버에 댓글을 작성을 요청하는 함수입니다.
+    private void requestWriteComment()
     {
         //유저가 작성한 댓글의 문자열을 가져옵니다.
         String comment = writeCommentEditText.getText().toString();
@@ -228,7 +241,8 @@ public class FreeBoardViewerActivity extends AppCompatActivity {
                     boolean success = jsonObject.getBoolean("success");
                     if(success)
                     {
-                        loadComments();
+                        //성공 했다면, 댓글리스트를 다시 불러옵니다.
+                        requestLoadComments();
                         writeCommentBtn.setEnabled(true);
                         writeCommentBtn.setBackgroundColor(getResources().getColor(R.color.Dolphin));
 
@@ -236,7 +250,7 @@ public class FreeBoardViewerActivity extends AppCompatActivity {
                     }
                     else
                     {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(FreeBoardViewerActivity.this);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(ActivityFreeBoardViewer.this);
                         builder.setIcon(R.drawable.icon_dolphins)
                                 .setTitle("오류")
                                 .setMessage("댓글을 작성하지 못했습니다. 잠시 후 다시 시도해 보세요!")
@@ -246,7 +260,7 @@ public class FreeBoardViewerActivity extends AppCompatActivity {
                 }
                 catch (Exception e)
                 {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(FreeBoardViewerActivity.this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ActivityFreeBoardViewer.this);
                     builder.setIcon(R.drawable.icon_dolphins)
                             .setTitle("오류")
                             .setMessage("댓글을 작성하지 못했습니다. 잠시 후 다시 시도해 보세요!")
@@ -257,12 +271,12 @@ public class FreeBoardViewerActivity extends AppCompatActivity {
             }
         };
         RequestCommentWrite validateRequest = new RequestCommentWrite(BoardID, UserData.getInstance().getUserName(), UserData.getInstance().getUserID(), comment, responseListener);
-        RequestQueue queue = Volley.newRequestQueue(FreeBoardViewerActivity.this);
+        RequestQueue queue = Volley.newRequestQueue(ActivityFreeBoardViewer.this);
         queue.add(validateRequest);
     }
 
     //작성한 글을 지우는 함수입니다.
-    private void deleteBoard()
+    private void requestDeleteBoard()
     {
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
@@ -270,25 +284,27 @@ public class FreeBoardViewerActivity extends AppCompatActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     boolean success = jsonObject.getBoolean("success");
-                    if (success) {
-                        Toast.makeText(FreeBoardViewerActivity.this, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                    if (success)
+                    {
+                        Toast.makeText(ActivityFreeBoardViewer.this, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
                         finish();
-                    } else {
-                        Toast.makeText(FreeBoardViewerActivity.this, "삭제하지 못했습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                    {
+                        Toast.makeText(ActivityFreeBoardViewer.this, "삭제하지 못했습니다.", Toast.LENGTH_SHORT).show();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Toast.makeText(FreeBoardViewerActivity.this, "삭제하지 못했습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActivityFreeBoardViewer.this, "삭제하지 못했습니다.", Toast.LENGTH_SHORT).show();
                 }
-
             }
         };
         RequestFreeBoardDelete validateRequest = new RequestFreeBoardDelete(freeBoardIntent.getStringExtra("BoardID"), responseListener);
-        RequestQueue queue = Volley.newRequestQueue(FreeBoardViewerActivity.this);
+        RequestQueue queue = Volley.newRequestQueue(ActivityFreeBoardViewer.this);
         queue.add(validateRequest);
     }
 
-    //리스트뷰의 높이를 계산하여 설정하는 함수입니다.
+    //리스트뷰의 자식 뷰들의 높이를 계산하여 설정하는 함수입니다.
     public static void setListViewHeightBasedOnChildren(ListView listView) {
         long timer= System.currentTimeMillis();
         ListAdapter listAdapter = listView.getAdapter();
@@ -303,6 +319,5 @@ public class FreeBoardViewerActivity extends AppCompatActivity {
         params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
         listView.setLayoutParams(params); listView.requestLayout();
     }
-
-
+    
 }

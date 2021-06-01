@@ -15,7 +15,6 @@ import android.telephony.SmsManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -35,7 +34,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONObject;
 import org.jsoup.internal.StringUtil;
 
-public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
+public class ActivityRegister extends AppCompatActivity implements View.OnClickListener{
 //asd
     Boolean isValidateID = false;
     Boolean isValidateStudentCode = false;
@@ -94,7 +93,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 }
                 else
                 {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ActivityRegister.this);
                     builder.setIcon(R.drawable.icon_dolphins)
                             .setTitle("중복된 학번")
                             .setMessage("\t이미 존재하는 학번입니다.\n\t다른 아이디를 입력해주세요.")
@@ -235,7 +234,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         String userID = idText.getText().toString();
         if(userID.equals(""))
         {
-            AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(ActivityRegister.this);
             builder.setIcon(R.drawable.icon_dolphins).setTitle("빈칸인데요?!").setMessage("\t아이디를 비우지말아요.\n\t우리는 당신이 궁금하거든요.").setNegativeButton("확인", null);
             AlertDialog dialog = builder.create();
             dialog.show();
@@ -243,7 +242,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
         if(userID.length() < 4)
         {
-            AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(ActivityRegister.this);
             builder.setIcon(R.drawable.icon_dolphins).setTitle("아이디가 너무 짧아요.").setMessage("\t아이디는 4자리가 넘게해주세요.").setNegativeButton("확인", null);
             AlertDialog dialog = builder.create();
             dialog.show();
@@ -266,14 +265,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     boolean isExistUser = jsonObject.getBoolean("success");
                     if(isExistUser)
                     {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(ActivityRegister.this);
                         builder.setIcon(R.drawable.icon_dolphins).setTitle("중복된 아이디").setMessage("\t이미 존재하는 아이디입니다.\n\t다른 아이디를 입력해주세요.").setNegativeButton("확인", null);
                         AlertDialog dialog = builder.create();
                         dialog.show();
                     }
                     else
                     {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(ActivityRegister.this);
                         builder.setIcon(R.drawable.icon_dolphins).setMessage("이 아이디로 하시겠습니까?").setNegativeButton("취소", null).setPositiveButton("확인", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -298,7 +297,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         };
 
         RequestUserIdValidate validateRequest = new RequestUserIdValidate(userID, responseListener);
-        RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
+        RequestQueue queue = Volley.newRequestQueue(ActivityRegister.this);
         queue.add(validateRequest);
     }
 
@@ -328,14 +327,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     if(isExistUser)
                     {
                         //유저가 존재하면 실행.
-                        AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(ActivityRegister.this);
                         builder.setIcon(R.drawable.icon_dolphins).setTitle("학번을 확인해주세요.").setMessage("\t이미 존재하는 학생입니다.").setNegativeButton("확인", null);
                         AlertDialog dialog = builder.create();
                         dialog.show();
                     }
                     else
                     {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(ActivityRegister.this);
                         builder.setIcon(R.drawable.icon_dolphins)
                                 .setTitle("한 번만 가입할 수 있습니다.")
                                 .setMessage("\t이 학번으로 하시겠어요??")
@@ -363,7 +362,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             }
         };
         RequestUserStdCodeValidate validateRequest2 = new RequestUserStdCodeValidate(userStdCode, responseListener);
-        RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
+        RequestQueue queue = Volley.newRequestQueue(ActivityRegister.this);
         queue.add(validateRequest2);
     }
 
@@ -374,7 +373,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         //만약 번호가 11자리가 아니면, 함수를 실행하지 않습니다.
         if(userPhone.length() != 11)
         {
-            AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(ActivityRegister.this);
             builder.setIcon(R.drawable.icon_dolphins).setTitle("휴대폰이 맞나요?").setMessage("\t제가 아는 휴대폰은 11자리 숫자인걸요?").setNegativeButton("확인",null);
             AlertDialog dialog = builder.create();
             dialog.show();
@@ -383,7 +382,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         //1000~9999 난수발생해서 저장하고, 문자를 보냅니다.
         try {
-            AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(ActivityRegister.this);
             builder.setIcon(R.drawable.icon_dolphins).setTitle("휴대폰 인증").setMessage("\t핸드폰으로 문자 한 개만 보낼게요!\n\t대부분 문자는 공짜입니다!");
             builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                 @Override
@@ -404,7 +403,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         catch (Exception e)
         {
             //문자가 보내지지 않으면, 사용자가 권한을 설정하지 않은것이므로, 앱정보로 이동해 권한을 설정할 수 있도록 합니다.
-            AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(ActivityRegister.this);
             builder.setIcon(R.drawable.icon_dolphins)
                     .setTitle("앱 권한")
                     .setMessage("\t우리 앱을 원활하게 사용하려면, 애플리케이션 정보>권한 에서 모든 권한을 허용해주세요.")
@@ -434,109 +433,109 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         switch (position)
         {
             case 0:
-                adapter = new ArrayAdapter<>(RegisterActivity.this,
+                adapter = new ArrayAdapter<>(ActivityRegister.this,
                         R.layout.support_simple_spinner_dropdown_item,
                         getResources().getStringArray(R.array.it));
                 userDept.setAdapter(adapter);
                 break;
             case 1:
-                adapter = new ArrayAdapter<>(RegisterActivity.this,
+                adapter = new ArrayAdapter<>(ActivityRegister.this,
                         R.layout.support_simple_spinner_dropdown_item,
                         getResources().getStringArray(R.array.nursing));
                 userDept.setAdapter(adapter);
                 break;
             case 2:
-                adapter = new ArrayAdapter<>(RegisterActivity.this,
+                adapter = new ArrayAdapter<>(ActivityRegister.this,
                         R.layout.support_simple_spinner_dropdown_item,
                         getResources().getStringArray(R.array.early_childhood_education));
                 userDept.setAdapter(adapter);
                 break;
             case 3:
-                adapter = new ArrayAdapter<>(RegisterActivity.this,
+                adapter = new ArrayAdapter<>(ActivityRegister.this,
                         R.layout.support_simple_spinner_dropdown_item,
                         getResources().getStringArray(R.array.sports_guidance));
                 userDept.setAdapter(adapter);
                 break;
             case 4:
-                adapter = new ArrayAdapter<>(RegisterActivity.this,
+                adapter = new ArrayAdapter<>(ActivityRegister.this,
                         R.layout.support_simple_spinner_dropdown_item,
                         getResources().getStringArray(R.array.architectural_design));
                 userDept.setAdapter(adapter);
                 break;
             case 5:
-                adapter = new ArrayAdapter<>(RegisterActivity.this,
+                adapter = new ArrayAdapter<>(ActivityRegister.this,
                         R.layout.support_simple_spinner_dropdown_item,
                         getResources().getStringArray(R.array.physiotherapy));
                 userDept.setAdapter(adapter);
                 break;
             case 6:
-                adapter = new ArrayAdapter<>(RegisterActivity.this,
+                adapter = new ArrayAdapter<>(ActivityRegister.this,
                         R.layout.support_simple_spinner_dropdown_item,
                         getResources().getStringArray(R.array.socialwelfare));
                 userDept.setAdapter(adapter);
                 break;
             case 7:
-                adapter = new ArrayAdapter<>(RegisterActivity.this,
+                adapter = new ArrayAdapter<>(ActivityRegister.this,
                         R.layout.support_simple_spinner_dropdown_item,
                         getResources().getStringArray(R.array.mechanical_Engineering));
                 userDept.setAdapter(adapter);
                 break;
             case 8:
-                adapter = new ArrayAdapter<>(RegisterActivity.this,
+                adapter = new ArrayAdapter<>(ActivityRegister.this,
                         R.layout.support_simple_spinner_dropdown_item,
                         getResources().getStringArray(R.array.dental_hygiene));
                 userDept.setAdapter(adapter);
                 break;
             case 9:
-                adapter = new ArrayAdapter<>(RegisterActivity.this,
+                adapter = new ArrayAdapter<>(ActivityRegister.this,
                         R.layout.support_simple_spinner_dropdown_item,
                         getResources().getStringArray(R.array.tax_accounting));
                 userDept.setAdapter(adapter);
                 break;
             case 10:
-                adapter = new ArrayAdapter<>(RegisterActivity.this,
+                adapter = new ArrayAdapter<>(ActivityRegister.this,
                         R.layout.support_simple_spinner_dropdown_item,
                         getResources().getStringArray(R.array.electrical_and_electronic_engineering));
                 userDept.setAdapter(adapter);
                 break;
             case 11:
-                adapter = new ArrayAdapter<>(RegisterActivity.this,
+                adapter = new ArrayAdapter<>(ActivityRegister.this,
                         R.layout.support_simple_spinner_dropdown_item,
                         getResources().getStringArray(R.array.food_and_nutrition));
                 userDept.setAdapter(adapter);
                 break;
             case 12:
-                adapter = new ArrayAdapter<>(RegisterActivity.this,
+                adapter = new ArrayAdapter<>(ActivityRegister.this,
                         R.layout.support_simple_spinner_dropdown_item,
                         getResources().getStringArray(R.array.distribution_and_logistics_management));
                 userDept.setAdapter(adapter);
                 break;
             case 13:
-                adapter = new ArrayAdapter<>(RegisterActivity.this,
+                adapter = new ArrayAdapter<>(ActivityRegister.this,
                         R.layout.support_simple_spinner_dropdown_item,
                         getResources().getStringArray(R.array.safety_and_industrial_engineering));
                 userDept.setAdapter(adapter);
                 break;
             case 14:
-                adapter = new ArrayAdapter<>(RegisterActivity.this,
+                adapter = new ArrayAdapter<>(ActivityRegister.this,
                         R.layout.support_simple_spinner_dropdown_item,
                         getResources().getStringArray(R.array.hotel_culinary_and_bakery));
                 userDept.setAdapter(adapter);
                 break;
             case 15:
-                adapter = new ArrayAdapter<>(RegisterActivity.this,
+                adapter = new ArrayAdapter<>(ActivityRegister.this,
                         R.layout.support_simple_spinner_dropdown_item,
                         getResources().getStringArray(R.array.global_business));
                 userDept.setAdapter(adapter);
                 break;
             case 16:
-                adapter = new ArrayAdapter<>(RegisterActivity.this,
+                adapter = new ArrayAdapter<>(ActivityRegister.this,
                         R.layout.support_simple_spinner_dropdown_item,
                         getResources().getStringArray(R.array.digital_content_design));
                 userDept.setAdapter(adapter);
                 break;
             case 17:
-                adapter = new ArrayAdapter<>(RegisterActivity.this,
+                adapter = new ArrayAdapter<>(ActivityRegister.this,
                         R.layout.support_simple_spinner_dropdown_item,
                         getResources().getStringArray(R.array.chemical_engineering));
                 userDept.setAdapter(adapter);
@@ -555,7 +554,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             //랜덤으로 만든 숫자와, 사용자가 입력한 숫자가 같은지 체크합니다.
             if(isCompareCertifyNum(userInput, userRandNum))
             {
-                AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(ActivityRegister.this);
                 builder.setMessage("\t인증되었습니다.")
                         .setNegativeButton("확인",null)
                         .show();
@@ -570,7 +569,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             }
             else
             {
-                AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(ActivityRegister.this);
                 builder.setIcon(R.drawable.icon_dolphins)
                         .setTitle("그게 아닌것 같아요.")
                         .setMessage("\t당신의 휴대폰이 맞나요?")
@@ -581,7 +580,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         catch (Exception e)
         {
             //문자열을 입력하면, Integer.parseInt에서 예외를 발생시키므로, 해당 예외를 처리해줍니다.
-            AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(ActivityRegister.this);
             builder.setIcon(R.drawable.icon_dolphins)
                     .setTitle("우리는 4자리 숫자를 보냈어요")
                     .setMessage("\t4자리 숫자가 맞는지 확인해주세요!")
@@ -603,7 +602,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         //ID와 학번 중복확인 안했을 시.
         if(!isValidateID || !isValidateStudentCode)
         {
-            AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(ActivityRegister.this);
             builder.setIcon(R.drawable.icon_dolphins).setMessage("\t중복 확인을 해주세요.").setNegativeButton("확인",null);
             AlertDialog dialog = builder.create();
             dialog.show();
@@ -613,7 +612,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         //비밀번호 다를 시.
         else if(!isPassSame)
         {
-            AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(ActivityRegister.this);
             builder.setIcon(R.drawable.icon_dolphins).setTitle("비밀번호가 다릅니다.").setMessage("\t같은 비밀번호를 입력해주세요.").setNegativeButton("확인",null);
             AlertDialog dialog = builder.create();
             dialog.show();
@@ -623,7 +622,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         //휴대폰 인증 안했을 시.
         else if(!isCertified)
         {
-            AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(ActivityRegister.this);
             builder.setIcon(R.drawable.icon_dolphins).setMessage("\t휴대폰을 인증해주세요.").setNegativeButton("확인",null);
             AlertDialog dialog = builder.create();
             dialog.show();
@@ -632,7 +631,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         if(uID.isEmpty() || uPassword.isEmpty() || uName.isEmpty() || uMajor.isEmpty() || uDept.isEmpty() || uPhone.isEmpty())
         {
-            AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(ActivityRegister.this);
             builder.setIcon(R.drawable.ic_baseline_block_24)
                     .setTitle("빈 공간이 있습니다.")
                     .setMessage("\t우리는 철벽수비를 자랑한다구요!")
@@ -642,7 +641,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
         else if(uPassword.length()<6)
         {
-            AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(ActivityRegister.this);
             builder.setIcon(R.drawable.icon_dolphins)
                     .setTitle("비밀번호가 너무 짧습니다.")
                     .setMessage("\t비밀번호는 6자리 이상이었으면 좋겠어요.")
@@ -673,13 +672,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     boolean success = jsonObject.getBoolean("success");
                     if(success)
                     {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(ActivityRegister.this);
                         builder.setTitle("떠날 준비완료.")
                                 .setMessage("\t친구들을 만나러 가볼까요?")
                                 .setNegativeButton("확인", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                                        Intent intent = new Intent(ActivityRegister.this, ActivityLogin.class);
                                         intent.putExtra("userID", uID);
                                         intent.putExtra("userPassword", uPassword);
                                         startActivity(intent);
@@ -691,7 +690,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     }
                     else
                     {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(ActivityRegister.this);
                         builder.setIcon(R.drawable.ic_baseline_block_24)
                                 .setTitle("왜 안될까요..?")
                                 .setMessage("\t저도 잘 모르겠어요.\n\t개발자에게 알려주세요\n\t010-4640-7993")
@@ -701,7 +700,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 }
                 catch (Exception e)
                 {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(ActivityRegister.this);
                     builder.setIcon(R.drawable.ic_baseline_block_24)
                             .setTitle("큰일났어요!")
                             .setMessage("\t서버가 불안정한것 같아요.\n\t조금만 기다렸다가 다시 시도해주세요.")
@@ -712,7 +711,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             }
         };
         RequestUserRegister validateRequest = new RequestUserRegister(uStudentCode, uID, uPassword, uName, uMajor, uDept, uPhone, responseListener);
-        RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
+        RequestQueue queue = Volley.newRequestQueue(ActivityRegister.this);
         queue.add(validateRequest);
     }
 

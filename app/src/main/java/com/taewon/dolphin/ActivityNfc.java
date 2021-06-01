@@ -10,7 +10,7 @@ import android.provider.Settings;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class NfcActivity extends AppCompatActivity {
+public class ActivityNfc extends AppCompatActivity {
     NfcAdapter nfcAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,7 @@ public class NfcActivity extends AppCompatActivity {
         }
         else
         {
-            AlertDialog.Builder builder = new AlertDialog.Builder(NfcActivity.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(ActivityNfc.this);
             builder.setIcon(R.drawable.icon_dolphins)
                     .setTitle("NFC기능이 꺼져있습니다.")
                     .setMessage("설정에서 NFC를 켜주세요.")
