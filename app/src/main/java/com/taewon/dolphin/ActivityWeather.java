@@ -7,7 +7,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-public class SchoolNotice extends AppCompatActivity {
+public class ActivityWeather extends AppCompatActivity {
 
     private WebView mWebView; // 웹뷰 선언
     private WebSettings mWebSettings; //웹뷰세팅
@@ -15,7 +15,7 @@ public class SchoolNotice extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_school_notice);
+        setContentView(R.layout.activity_weather);
 
         // 웹뷰 시작
         mWebView = (WebView) findViewById(R.id.webView);
@@ -33,7 +33,8 @@ public class SchoolNotice extends AppCompatActivity {
         mWebSettings.setCacheMode(WebSettings.LOAD_NO_CACHE); // 브라우저 캐시 허용 여부
         mWebSettings.setDomStorageEnabled(true); // 로컬저장소 허용 여부
 
-        mWebView.loadUrl("https://www.uc.ac.kr/www/index.php?pCode=ucnotice"); // 웹뷰에 표시할 웹사이트 주소, 웹뷰 시작
+        mWebView.loadUrl("https://www.weather.go.kr/w/index.do"); // 웹뷰에 표시할 웹사이트 주소, 웹뷰 시작
+
 
     }
 }

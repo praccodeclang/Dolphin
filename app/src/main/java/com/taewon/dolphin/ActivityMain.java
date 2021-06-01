@@ -68,10 +68,10 @@ public class ActivityMain extends AppCompatActivity implements SensorEventListen
         setContentView(R.layout.activity_main);
 
         initViews();
+        initListeners();
         initBehavior();
         getFreeBoardsFromServer();
         getNoticesFromHomepage();
-        initListeners();
     }//onCreate End
 
     @Override
@@ -116,6 +116,12 @@ public class ActivityMain extends AppCompatActivity implements SensorEventListen
         iconBtn3 = (LinearLayout)findViewById(R.id.iconBtn3);
         iconBtn4 = (LinearLayout)findViewById(R.id.iconBtn4);
 
+
+
+    }
+
+    private void initListeners()
+    {
         //아이콘 버튼 리스너
         View.OnClickListener iconBtnListener = new View.OnClickListener() {
             @Override
@@ -124,16 +130,16 @@ public class ActivityMain extends AppCompatActivity implements SensorEventListen
                 switch (v.getId())
                 {
                     case R.id.iconBtn1:
-                        intent = new Intent(getApplicationContext(),SchoolNotice.class);
+                        intent = new Intent(getApplicationContext(), ActivitySchoolNotice.class);
                         break;
                     case R.id.iconBtn2:
-                        intent = new Intent(getApplicationContext(),Diet.class);
+                        intent = new Intent(getApplicationContext(), ActivityDiet.class);
                         break;
                     case R.id.iconBtn3:
-                        intent = new Intent(getApplicationContext(),Weather.class);
+                        intent = new Intent(getApplicationContext(), ActivityWeather.class);
                         break;
                     case R.id.iconBtn4:
-                        intent = new Intent(getApplicationContext(),Undefined.class);
+                        intent = new Intent(getApplicationContext(), ActivityUndefined.class);
                         break;
                     default:
                         throw new IllegalStateException("Unexpected value: " + v.getId());
@@ -146,10 +152,6 @@ public class ActivityMain extends AppCompatActivity implements SensorEventListen
         iconBtn3.setOnClickListener(iconBtnListener);
         iconBtn4.setOnClickListener(iconBtnListener);
 
-    }
-
-    private void initListeners()
-    {
         mainNoticeListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -172,7 +174,7 @@ public class ActivityMain extends AppCompatActivity implements SensorEventListen
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(ActivityMain.this, ActivityFreeBoardViewer.class);
 
-                //누른 게시판의 인스턴스를 생성해 FreeBoardViewerActivity.class에 인텐트로 넘겨준다.
+                //누른 게시판의 인스턴스를 생성해 FreeBoardViewerActivity.class에 인텐트로 넘겨줍니다.
                 FreeBoardItem instance = (FreeBoardItem)parent.getAdapter().getItem(position);
                 intent.putExtra("Name", instance.getUserName());
                 intent.putExtra("Date", instance.getDate());
@@ -232,7 +234,7 @@ public class ActivityMain extends AppCompatActivity implements SensorEventListen
     }
 
 
-    //서브쓰레드에서 공지사항 로드(3개만 가져옴.)를 수행합니다.
+    //서브쓰레드에서 비동기방식으로 공지사항 로드(3개만 가져옴.)를 수행합니다.
     private void getNoticesFromHomepage()
     {
         JsoupAsyncTask jsoupAsyncTask = new JsoupAsyncTask(this, UserData.getInstance().getUserMajorNoticeUrl(), mainNoticeListView, 3);

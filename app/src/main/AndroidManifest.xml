@@ -32,10 +32,10 @@
         <activity android:name=".ActivityFreeBoardWriting" />
         <activity android:name=".ActivityMyPage" />
         <activity android:name=".ActivityNfc" />
-        <activity android:name=".Undefined"/>
-        <activity android:name=".Weather" />
-        <activity android:name=".Diet" />
-        <activity android:name=".SchoolNotice" />
+        <activity android:name=".ActivityUndefined"/>
+        <activity android:name=".ActivityWeather" />
+        <activity android:name=".ActivityDiet" />
+        <activity android:name=".ActivitySchoolNotice" />
         <activity android:name=".ActivityContact"/>
     </application>
 </manifest>
