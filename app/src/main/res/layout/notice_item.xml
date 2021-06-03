@@ -27,14 +27,12 @@
             android:textColor="@android:color/black"/>
         <TextView
             android:layout_margin="12dp"
-            android:layout_marginTop="15dp"
             android:id="@+id/noticeDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="123456789456123456"
             android:textSize="12sp"
             android:gravity="right|center_vertical"
-            android:drawableStart="@drawable/ic_baseline_calendar_today_24"
             android:layout_gravity="right|bottom"/>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

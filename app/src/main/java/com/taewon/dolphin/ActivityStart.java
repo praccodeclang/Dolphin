@@ -20,7 +20,6 @@ import androidx.core.app.ActivityCompat;
 public class ActivityStart extends AppCompatActivity {
 
     private static final int MULTIPLE_PERMISSION = 10235;
-    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +53,7 @@ public class ActivityStart extends AppCompatActivity {
             }, 3000);
         }
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

@@ -31,7 +31,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:id="@+id/myPageBtn"
-            android:src="@drawable/ic_baseline_person_user24"
+            android:src="@drawable/ic_baseline_person_24"
             android:layout_margin="15dp"
             android:layout_gravity="center_vertical"/>
     </LinearLayout>

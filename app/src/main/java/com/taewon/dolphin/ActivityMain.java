@@ -343,10 +343,10 @@ public class ActivityMain extends AppCompatActivity implements SensorEventListen
         int hour = (int)((sec/3600) % 3600) % 24;
         int min = (int)(sec/60) % 60;
 
-        if(day > 0) { return day+"일 전"; }
-        else if(hour > 0){ return hour+"시간 전"; }
-        else if(min > 3){ return min+"분 전"; }
-        else{ return "방금 전"; }
+        if(day > 0) { return day+"일 전 "; }
+        else if(hour > 0){ return hour+"시간 전 "; }
+        else if(min > 3){ return min+"분 전 "; }
+        else{ return "방금 전 "; }
     }
 
 
