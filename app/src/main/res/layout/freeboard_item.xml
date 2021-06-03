@@ -14,21 +14,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingVertical="20dp">
+        android:paddingVertical="15dp"
+        android:paddingHorizontal="10dp">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="horizontal">
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:layout_gravity="center"
                 android:layout_marginHorizontal="15dp">
                 <ImageView
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:src="@drawable/icon_dolphins"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/boardProfileImg"
+                    android:src="@drawable/ic_baseline_person_24"
                     android:layout_gravity="center_horizontal"
                     android:background="@drawable/border_layout_round"
                     android:backgroundTint="@color/Dolphin"
@@ -40,42 +42,44 @@
                     android:id="@+id/freeboardUserName"
                     android:layout_gravity="center_horizontal"
                     android:text="Name"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_gravity="center"
-                android:paddingVertical="10dp">
+                android:layout_gravity="center">
                 <TextView
                     android:id="@+id/freeboardTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
                     android:text="게시판제목"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    android:textColor="@android:color/black"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                    android:textColor="@android:color/black" />
+                <TextView
+                    android:id="@+id/freeboardContent"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_gravity="bottom"
-                    android:gravity="right">
-                    <TextView
-                        android:id="@+id/freeboardDate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom|right"
-                        android:layout_marginRight="10dp"
-                        android:text="Date"
-                        android:textSize="12sp"
-                        android:gravity="bottom"
-                        android:drawableEnd="@drawable/ic_baseline_calendar_today_24"/>
-                </LinearLayout>
+                    android:gravity="center_vertical"
+                    android:textSize="12sp"
+                    android:text="게시판 텍스트입니다."
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:layout_marginTop="5dp"
+                    />
             </LinearLayout>
         </LinearLayout>
+        <TextView
+            android:id="@+id/freeboardDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="15dp"
+            android:text="Date"
+            android:textSize="12sp"
+            android:layout_gravity="bottom|right"
+            android:gravity="bottom"
+            android:drawableEnd="@drawable/ic_baseline_calendar_today_24"/>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -59,13 +59,26 @@ public class ActivityMyPage extends AppCompatActivity {
         card_Logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences pref =getSharedPreferences("auto", ActivityLogin.MODE_PRIVATE);
-                SharedPreferences.Editor editor =pref.edit();
-                editor.clear();
-                editor.commit();
-                ActivityCompat.finishAffinity(ActivityMyPage.this);
-                startActivity(new Intent(ActivityMyPage.this, ActivityStart.class));
-                finish();
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(ActivityMyPage.this);
+                builder.setIcon(R.drawable.ic_baseline_block_24)
+                        .setTitle("로그아웃")
+                        .setMessage("정말 로그아웃 하시겠습니까?")
+                        .setNegativeButton("취소", null)
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                SharedPreferences pref =getSharedPreferences("auto", ActivityLogin.MODE_PRIVATE);
+                                SharedPreferences.Editor editor =pref.edit();
+                                editor.clear();
+                                editor.commit();
+                                Toast.makeText(ActivityMyPage.this, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show();
+                                ActivityCompat.finishAffinity(ActivityMyPage.this);
+                                startActivity(new Intent(ActivityMyPage.this, ActivityStart.class));
+                                finish();
+                            }
+                        })
+                        .show();
             }
         });
 

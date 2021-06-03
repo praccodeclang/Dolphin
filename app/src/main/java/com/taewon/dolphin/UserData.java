@@ -51,6 +51,26 @@ public class UserData {
     }
     public void setUserMajor(String userMajor) {
         this.userMajor = userMajor;
+        setUserProfile();
+    }
+
+    public String getUserDept() {
+        return userDept;
+    }
+    public void setUserDept(String userDept) { this.userDept = userDept; }
+
+    public String getUserPhoneNum() {
+        return userPhoneNum;
+    }
+    public void setUserPhoneNum(String userPhoneNum) {
+        this.userPhoneNum = userPhoneNum;
+    }
+
+    public int getUserProfile() { return userProfile; }
+
+
+    private void setUserProfile()
+    {
         switch (this.userMajor)
         {
             case "IT응용기술학부":
@@ -130,18 +150,4 @@ public class UserData {
                 break;
         }
     }
-
-    public String getUserDept() {
-        return userDept;
-    }
-    public void setUserDept(String userDept) { this.userDept = userDept; }
-
-    public String getUserPhoneNum() {
-        return userPhoneNum;
-    }
-    public void setUserPhoneNum(String userPhoneNum) {
-        this.userPhoneNum = userPhoneNum;
-    }
-
-    public int getUserProfile() { return userProfile; }
 }

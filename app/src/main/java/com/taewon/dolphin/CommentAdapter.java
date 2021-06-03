@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +17,7 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.util.List;
 
 public class CommentAdapter extends BaseAdapter{
@@ -48,18 +50,22 @@ public class CommentAdapter extends BaseAdapter{
     @Override
     public View getView(int i, View convertView, ViewGroup parent) {
         View v = View.inflate(context, R.layout.comment_item, null);
+        ImageView commentImg = (ImageView)v.findViewById(R.id.commentImg);
         TextView commentUserName = (TextView)v.findViewById(R.id.commentUserName);
         TextView commentDate = (TextView)v.findViewById(R.id.commentDate);
         TextView commentText = (TextView)v.findViewById(R.id.commentText);
         LinearLayout commentUDBtns = (LinearLayout)v.findViewById(R.id.commentUDBtns);
         TextView commentDelete = (TextView)v.findViewById(R.id.commentDelete);
 
-        commentUserName.setText(commentItemList.get(i).getCommentUserName());
-        commentDate.setText(commentItemList.get(i).getCommentDate());
-        commentText.setText(commentItemList.get(i).getCommentText());
 
-        if(commentItemList.get(i).getCommentUserID().equals(UserData.getInstance().getUserID()))
+        try {
+            commentDate.setText(ActivityMain.calDate_ShouldReturnString(commentItemList.get(i).getCommentDate()));
+        } catch (ParseException e) {
+            commentDate.setText(commentItemList.get(i).getCommentDate());
+        }
+        if(isMyComment(i))
         {
+            commentImg.setImageResource(R.drawable.icon_dolphins);
             commentUDBtns.setVisibility(View.VISIBLE);
             commentDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -100,11 +106,19 @@ public class CommentAdapter extends BaseAdapter{
                 }
             });
         }
-        else
-        {
-            commentUDBtns.setVisibility(View.GONE);
-        }
+        else { commentUDBtns.setVisibility(View.GONE); }
+        commentText.setText(commentItemList.get(i).getCommentText());
+        commentUserName.setText(commentItemList.get(i).getCommentUserName());
 
         return v;
     }
+    private boolean isMyComment(int index)
+    {
+        if(commentItemList.get(index).getCommentUserID().equals(UserData.getInstance().getUserID()))
+        {
+            return true;
+        }
+        return false;
+    }
+
 }

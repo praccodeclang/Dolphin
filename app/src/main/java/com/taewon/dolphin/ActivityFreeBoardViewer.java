@@ -205,7 +205,7 @@ public class ActivityFreeBoardViewer extends AppCompatActivity {
                         userName = obj.get("userName").toString();
                         userID = obj.get("userID").toString();
                         userComment = obj.get("userComment").toString();
-                        date = ActivityMain.calDate_ShouldReturnString(obj.get("date").toString());
+                        date = obj.get("date").toString();
                         CommentItem instance = new CommentItem(freeBoardIntent.getStringExtra("BoardID"), userName, userID, date, userComment);
                         commentItemList.add(instance);
                     }

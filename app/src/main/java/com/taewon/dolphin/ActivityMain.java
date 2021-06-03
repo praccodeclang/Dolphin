@@ -181,7 +181,11 @@ public class ActivityMain extends AppCompatActivity implements SensorEventListen
                 //누른 게시판의 인스턴스를 생성해 FreeBoardViewerActivity.class에 인텐트로 넘겨줍니다.
                 FreeBoardItem instance = (FreeBoardItem)parent.getAdapter().getItem(position);
                 intent.putExtra("Name", instance.getUserName());
-                intent.putExtra("Date", instance.getDate());
+                try {
+                    intent.putExtra("Date", ActivityMain.calDate_ShouldReturnString(instance.getDate()));
+                } catch (ParseException e) {
+                    intent.putExtra("Date", instance.getDate());
+                }
                 intent.putExtra("Title", instance.getTitle());
                 intent.putExtra("Contents", instance.getContents());
                 intent.putExtra("userID", instance.getUserID());
