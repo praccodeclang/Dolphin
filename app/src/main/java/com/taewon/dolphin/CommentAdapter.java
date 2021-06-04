@@ -21,7 +21,6 @@ import java.text.ParseException;
 import java.util.List;
 
 public class CommentAdapter extends BaseAdapter{
-
     private Context context;
     private List<CommentItem> commentItemList;
 
@@ -95,7 +94,6 @@ public class CommentAdapter extends BaseAdapter{
                                                 Toast.makeText(context, "삭제하지 못했습니다.", Toast.LENGTH_SHORT).show();
                                             }
                                         }
-
                                     };
                                     RequestCommentDelete validateRequest = new RequestCommentDelete(commentItemList.get(i).getBoardID(), commentItemList.get(i).getCommentDate(), responseListener);
                                     RequestQueue requestQueue = Volley.newRequestQueue(context);

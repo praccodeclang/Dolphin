@@ -216,7 +216,7 @@ public class ActivityMain extends AppCompatActivity implements SensorEventListen
         contactBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ActivityMain.this, ActivityFreeBoard.class);
+                Intent intent = new Intent(ActivityMain.this, ActivityContact.class);
                 startActivity(intent);
             }
         });

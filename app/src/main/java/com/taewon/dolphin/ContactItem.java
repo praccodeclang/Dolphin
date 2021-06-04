@@ -18,11 +18,9 @@ public class ContactItem {
     public String getContactUserName() {
         return contactUserName;
     }
-
     public String getContactUserPhoneNum() {
         return contactUserPhoneNum;
     }
-
     public String getContactUserDept() {
         return contactUserDept;
     }
