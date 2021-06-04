@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingVertical="10dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@drawable/border_layout_under_bar">
         <ImageButton
             android:id="@+id/contactBackBtn"
             android:layout_width="wrap_content"
@@ -19,7 +20,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="돌고래 친구들"
+            android:text="학부생 연락처"
             android:gravity="center"
             android:textColor="@color/Dolphin"/>
     </LinearLayout>

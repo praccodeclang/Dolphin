@@ -28,6 +28,7 @@ public class ActivityMyPage extends AppCompatActivity {
     private CardView card_Secession;
     private CardView card_Notice;
     private CardView card_Freeboard;
+    private CardView card_question;
     private TextView myPageUserDept;
     private TextView myPageUserName;
     private ImageView myPageBackBtn;
@@ -52,6 +53,7 @@ public class ActivityMyPage extends AppCompatActivity {
         myPageUserName =(TextView)findViewById(R.id.myPageUserName);
         card_Freeboard =(CardView)findViewById(R.id.card_Freeboard);
         myPageBackBtn = (ImageView)findViewById(R.id.MyPageBackBtn);
+        card_question = (CardView)findViewById(R.id.card_question);
     }
 
     private void initListeners()
@@ -111,6 +113,17 @@ public class ActivityMyPage extends AppCompatActivity {
                                 requestSecession();
                             }
                         }).setNegativeButton("취소",null).show();
+            }
+        });
+        card_question.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent email = new Intent(Intent.ACTION_SEND);
+                email.setType("plain/Text");
+                email.putExtra(Intent.EXTRA_EMAIL, "rlaxodnjs6574@gmail.com");
+                email.putExtra(Intent.EXTRA_SUBJECT, "<Dolphin 문의사항>");
+                email.putExtra(Intent.EXTRA_TEXT, "1. 문의사항 작성 시, 최대한 자세하게 말씀해주시면 좋습니다.\n2. 어떤 의견이던, 여러분의 의견은 소중합니다. 자유롭게 문의해주세요.");
+                startActivity(email);
             }
         });
         myPageBackBtn.setOnClickListener(new View.OnClickListener() {

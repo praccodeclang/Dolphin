@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class RequestCallMessage extends StringRequest {
 
-    final private static String url = "http://xodnjs2546.cafe24.com/getUsersPhoneNum.php";
+    final private static String url = "http://xodnjs2546.cafe24.com/insertContactLog.php";
     private Map<String, String> mHash;
     public RequestCallMessage(String callerName,String receiverName, String conType, Response.Listener<String> listener) {
         super(Method.POST, url, listener, null);

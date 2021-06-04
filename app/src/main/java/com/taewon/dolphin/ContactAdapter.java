@@ -1,6 +1,8 @@
 package com.taewon.dolphin;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.Image;
 import android.net.Uri;
@@ -58,14 +60,36 @@ public class ContactAdapter extends BaseAdapter {
         contactCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                requestCallMessage(contactItemList.get(i), "call");
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setIcon(R.drawable.icon_dolphins)
+                        .setTitle("전화걸기")
+                        .setMessage("정말로 " + contactItemList.get(i).getContactUserName()+"님에게 전화를 거시겠어요?")
+                        .setNegativeButton("취소", null)
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                requestCallMessage(contactItemList.get(i), "call");
+                            }
+                        })
+                        .show();
             }
         });
 
         contactMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                requestCallMessage(contactItemList.get(i), "msg");
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setIcon(R.drawable.icon_dolphins)
+                        .setTitle("문자보내기")
+                        .setMessage("정말로 " + contactItemList.get(i).getContactUserName()+"님에게 문자를 보내시겠어요?")
+                        .setNegativeButton("취소", null)
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                requestCallMessage(contactItemList.get(i), "msg");
+                            }
+                        })
+                        .show();
             }
         });
         return v;
@@ -84,9 +108,13 @@ public class ContactAdapter extends BaseAdapter {
                         switch (type)
                         {
                             case "msg":
+                                Intent sendIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse("sms:"+item.getContactUserPhoneNum()));
+                                sendIntent.putExtra("sms_body", "안녕하세요."+UserData.getInstance().getUserName()+"입니다.");
+                                context.startActivity(sendIntent);
                                 break;
                             case "call":
                                 Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+item.getContactUserPhoneNum()));
+                                context.startActivity(intent);
                                 break;
                             default:
                                 break;
