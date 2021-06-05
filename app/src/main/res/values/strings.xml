@@ -15,5 +15,7 @@
         \n2. 비속어, 혹은 부적절한 내용 작성 시, 이용에 제한을 받을 수 있습니다.
         \n3. 품격있는 인격을 보여주세요!
     </string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

@@ -37,5 +37,6 @@
         <activity android:name=".ActivityDiet" />
         <activity android:name=".ActivitySchoolNotice" />
         <activity android:name=".ActivityContact"/>
+        <activity android:name=".ActivityFind"/>
     </application>
 </manifest>

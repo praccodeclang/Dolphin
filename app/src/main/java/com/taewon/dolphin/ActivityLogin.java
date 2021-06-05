@@ -30,7 +30,7 @@ public class ActivityLogin extends AppCompatActivity{
     private EditText userPassword;
     private Button loginBtn;
     private TextView register;
-    private TextView findIDPW;
+    private TextView findBtn;
     private CheckBox autoLoginChk;
 
 
@@ -55,7 +55,7 @@ public class ActivityLogin extends AppCompatActivity{
         userPassword = (EditText) findViewById(R.id.userPassword);
         loginBtn = (Button)findViewById(R.id.loginBtn);
         register = (TextView)findViewById(R.id.register);
-        findIDPW = (TextView)findViewById(R.id.find);
+        findBtn = (TextView)findViewById(R.id.findBtn);
         autoLoginChk =(CheckBox)findViewById(R.id.autoLogin);
     }
 
@@ -67,6 +67,14 @@ public class ActivityLogin extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ActivityLogin.this, ActivityRegister.class);
+                startActivity(intent);
+            }
+        });
+
+        findBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ActivityLogin.this, ActivityFind.class);
                 startActivity(intent);
             }
         });
