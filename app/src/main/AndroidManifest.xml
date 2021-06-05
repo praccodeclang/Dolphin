@@ -32,7 +32,7 @@
         <activity android:name=".ActivityFreeBoardWriting" />
         <activity android:name=".ActivityMyPage" />
         <activity android:name=".ActivityNfc" />
-        <activity android:name=".ActivityUndefined"/>
+        <activity android:name=".ActivityCalendar"/>
         <activity android:name=".ActivityWeather" />
         <activity android:name=".ActivityDiet" />
         <activity android:name=".ActivitySchoolNotice" />

@@ -71,7 +71,7 @@
                 android:hint="아이디"
                 android:textIsSelectable="true"
                 android:background="@drawable/border_layout_rounded_rectangle"
-                android:backgroundTint="#eeeeee"/>
+                android:backgroundTint="#55eeeeee"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -80,9 +80,8 @@
                 android:paddingLeft="10dp"
                 android:inputType="textPassword"
                 android:hint="비밀번호"
-                android:textIsSelectable="true"
                 android:background="@drawable/border_layout_rounded_rectangle"
-                android:backgroundTint="#eeeeee"/>
+                android:backgroundTint="#55eeeeee"/>
         </LinearLayout>
 
         <LinearLayout

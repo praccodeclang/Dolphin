@@ -8,22 +8,23 @@
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="75dp"
         android:orientation="horizontal"
         android:layout_gravity="center"
         android:gravity="center"
         android:paddingRight="50dp">
           <ImageView
-              android:layout_width="75dp"
-              android:layout_height="50dp"
-              android:src="@drawable/icon_dolphins"
+              android:layout_width="35dp"
+              android:layout_height="35dp"
+              android:src="@drawable/key"
               android:layout_gravity="center"
-              android:id="@+id/logo" />
+              android:id="@+id/logo"
+              android:layout_marginRight="5dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:text="회원가입"
-            android:textSize="30sp"
+            android:textSize="24sp"
             android:gravity="center"
             android:fontFamily="@font/maplestory_light"/>
     </LinearLayout>
@@ -32,13 +33,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:overScrollMode="never"
-        >
+        android:overScrollMode="never">
          <LinearLayout
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:orientation="vertical"
-             android:layout_marginHorizontal="60dp">
+             android:layout_marginHorizontal="60dp"
+             android:layout_marginTop="10dp">
              <LinearLayout
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
@@ -52,12 +53,16 @@
                      android:textColor="@color/Dolphin"/>
                  <EditText
                      android:layout_width="match_parent"
-                     android:layout_height="wrap_content"
+                     android:layout_height="45dp"
                      android:id="@+id/nameText"
                      android:hint="이름"
                      android:inputType="textPersonName"
                      android:textAlignment="textStart"
-                     android:layout_marginRight="100dp"/>
+                     android:paddingLeft="10dp"
+                     android:textSize="16sp"
+                     android:layout_marginRight="100dp"
+                     android:background="@drawable/border_layout_rounded_rectangle"
+                     android:backgroundTint="#55eeeeee"/>
              </LinearLayout>
              <LinearLayout
                  android:layout_width="match_parent"
@@ -76,12 +81,16 @@
                      android:orientation="horizontal">
                      <EditText
                          android:layout_width="match_parent"
-                         android:layout_height="wrap_content"
+                         android:layout_height="45dp"
                          android:id="@+id/studentCodeText"
                          android:hint="학번"
                          android:inputType="textPersonName"
                          android:textAlignment="textStart"
-                         android:layout_weight="1"/>
+                         android:layout_weight="1"
+                         android:paddingLeft="10dp"
+                         android:textSize="16sp"
+                         android:background="@drawable/border_layout_rounded_rectangle"
+                         android:backgroundTint="#55eeeeee"/>
                      <Button
                          android:layout_width="90dp"
                          android:layout_height="wrap_content"
@@ -108,12 +117,16 @@
                      android:orientation="horizontal">
                      <EditText
                          android:layout_width="match_parent"
-                         android:layout_height="wrap_content"
+                         android:layout_height="45dp"
                          android:id="@+id/idText"
                          android:hint="아이디"
                          android:inputType="text"
                          android:textAlignment="textStart"
-                         android:layout_weight="1"/>
+                         android:layout_weight="1"
+                         android:paddingLeft="10dp"
+                         android:textSize="16sp"
+                         android:background="@drawable/border_layout_rounded_rectangle"
+                         android:backgroundTint="#55eeeeee"/>
                      <Button
                          android:layout_width="90dp"
                          android:layout_height="wrap_content"
@@ -122,26 +135,36 @@
                          android:backgroundTint="@color/Dolphin"
                          android:layout_marginLeft="10dp"/>
                  </LinearLayout>
-                 <EditText
-                     android:layout_width="match_parent"
-                     android:layout_height="wrap_content"
-                     android:id="@+id/passwordText"
-                     android:hint="패스워드"
-                     android:inputType="textPassword"
-                     android:textAlignment="textStart"
-                     android:layout_marginRight="100dp"/>
+
                  <LinearLayout
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
                      android:orientation="vertical">
                      <EditText
                          android:layout_width="match_parent"
-                         android:layout_height="wrap_content"
+                         android:layout_height="45dp"
+                         android:id="@+id/passwordText"
+                         android:hint="패스워드"
+                         android:inputType="textPassword"
+                         android:textAlignment="textStart"
+                         android:paddingLeft="10dp"
+                         android:textSize="16sp"
+                         android:layout_marginRight="100dp"
+                         android:background="@drawable/border_layout_rounded_rectangle"
+                         android:backgroundTint="#55eeeeee"
+                         android:layout_marginBottom="5dp"/>
+                     <EditText
+                         android:layout_width="match_parent"
+                         android:layout_height="45dp"
                          android:id="@+id/passwordTextChk"
                          android:hint="패스워드 확인"
                          android:inputType="textPassword"
                          android:textAlignment="textStart"
-                         android:layout_marginRight="100dp"/>
+                         android:paddingLeft="10dp"
+                         android:textSize="16sp"
+                         android:layout_marginRight="100dp"
+                         android:background="@drawable/border_layout_rounded_rectangle"
+                         android:backgroundTint="#55eeeeee"/>
                      <TextView
                          android:layout_width="wrap_content"
                          android:layout_height="wrap_content"
@@ -198,14 +221,16 @@
                      android:orientation="horizontal">
                      <EditText
                          android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
+                         android:layout_height="45dp"
                          android:id="@+id/PHONE"
                          android:hint="전화번호 (-)는 생략."
-                         android:inputType="text"
+                         android:inputType="number"
                          android:textAlignment="textStart"
+                         android:layout_weight="1"
+                         android:paddingLeft="10dp"
                          android:textSize="16sp"
-                         android:layout_weight="2"
-                         />
+                         android:background="@drawable/border_layout_rounded_rectangle"
+                         android:backgroundTint="#55eeeeee"/>
                      <Button
                          android:layout_width="85dp"
                          android:layout_height="wrap_content"
@@ -246,9 +271,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/registerBtn"
-        android:layout_gravity="center"
-        android:layout_marginBottom="30dp"
+        android:layout_gravity="center|bottom"
+        android:paddingBottom="5dp"
         android:layout_marginHorizontal="50dp"
+        android:layout_marginVertical="10dp"
         android:text="회원가입"
         android:backgroundTint="@color/Dolphin"/>
 </LinearLayout>

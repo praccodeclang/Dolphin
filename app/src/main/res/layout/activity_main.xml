@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -12,7 +13,7 @@
         <ImageView
             android:layout_width="100dp"
             android:layout_height="40dp"
-            android:src="@drawable/logo_main"
+            android:src="@drawable/logo_text"
             android:layout_margin="15dp"
             android:layout_gravity="center_vertical"/>
         <TextView
@@ -22,11 +23,12 @@
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:padding="3dp"
             android:id="@+id/contactBtn"
-            android:src="@drawable/ic_call"
+            android:src="@drawable/ic_baseline_call_24"
             android:layout_marginVertical="15dp"
             android:layout_gravity="center_vertical"
-            android:scaleType="center"/>
+            android:scaleType="fitCenter"/>
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -99,10 +101,10 @@
                         <ImageView
                             android:layout_width="75dp"
                             android:layout_height="75dp"
+                            android:padding="10dp"
                             android:scaleType="centerCrop"
                             android:background="@drawable/border_layout_round"
-                            android:backgroundTint="#aaaaaa"
-                            android:src="@drawable/schoolnotice"
+                            android:src="@drawable/promotion"
                             />
                         <TextView
                             android:layout_width="wrap_content"
@@ -119,16 +121,16 @@
                         <ImageView
                             android:layout_width="75dp"
                             android:layout_height="75dp"
+                            android:padding="10dp"
                             android:scaleType="centerCrop"
                             android:background="@drawable/border_layout_round"
-                            android:backgroundTint="#aaaaaa"
-                            android:src="@drawable/cafeteria"
+                            android:src="@drawable/food"
                             />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="오늘 식단"/>
+                            android:text="식단"/>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -139,9 +141,9 @@
                         <ImageView
                             android:layout_width="75dp"
                             android:layout_height="75dp"
+                            android:padding="10dp"
                             android:scaleType="centerCrop"
                             android:background="@drawable/border_layout_round"
-                            android:backgroundTint="#aaaaaa"
                             android:src="@drawable/weather"
                             />
                         <TextView
@@ -159,15 +161,15 @@
                         <ImageView
                             android:layout_width="75dp"
                             android:layout_height="75dp"
-                            android:scaleType="fitXY"
-                            android:background="@drawable/border_layout_round"
-                            android:backgroundTint="#aaaaaa"
-                            />
+                            android:padding="12dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/calendar"
+                            android:backgroundTint="#aaaaaa"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="버튼 4"/>
+                            android:text="학사일정"/>
                     </LinearLayout>
                 </LinearLayout>
             </HorizontalScrollView>
@@ -211,8 +213,9 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:background="@drawable/border_layout_under_bar"
-                            android:gravity="end|bottom"
-                            android:text="더보기 >"
+                            android:gravity="end|center"
+                            android:layout_marginRight="10dp"
+                            android:text="더보기"
                             android:textSize="14dp" />
                     </LinearLayout>
                     <ListView
@@ -255,8 +258,9 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:background="@drawable/border_layout_under_bar"
-                            android:gravity="end|bottom"
-                            android:text="더보기 >"
+                            android:gravity="end|center"
+                            android:layout_marginRight="10dp"
+                            android:text="더보기"
                             android:textSize="14dp" />
                     </LinearLayout>
                     <LinearLayout

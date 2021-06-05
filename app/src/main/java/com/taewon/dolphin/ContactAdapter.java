@@ -61,7 +61,7 @@ public class ContactAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setIcon(R.drawable.icon_dolphins)
+                builder.setIcon(R.drawable.ic_baseline_call_24)
                         .setTitle("전화걸기")
                         .setMessage("정말로 " + contactItemList.get(i).getContactUserName()+"님에게 전화를 거시겠어요?")
                         .setNegativeButton("취소", null)
@@ -79,7 +79,7 @@ public class ContactAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setIcon(R.drawable.icon_dolphins)
+                builder.setIcon(R.drawable.ic_baseline_chat_24)
                         .setTitle("문자보내기")
                         .setMessage("정말로 " + contactItemList.get(i).getContactUserName()+"님에게 문자를 보내시겠어요?")
                         .setNegativeButton("취소", null)

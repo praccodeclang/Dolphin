@@ -26,7 +26,6 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.ParseException;
@@ -68,7 +67,8 @@ public class ActivityMain extends AppCompatActivity implements SensorEventListen
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -77,11 +77,11 @@ public class ActivityMain extends AppCompatActivity implements SensorEventListen
         initBehavior();
         getFreeBoardsFromServer();
         getNoticesFromHomepage();
-        mainScrollView.fullScroll(View.FOCUS_UP);
     }//onCreate End
 
     @Override
-    protected void onResume() {
+    protected void onResume()
+    {
         super.onResume();
         /*사용자가 다시 돌아오면 실행합니다.*/
         //센서 AWAKE
@@ -89,10 +89,12 @@ public class ActivityMain extends AppCompatActivity implements SensorEventListen
 
         getFreeBoardsFromServer();
         getNoticesFromHomepage();
+        mainScrollView.fullScroll(View.FOCUS_UP);
     }
 
     @Override
-    protected void onPause() {
+    protected void onPause()
+    {
         super.onPause();
         mSensorManager.unregisterListener(this);
     }
@@ -143,7 +145,7 @@ public class ActivityMain extends AppCompatActivity implements SensorEventListen
                         intent = new Intent(getApplicationContext(), ActivityWeather.class);
                         break;
                     case R.id.iconBtn4:
-                        intent = new Intent(getApplicationContext(), ActivityUndefined.class);
+                        intent = new Intent(getApplicationContext(), ActivityCalendar.class);
                         break;
                     default:
                         throw new IllegalStateException("Unexpected value: " + v.getId());
@@ -231,7 +233,6 @@ public class ActivityMain extends AppCompatActivity implements SensorEventListen
         deptProfile.setImageResource(UserData.getInstance().getUserProfile());
         deptProfile.setBackgroundResource(R.drawable.border_layout_profile);
         deptProfile.setClipToOutline(true);
-        mainScrollView.fullScroll(ScrollView.FOCUS_UP);
 
         //2. 로그인 창에서 넘어오면, 프로필의 이름과 학과를 UserData 클래스에 저장된 이름과 학과로 초기화합니다.
         profileUserName.setText(UserData.getInstance().getUserName());
