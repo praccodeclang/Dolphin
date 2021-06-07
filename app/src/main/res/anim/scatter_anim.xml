@@ -3,9 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:interpolator="@android:anim/overshoot_interpolator"
     android:fillAfter="true"
-    android:fillBefore="true">
+    android:fillBefore="true"
+    android:duration="5000">
     <translate
         android:fromYDelta="100%"
-        android:toYDelta="-100%"
-        android:duration="5000"/>
+        android:toYDelta="-100%"/>
 </set>

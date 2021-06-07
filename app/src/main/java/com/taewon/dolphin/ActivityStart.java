@@ -20,8 +20,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-import java.util.Random;
-
 
 public class ActivityStart extends AppCompatActivity {
 
@@ -48,7 +46,7 @@ public class ActivityStart extends AppCompatActivity {
     private void launchNext()
     {
         //1.
-        Animation boom_up_anim = AnimationUtils.loadAnimation(this, R.anim.boom_up_anim);
+        Animation boom_up_anim = AnimationUtils.loadAnimation(this, R.anim.slide_up_anim);
         Animation scatter_anim = AnimationUtils.loadAnimation(this, R.anim.scatter_anim);
         //2.
         boom_up_anim.setAnimationListener(new Animation.AnimationListener() {
