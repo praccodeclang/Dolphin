@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -57,6 +58,7 @@ public class ActivityFreeBoardViewer extends AppCompatActivity {
     private ImageButton FreeBoardViewBackBtn;
     private TextView deleteBtn;
     private TextView modifyBtn;
+    private ImageView writer_img;
 
 
     @Override
@@ -100,6 +102,8 @@ public class ActivityFreeBoardViewer extends AppCompatActivity {
         FreeBoardViewBackBtn = (ImageButton) findViewById(R.id.FreeBoardViewBackBtn);
         deleteBtn = (TextView) findViewById(R.id.deleteBtn);
         modifyBtn = (TextView) findViewById(R.id.modifyBtn);
+        writer_img = (ImageView) findViewById(R.id.writer_img);
+
     }
 
     private void initListeners()
@@ -183,7 +187,9 @@ public class ActivityFreeBoardViewer extends AppCompatActivity {
         //2. 만약 내가 작성한 글이라면, 수정 삭제를 가능하게 합니다.
         if (freeBoardIntent.getStringExtra("userID").equals(UserData.getInstance().getUserID())) {
             udBtns.setVisibility(View.VISIBLE);
+            writer_img.setImageResource(R.drawable.icon_dolphins);
         }
+
     }
 
     //서버에서 댓글로드를 요청하는 함수입니다.
