@@ -202,6 +202,7 @@
                         android:layout_margin="1dp"
                         android:id="@+id/card_termsOfService">
                         <TextView
+                            android:id="@+id/TermsofService"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="서비스이용약관"
@@ -221,6 +222,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="개인정보처리방침"
+                            android:id="@+id/PrivacyPolicy"
                             android:textColor="@color/black"
                             android:textSize="14sp"
                             android:layout_gravity="left|center_vertical"
