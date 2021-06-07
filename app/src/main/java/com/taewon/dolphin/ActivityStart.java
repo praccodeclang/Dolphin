@@ -10,27 +10,70 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import java.util.Random;
+
 
 public class ActivityStart extends AppCompatActivity {
 
     private static final int MULTIPLE_PERMISSION = 10235;
-
+    private LinearLayout startLogo;
+    private ImageView startIcon;
+    private ScatterCanvas bubbleEffect;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+        startLogo = (LinearLayout)findViewById(R.id.startLogo);
+        startIcon = (ImageView)findViewById(R.id.startIcon);
+        bubbleEffect = (ScatterCanvas)findViewById(R.id.bubbleEffect);
+        bubbleEffect.setVisibility(View.INVISIBLE);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         chkPermissions();
+    }
+
+    private void launchNext()
+    {
+        //1.
+        Animation boom_up_anim = AnimationUtils.loadAnimation(this, R.anim.boom_up_anim);
+        Animation scatter_anim = AnimationUtils.loadAnimation(this, R.anim.scatter_anim);
+        //2.
+        boom_up_anim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) { }
+            @Override
+            public void onAnimationRepeat(Animation animation) { }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                bubbleEffect.setVisibility(View.VISIBLE);
+                bubbleEffect.startAnimation(scatter_anim);
+                new Handler().postDelayed(new Runnable() {
+                    //3초 딜레이
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent(ActivityStart.this, ActivityLogin.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                }, 2000);
+            }
+        });
+        //3.
+        startLogo.startAnimation(boom_up_anim);
     }
 
     private void chkPermissions()
@@ -42,15 +85,7 @@ public class ActivityStart extends AppCompatActivity {
         }
         else
         {
-            new Handler().postDelayed(new Runnable() {
-                //3초 딜레이
-                @Override
-                public void run() {
-                    Intent intent = new Intent(ActivityStart.this, ActivityLogin.class);
-                    startActivity(intent);
-                    finish();
-                }
-            }, 3000);
+            launchNext();
         }
     }
 
