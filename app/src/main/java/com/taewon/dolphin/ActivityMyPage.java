@@ -1,5 +1,6 @@
 package com.taewon.dolphin;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -31,7 +32,9 @@ public class ActivityMyPage extends AppCompatActivity {
     private CardView card_question;
     private TextView myPageUserDept;
     private TextView myPageUserName;
+    private TextView TermsofService;
     private ImageView myPageBackBtn;
+
 
 
     @Override
@@ -54,6 +57,7 @@ public class ActivityMyPage extends AppCompatActivity {
         card_Freeboard =(CardView)findViewById(R.id.card_Freeboard);
         myPageBackBtn = (ImageView)findViewById(R.id.MyPageBackBtn);
         card_question = (CardView)findViewById(R.id.card_question);
+        TermsofService =(TextView)findViewById(R.id.TermsofService);
     }
 
     private void initListeners()
@@ -130,6 +134,13 @@ public class ActivityMyPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+        TermsofService.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ActivityMyPage.this, ActivityService.class);
+                startActivity(intent);
             }
         });
     }

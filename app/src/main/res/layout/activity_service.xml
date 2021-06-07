@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="서비스 이용약관"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
+<ScrollView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="제1조(목적)"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="12dp"
+            android:text="돌핀 서비스 이용약관은 회사가 서비스를 제공함에 있어,회사와 이용자 간의 권리,의무 및 책임 사항 등을 규정함을 목적으로 합니다."/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="14dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="제2조(정의)"
+            android:textStyle="bold"
+            android:paddingLeft="10dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="1. 이약관에서 사용하는 용어의 정의는 다음과 같습니다." />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="·&quot;회사&quot;란,서비스를 제공하는 주체를 말합니다."
+            android:textSize="13sp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:text="·&quot;서비스&quot;란 회사가 제공하는 모든 서비스 및 기능을 말합니다."/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:text="·&quot;이용자&quot;란 이 약관에 따라 서비스를 이용하는 회원 및 비회원을 말합니다."/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:text="·&quot;회원&quot;이란, 서비스에 회원등록을 하고 서비스를 이용하는 자를 말합니다."/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:text="·&quot;비회원&quot;이란,서비스에 회원등록을 하지 않고 서비스를 이용하는 자를 \n    말합니다." />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:text="·&quot;게시물&quot;이란, 서비스에 게제된 문자,사진,영상,첨부파일,광고를 말힙니다."/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:text="·&quot;커뮤니티&quot;란, 게시물을 게시할 수 있는 공간을 말합니다."/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:text="·&quot;이용 기록&quot;이란, 이용자가 서비스를 이용하면서 직접 게시한 게시글 등을 \n    말합니다."/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:text="·&quot;로그 기록&quot;이란, 이용자가 서비스를 이용하면서 자동으로 생성된 IP 주소,\n    접속시간 등을 말합니다."/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:text="·&quot;기기 정보&quot;란, 이용자의 통신 기기에서 수집된 운영체제 종류, ADID 등을\n    말합니다."/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:text="·&quot;계정&quot;이란, 이용계약을 통해 생성된 회원의 고유 아이디와 이에 수반하는\n    정보를 말합니다"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:text="·&quot;서비스·&quot; 내부 알림 수단이란, 팝업, 알림, 1:1 대화, 공지사항, 내 정보\n    메뉴 등을 말합니다."/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:text="·&quot;연락처&quot;란, 회원가입, 본인 인증, 문의 창구 등을 통해 수집된 이용자의\n    이메일, 휴대전화 번호 등을 의미합니다."/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:text="·&quot;관련법&quot;이란, 정보통신망 이용촉진 및 정보보호 등에 관한 법률,\n    개인정보보호법, 통신비밀보호법 등 관련 있는 국내 법령을 말합니다"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:text="·&quot;본인 인증&quot;이란, 휴대전화 번호 등을 이용한 본인 확인 절차를 말합니다"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="2. 1항에서 정의되지 않은 약관 내 용어의 의미는 일반적인 이용관\n    행에 의합니다."
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="제3조(약관 등의 명시와 설명 및 개정)"
+            android:textStyle="bold"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1. 팀 돌핀은 이 약관을 회원가입 화면 및 &quot;내 정보&quot; 메뉴 등에 게시합 \n     니다."/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2. 팀 돌핀은 관련법을 위배하지 않는 범위에서 이 약관을 개정할 수\n     있습니다."/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3. 개정 내용이 회원에게 불리할 경우, 적용일자 및 개정사유를 명시\n    하여 현행약관과 함께 &quot;공지사항&quot;에 30일 간 게시합니다"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4. 회원이 개정약관의 적용에 동의하지 않는 경우, 이용계약을 해지함\n    으로써 거부 의사를표시할 수 있습니다. 단, 30일 내에 거부 의사를\n    표시 하지 않을 경우 약관에 동의한 것으로 간주합니다."/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5.회원은 약관 일부분만을 동의 또는 거부할 수 없습니다."/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="6. 비회원이 서비스를 이용할 경우, 이약관에 동의한것으로 간주합니다"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:text="제4조(서비스의 제공)"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="1.팀 돌핀은 다음 서비스를 제공합니다."/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="·대학생활 편의 서비스"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="·커뮤니티 서비스"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="·학교 식단"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="·학교 공지사항"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="·자유 게시판"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2.팀 돌핀은 운영상,기술상의 필요엘 따라 제공하고 있는 서비스를 변\n    경 할 수 있습니다."/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3.팀 돌핀은 이용자의 개인정보 및 서비스 이용 기록에 따라 서비스 이\n    용에 차이를 둘 수 있습니다."/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4.팀 돌핀은 천재지변,인터넷 장애,경영 악화 등으로 인해 서비스를 더 \n   이상 제공하기 어려울 경우, 서비스를 통보 없이 중단 할 수 있습니다."/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5.팀 돌핀은 1항부터 전항까지와 다음 내용으로 인해 발생한 피해에 대\n    해 어떠한 책임을 지지 않습니다."/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="·모든 서비스,게시물,이용 기록의 진본성,무결성,신뢰성,이용가능성"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="·서비스 이용 중 타인과 상호 간에 합의한 내용"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="·게시물,광고의,버튼,하이퍼링크 등 외부로 연결된 서비스와 같이 회사\n   가 제공하지 않은 서비스에서 발생한 피해"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="·이용자의 귀책사유 또는 팀 돌핀의 귀책 사유가 아닌 사유로 발생한 이\n   용자의 피해"/>
+    </LinearLayout>
+        
+    </LinearLayout>
+</ScrollView>
+</LinearLayout>
