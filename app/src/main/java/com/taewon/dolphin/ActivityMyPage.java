@@ -26,6 +26,7 @@ import org.json.JSONObject;
 public class ActivityMyPage extends AppCompatActivity {
     /* Views */
     private CardView card_Logout;
+    private CardView card_IDPW;
     private CardView card_Secession;
     private CardView card_Notice;
     private CardView card_Freeboard;
@@ -50,6 +51,7 @@ public class ActivityMyPage extends AppCompatActivity {
     private void initViews()
     {
         /* Views */
+        card_IDPW = (CardView)findViewById(R.id.card_IDPW);
         card_Logout = (CardView)findViewById(R.id.card_Logout);
         card_Secession = (CardView)findViewById(R.id.card_Secession);
         card_Notice = (CardView)findViewById(R.id.card_notice);
@@ -89,6 +91,15 @@ public class ActivityMyPage extends AppCompatActivity {
                         .show();
             }
         });
+
+        card_IDPW.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ActivityMyPage.this, Revise.class);
+                startActivity(intent);
+            }
+        });
+
 
         card_Notice.setOnClickListener(new View.OnClickListener() {
             @Override
