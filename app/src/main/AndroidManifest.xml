@@ -39,5 +39,6 @@
         <activity android:name=".ActivityContact" android:screenOrientation="portrait"/>
         <activity android:name=".ActivityFind" android:screenOrientation="portrait"/>
         <activity android:name=".ActivityService"  android:screenOrientation="portrait"/>
+        <activity android:name=".ActivityPrivacyPolicy" android:screenOrientation="portrait"/>
     </application>
 </manifest>

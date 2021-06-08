@@ -32,8 +32,9 @@ public class ActivityMyPage extends AppCompatActivity {
     private CardView card_question;
     private TextView myPageUserDept;
     private TextView myPageUserName;
-    private TextView TermsofService;
+    private CardView card_termsOfService;
     private ImageView myPageBackBtn;
+    private CardView card_privacyPolicy;
 
 
 
@@ -57,7 +58,8 @@ public class ActivityMyPage extends AppCompatActivity {
         card_Freeboard =(CardView)findViewById(R.id.card_Freeboard);
         myPageBackBtn = (ImageView)findViewById(R.id.MyPageBackBtn);
         card_question = (CardView)findViewById(R.id.card_question);
-        TermsofService =(TextView)findViewById(R.id.TermsofService);
+        card_termsOfService =(CardView)findViewById(R.id.card_termsOfService);
+        card_privacyPolicy =(CardView)findViewById(R.id.card_privacyPolicy);
     }
 
     private void initListeners()
@@ -136,10 +138,17 @@ public class ActivityMyPage extends AppCompatActivity {
                 finish();
             }
         });
-        TermsofService.setOnClickListener(new View.OnClickListener() {
+        card_termsOfService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ActivityMyPage.this, ActivityService.class);
+                startActivity(intent);
+            }
+        });
+        card_privacyPolicy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ActivityMyPage.this, ActivityPrivacyPolicy.class);
                 startActivity(intent);
             }
         });
