@@ -26,15 +26,12 @@ public class ActivityStart extends AppCompatActivity {
     private static final int MULTIPLE_PERMISSION = 10235;
     private LinearLayout startLogo;
     private ImageView startIcon;
-    private ScatterCanvas bubbleEffect;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
         startLogo = (LinearLayout)findViewById(R.id.startLogo);
         startIcon = (ImageView)findViewById(R.id.startIcon);
-        bubbleEffect = (ScatterCanvas)findViewById(R.id.bubbleEffect);
-        bubbleEffect.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -57,8 +54,6 @@ public class ActivityStart extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                bubbleEffect.setVisibility(View.VISIBLE);
-                bubbleEffect.startAnimation(scatter_anim);
                 new Handler().postDelayed(new Runnable() {
                     //3초 딜레이
                     @Override
