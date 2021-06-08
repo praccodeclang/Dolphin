@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Dolphin"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Revise"></activity>
+        <activity android:name=".ActivityRevise"></activity>
         <!-- activity 추가해주세요. -->
         <activity
             android:name=".ActivityStart"
@@ -27,7 +27,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<<<<<<< Updated upstream
+
         <activity android:name=".ActivityLogin" android:screenOrientation="portrait"/>
         <activity android:name=".ActivityRegister" android:screenOrientation="portrait"/>
         <activity android:name=".ActivityMain" android:screenOrientation="portrait"/>
@@ -44,53 +44,6 @@
         <activity android:name=".ActivityFind" android:screenOrientation="portrait"/>
         <activity android:name=".ActivityService"  android:screenOrientation="portrait"/>
         <activity android:name=".ActivityPrivacyPolicy" android:screenOrientation="portrait"/>
-=======
-        <activity
-            android:name=".ActivityLogin"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ActivityRegister"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ActivityMain"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ActivityFreeBoard"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ActivityFreeBoardViewer"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ActivityFreeBoardWriting"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ActivityMyPage"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ActivityNfc"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ActivityCalendar"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ActivityWeather"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ActivityDiet"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ActivitySchoolNotice"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ActivityContact"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ActivityFind"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".ActivityService"
-            android:screenOrientation="portrait" />
->>>>>>> Stashed changes
     </application>
 
 </manifest>

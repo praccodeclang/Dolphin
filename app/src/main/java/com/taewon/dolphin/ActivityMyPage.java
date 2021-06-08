@@ -1,6 +1,5 @@
 package com.taewon.dolphin;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -95,7 +94,7 @@ public class ActivityMyPage extends AppCompatActivity {
         card_IDPW.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ActivityMyPage.this, Revise.class);
+                Intent intent = new Intent(ActivityMyPage.this, ActivityRevise.class);
                 startActivity(intent);
             }
         });

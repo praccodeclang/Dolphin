@@ -1,5 +1,6 @@
 package com.taewon.dolphin;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -14,7 +15,7 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 
-public class Revise extends AppCompatActivity {
+public class ActivityRevise extends AppCompatActivity {
 
 
     private EditText newPassword;
@@ -38,22 +39,27 @@ public class Revise extends AppCompatActivity {
                             JSONObject jsonObject = new JSONObject(response);
                             boolean success = jsonObject.getBoolean("success");
                             if (success) {
-                                Toast.makeText(Revise.this, "비밀번호가 변경되었습니다.", Toast.LENGTH_LONG).show();
+                                Toast.makeText(ActivityRevise.this, "비밀번호가 변경되었습니다.", Toast.LENGTH_LONG).show();
                             } else {
-                                Toast.makeText(Revise.this, "비밀번호 변경을 실패 했습니다.", Toast.LENGTH_LONG).show();
+                                Toast.makeText(ActivityRevise.this, "비밀번호 변경을 실패 했습니다.", Toast.LENGTH_LONG).show();
                             }
                         }
                         catch (Exception e)
                         {
-
+                            AlertDialog.Builder builder = new AlertDialog.Builder(ActivityRevise.this);
+                            builder.setIcon(R.drawable.ic_baseline_block_24)
+                                    .setTitle("서버가 불안정한것 같아요.")
+                                    .setMessage("조금만 있다가 다시시도해보세요.")
+                                    .setPositiveButton("확인", null)
+                                    .show();
                         }
-                    };
+                    }
                 };
                 String userID = UserData.getInstance().getUserID();
                 String userName = UserData.getInstance().getUserName();
                 String url = "주소적어주세요.";
                 RequestUpdateInfo request = new RequestUpdateInfo(userID, userName, newPassword.getText().toString(), url,responseListener);
-                RequestQueue queue = Volley.newRequestQueue(Revise.this);
+                RequestQueue queue = Volley.newRequestQueue(ActivityRevise.this);
                 queue.add(request);
             }
         });
