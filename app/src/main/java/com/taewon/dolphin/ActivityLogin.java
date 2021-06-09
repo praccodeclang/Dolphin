@@ -43,7 +43,6 @@ public class ActivityLogin extends AppCompatActivity{
         initListeners();
         //자동로그인
         autoLogin();
-        
     }
 
 

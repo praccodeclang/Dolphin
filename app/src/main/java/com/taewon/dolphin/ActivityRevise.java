@@ -47,7 +47,6 @@ public class ActivityRevise extends AppCompatActivity {
                 {
                     warningText.setVisibility(View.GONE);
                     password_button.setVisibility(View.VISIBLE);
-
                 }
                 else
                 {
@@ -56,11 +55,8 @@ public class ActivityRevise extends AppCompatActivity {
                 }
 
             }
-
             @Override
-            public void afterTextChanged(Editable s) {
-
-            }
+            public void afterTextChanged(Editable s) { }
         });
 
         password_button.setOnClickListener(new View.OnClickListener() {

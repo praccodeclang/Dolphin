@@ -14,7 +14,7 @@
             android:layout_height="50dp"
             android:id="@+id/commentImg"
             android:padding="5dp"
-            android:src="@drawable/ic_baseline_person_24"
+            android:src="@drawable/ic_baseline_person_user24"
             android:background="@drawable/border_layout_round"
             android:backgroundTint="#eeeeee"/>
         <LinearLayout

@@ -20,18 +20,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-
 public class ActivityStart extends AppCompatActivity {
 
     private static final int MULTIPLE_PERMISSION = 10235;
     private LinearLayout startLogo;
-    private ImageView startIcon;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
         startLogo = (LinearLayout)findViewById(R.id.startLogo);
-        startIcon = (ImageView)findViewById(R.id.startIcon);
     }
 
     @Override
@@ -44,7 +42,6 @@ public class ActivityStart extends AppCompatActivity {
     {
         //1.
         Animation boom_up_anim = AnimationUtils.loadAnimation(this, R.anim.slide_up_anim);
-        Animation scatter_anim = AnimationUtils.loadAnimation(this, R.anim.scatter_anim);
         //2.
         boom_up_anim.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -90,10 +87,7 @@ public class ActivityStart extends AppCompatActivity {
         switch (requestCode){
             case  MULTIPLE_PERMISSION:
                 if(grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                    //사용자가 모든 권한을 허용하면 실행합니다.
-                    Intent intent = new Intent(ActivityStart.this, ActivityLogin.class);
-                    startActivity(intent);
-                    finish();
+                    launchNext();
                 }
                 else{
                     //사용자가 하나라도 권한을 거부하면, 앱정보로 이동해 권한을 설정할 수 있도록 합니다.

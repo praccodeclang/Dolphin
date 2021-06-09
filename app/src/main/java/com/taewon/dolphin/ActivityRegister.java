@@ -306,7 +306,7 @@ public class ActivityRegister extends AppCompatActivity implements View.OnClickL
     private boolean isPassStdNumRules()
     {
         String userStdCode = studentCodeText.getText().toString();
-        if(!StringUtil.isNumeric(userStdCode))
+        if(!StringUtil.isNumeric(userStdCode) || !(userStdCode.length() == 7))
         {
             return false;
         }
