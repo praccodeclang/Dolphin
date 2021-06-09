@@ -7,6 +7,14 @@
     tools:context=".ActivityRevise"
     android:orientation="vertical"
     >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="60dp"
+        android:layout_marginTop="240dp">
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -16,11 +24,33 @@
         android:inputType="textPassword"
         android:hint="새로운 비밀번호"
         android:background="@drawable/border_layout_rounded_rectangle"
+
         android:backgroundTint="#55eeeeee"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/passwordTextChk"
+        android:hint="비밀번호  확인"
+        android:inputType="textPassword"
+        android:paddingLeft="10dp"
+        android:textAlignment="textStart"
+        android:layout_marginVertical="2dp"
+        android:background="@drawable/border_layout_rounded_rectangle"
+        android:backgroundTint="#55eeeeee"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/warningText"
+        android:text="비밀번호가 일치하지 않습니다."
+        android:visibility="gone"
+        android:textColor="@color/warning"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/password_button"
         android:text="변경"
+        android:layout_gravity="center"
+        android:visibility="visible"
         />
+</LinearLayout>
 </LinearLayout>

@@ -4,9 +4,12 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -17,7 +20,8 @@ import org.json.JSONObject;
 
 public class ActivityRevise extends AppCompatActivity {
 
-
+    private EditText passwordTextChk;
+    private TextView warningText;
     private EditText newPassword;
     private Button password_button;
 
@@ -28,6 +32,36 @@ public class ActivityRevise extends AppCompatActivity {
 
         newPassword = (EditText) findViewById(R.id.newPassword);
         password_button = (Button) findViewById(R.id.password_button);
+        warningText = (TextView) findViewById(R.id.warningText);
+        passwordTextChk = (EditText) findViewById(R.id.passwordTextChk);
+
+        passwordTextChk.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(newPassword.getText().toString().equals(passwordTextChk.getText().toString()))
+                {
+                    warningText.setVisibility(View.GONE);
+                    password_button.setVisibility(View.VISIBLE);
+
+                }
+                else
+                {
+                    warningText.setVisibility(View.VISIBLE);
+                    password_button.setVisibility(View.GONE);
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         password_button.setOnClickListener(new View.OnClickListener() {
             @Override
