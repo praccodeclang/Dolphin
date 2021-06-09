@@ -379,7 +379,6 @@ public class ActivityMain extends AppCompatActivity implements SensorEventListen
                     return;
                 }
                 mShakeTime = currentTime;
-                Toast.makeText(ActivityMain.this,"흔들림 발생",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(ActivityMain.this, ActivityNfc.class);
                 startActivity(intent);
             }

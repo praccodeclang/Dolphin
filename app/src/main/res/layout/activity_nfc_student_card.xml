@@ -1,12 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="50dp"
+    android:orientation="vertical">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_dolphins"/>
+    <ImageView
+        android:layout_width="400dp"
+        android:layout_height="200dp"
+        android:id="@+id/userBarcode"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="175dp"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/barcodeInfo"
         android:layout_gravity="center"
-        android:text="NFC"
         android:gravity="center"
-        android:textSize="50sp"/>
+        android:text="J1612035"
+        android:textColor="@color/Dolphin"
+        android:textSize="18sp"/>
+
 </LinearLayout>
