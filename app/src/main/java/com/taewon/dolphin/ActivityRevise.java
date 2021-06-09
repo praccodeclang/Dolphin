@@ -3,6 +3,7 @@ package com.taewon.dolphin;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -69,9 +70,13 @@ public class ActivityRevise extends AppCompatActivity {
                             JSONObject jsonObject = new JSONObject(response);
                             boolean success = jsonObject.getBoolean("success");
                             if (success) {
+                                SharedPreferences auto = getSharedPreferences("auto", ActivityLogin.MODE_PRIVATE);
+                                SharedPreferences.Editor edit =  auto.edit();
+                                edit.putString("userPW",jsonObject.getString("userPassword"));
                                 Toast.makeText(ActivityRevise.this, "비밀번호가 변경되었습니다.", Toast.LENGTH_LONG).show();
+                                finish();
                             } else {
-                                Toast.makeText(ActivityRevise.this, "비밀번호 변경을 실패 했습니다.", Toast.LENGTH_LONG).show();
+                                Toast.makeText(ActivityRevise.this, "비밀번호 변경을 실패했습니다.", Toast.LENGTH_LONG).show();
                             }
                         }
                         catch (Exception e)
@@ -85,10 +90,10 @@ public class ActivityRevise extends AppCompatActivity {
                         }
                     }
                 };
+                String userStudentCode = UserData.getInstance().getUserStudentCode();
                 String userID = UserData.getInstance().getUserID();
-                String userName = UserData.getInstance().getUserName();
-                String url = "주소적어주세요.";
-                RequestUpdateInfo request = new RequestUpdateInfo(userID, userName, newPassword.getText().toString(), url,responseListener);
+                String url = "http://xodnjs2546.cafe24.com/updateUserPassword.php";
+                RequestUpdatePassword request = new RequestUpdatePassword(userStudentCode, userID, newPassword.getText().toString(), url,responseListener);
                 RequestQueue queue = Volley.newRequestQueue(ActivityRevise.this);
                 queue.add(request);
             }
