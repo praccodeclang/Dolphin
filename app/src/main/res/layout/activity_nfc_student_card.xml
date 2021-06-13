@@ -23,5 +23,4 @@
         android:text="J1612035"
         android:textColor="@color/Dolphin"
         android:textSize="18sp"/>
-
 </LinearLayout>

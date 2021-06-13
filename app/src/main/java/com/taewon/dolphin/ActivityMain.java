@@ -266,7 +266,9 @@ public class ActivityMain extends AppCompatActivity implements SensorEventListen
                     mainFreeBoardListView.setVisibility(View.VISIBLE);
                     int boardID;
 
-                    if(jsonArray.length() < 1)
+                    int itemLength = (jsonArray.length() > 0) ? jsonArray.length() : 0;
+                    itemLength = itemLength < 3 ? itemLength : 3;
+                    if(itemLength == 0)
                     {
                         container.setVisibility(View.VISIBLE);
                         mainFreeBoardListView.setVisibility(View.GONE);
@@ -289,31 +291,15 @@ public class ActivityMain extends AppCompatActivity implements SensorEventListen
                         container.addView(textView);
                         return;
                     }
-                    else if(jsonArray.length()>0 && jsonArray.length() < 3)
+                    else
                     {
-                        for(int i=0; i<jsonArray.length(); i++)
+                        for(int i=0; i<itemLength; i++)
                         {
                             String title, contents, date, userName, userID, PHONE;
                             JSONObject object = jsonArray.getJSONObject(i);
                             title = object.get("title").toString();
                             contents = object.get("contents").toString();
                             date = object.get("DATE").toString();
-                            userName = object.get("userName").toString();
-                            userID = object.get("userID").toString();
-                            PHONE = object.get("PHONE").toString();
-                            boardID = object.getInt("no");
-                            freeBoardItemList.add(new FreeBoardItem(boardID, title, contents, userName, userID, PHONE, date));
-                        }
-                        FreeBoardAdapter freeBoardAdapter = new FreeBoardAdapter(ActivityMain.this, freeBoardItemList);
-                        mainFreeBoardListView.setAdapter(freeBoardAdapter);
-                    }
-                    else {
-                        for (int i = 0; i < 3; i++) {
-                            String title, contents, date, userName, userID, PHONE;
-                            JSONObject object = jsonArray.getJSONObject(i);
-                            title = object.get("title").toString();
-                            contents = object.get("contents").toString();
-                            date = ActivityMain.calDate_ShouldReturnString(object.get("DATE").toString());
                             userName = object.get("userName").toString();
                             userID = object.get("userID").toString();
                             PHONE = object.get("PHONE").toString();
