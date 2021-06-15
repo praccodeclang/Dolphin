@@ -41,7 +41,7 @@
             android:layout_weight="1">
                 <ListView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="650dp"
                     android:id="@+id/contactListView"
                     android:scrollbars="none"
                     android:focusable="false"
