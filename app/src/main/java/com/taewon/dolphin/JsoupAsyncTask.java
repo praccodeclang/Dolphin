@@ -47,7 +47,9 @@ public class JsoupAsyncTask extends AsyncTask<Void, Void, Void>
             while(i<count)
             {
                 Element instance = it.next();
-                String title = instance.select(".f-tit.subject span b").text()=="" ? instance.select(".f-tit.subject span").text() : instance.select(".f-tit.subject span b").text();
+                String title = instance.select(".f-tit.subject span b").text()==""
+                        ? instance.select(".f-tit.subject span").text()
+                        : instance.select(".f-tit.subject span b").text();
                 String url = instance.select(".f-tit.subject a").attr("href");
                 String date = instance.select(".f-date.date p").text();
                 if(title == "" || url == "" || date == "")

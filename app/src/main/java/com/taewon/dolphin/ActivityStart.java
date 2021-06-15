@@ -33,9 +33,15 @@ public class ActivityStart extends AppCompatActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        chkPermissions();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
-        chkPermissions();
+
     }
 
     private void launchNext()

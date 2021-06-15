@@ -93,7 +93,7 @@ public class ActivityNfc extends AppCompatActivity {
         getWindow().setAttributes(params);
     }
 
-    public Bitmap drawUserBarcode(String code){
+    private Bitmap drawUserBarcode(String code){
         Bitmap bitmap = null;
         MultiFormatWriter gen = new MultiFormatWriter();
         try {
