@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="300dp"
+    android:layout_height="400dp"
+    android:layout_gravity="center"
+    android:padding="20dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/dialog_title"
+        android:textSize="18sp"
+        android:text="공지사항"
+        android:textColor="@color/Dolphin"
+        android:textStyle="bold"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_marginTop="15dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/dialog_contents"
+            android:textSize="16dp"
+            android:text="akjscnzxkjcnasjc\nsadmklzcxmasklcm\n
+                asdczxjcnaskjzlxkcm\n\n\n\n\n\n\n\n\n\n\n\n\dksamczxlkc"
+            android:textColor="@color/black"
+            android:padding="10dp"/>
+    </ScrollView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/dialog_showAgain"
+            android:text="다시 보지 않기"
+            android:checked="true"
+            android:buttonTint="@color/Dolphin"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/dialog_okBtn"
+            android:background="#00ffffff"
+            android:text="확인"
+            android:textColor="@color/Dolphin"/>
+    </LinearLayout>
+
+</LinearLayout>

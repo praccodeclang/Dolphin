@@ -3,6 +3,7 @@ package com.taewon.dolphin;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -14,6 +15,8 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -26,6 +29,7 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.ParseException;
@@ -71,6 +75,11 @@ public class ActivityMain extends AppCompatActivity implements SensorEventListen
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Dialog dialog01;
+        dialog01 = new Dialog(ActivityMain.this);
+        dialog01.setContentView(R.layout.dolphin_notice_custom_dialog);
+        showNoticeDialog(dialog01);
 
         initViews();
         initListeners();
@@ -123,7 +132,6 @@ public class ActivityMain extends AppCompatActivity implements SensorEventListen
         iconBtn2 = (LinearLayout)findViewById(R.id.iconBtn2);
         iconBtn3 = (LinearLayout)findViewById(R.id.iconBtn3);
         iconBtn4 = (LinearLayout)findViewById(R.id.iconBtn4);
-
     }
 
     private void initListeners()
@@ -317,6 +325,40 @@ public class ActivityMain extends AppCompatActivity implements SensorEventListen
         RequestGetFreeBoard freeBoardRequest = new RequestGetFreeBoard(responseListener);
         RequestQueue queue = Volley.newRequestQueue(ActivityMain.this);
         queue.add(freeBoardRequest);
+    }
+
+    private void showNoticeDialog(Dialog dialog){
+        dialog.findViewById(R.id.dialog_okBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    if(jsonObject.getBoolean("success"))
+                    {
+                        //setContentView
+                        dialog.show();
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                catch (Exception e) {
+                    return;
+                }
+            }
+        };
+
+        RequestGetDolphinNotice requestDolphinNotice = new RequestGetDolphinNotice(responseListener);
+        RequestQueue queue = Volley.newRequestQueue(ActivityMain.this);
+        queue.add(requestDolphinNotice);
     }
 
     public static String calDate_ShouldReturnString(String dateString) throws ParseException {
