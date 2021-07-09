@@ -17,6 +17,7 @@ public class RequestGetContact extends StringRequest {
         super(Method.POST, url, listener, null);
         mHash = new HashMap<>();
         mHash.put("userMajor",userMajor);
+        mHash.put("Token", "dolphin");
     }
 
     @Override

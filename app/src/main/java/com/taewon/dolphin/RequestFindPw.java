@@ -15,6 +15,7 @@ public class RequestFindPw extends StringRequest {
     public RequestFindPw(String userID, String userName, String userPhone, Response.Listener<String> listener) {
         super(Method.POST, URL, listener, null);
         mHash = new HashMap<>();
+        mHash.put("Token", "dolphin");
         mHash.put("userID", userID);
         mHash.put("userName", userName);
         mHash.put("userPhone", userPhone);

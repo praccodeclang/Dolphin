@@ -15,6 +15,7 @@ public class RequestCommentDelete extends StringRequest {
     public RequestCommentDelete(String BoardID, String date, Response.Listener<String> listener) {
         super(Method.POST, URL, listener, null);
         mHash = new HashMap<>();
+        mHash.put("Token", "dolphin");
         mHash.put("BoardID", BoardID);
         mHash.put("date", date);
     }

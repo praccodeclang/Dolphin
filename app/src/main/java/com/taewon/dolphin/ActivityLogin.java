@@ -41,6 +41,7 @@ public class ActivityLogin extends AppCompatActivity{
 
         initViews();
         initListeners();
+        autoSetIdPw();
         //자동로그인
         autoLogin();
     }
@@ -88,13 +89,13 @@ public class ActivityLogin extends AppCompatActivity{
                 loginBtn.setBackgroundColor(getResources().getColor(R.color.LockColor));
                 
                 //로그인 요청
-                requestLogin();
+                requestLogin(userID.getText().toString(), userPassword.getText().toString());
             }
         });
     }
 
     //로그인 요청
-    private void requestLogin()
+    private void requestLogin(String id,String password)
     {
         Response.Listener<String> responseListener = new Response.Listener<String>() {
             @Override
@@ -105,12 +106,6 @@ public class ActivityLogin extends AppCompatActivity{
                     boolean success = jsonObject.getBoolean("success");
                     if(success)
                     {
-                        //로그인에 성공했다면,
-                        //UserData.class 에 데이터를 저장합니다.
-                        //UserData.Instance().get ~~ 혹은, UserData.Instance().set~~ 으로 사용하면됩니다.
-                        Toast.makeText(ActivityLogin.this, "안녕하세요.", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(ActivityLogin.this, ActivityMain.class);
-
                         //UserData.class 에 데이터를 저장.
                         UserData.getInstance().setUserStudentCode(jsonObject.getString("userStudentCode"));
                         UserData.getInstance().setUserID(jsonObject.getString("userID"));
@@ -132,6 +127,7 @@ public class ActivityLogin extends AppCompatActivity{
                             editor.putString("userPhoneNum", UserData.getInstance().getUserPhoneNum());
                             editor.commit();
                         }
+                        Intent intent = new Intent(ActivityLogin.this, ActivityMain.class);
                         startActivity(intent);
                         finish();
                     }
@@ -161,7 +157,7 @@ public class ActivityLogin extends AppCompatActivity{
 
             }
         };
-        RequestUserLogin validateRequest = new RequestUserLogin(userID.getText().toString(), userPassword.getText().toString(), responseListener);
+        RequestUserLogin validateRequest = new RequestUserLogin(id, password, responseListener);
         RequestQueue queue = Volley.newRequestQueue(ActivityLogin.this);
         queue.add(validateRequest);
     }
@@ -201,16 +197,7 @@ public class ActivityLogin extends AppCompatActivity{
             if(!userMap.containsValue(null) || !userMap.containsValue(""))
             {
                 //UserData.class 에 데이터를 저장.
-                UserData.getInstance().setUserStudentCode(userMap.get("userStudentCode"));
-                UserData.getInstance().setUserID(userMap.get("userID"));
-                UserData.getInstance().setUserName(userMap.get("userName"));
-                UserData.getInstance().setUserMajor(userMap.get("userMajor"));
-                UserData.getInstance().setUserDept(userMap.get("userDept"));
-                UserData.getInstance().setUserPhoneNum(userMap.get("userPhoneNum"));
-
-                Intent intent = new Intent(ActivityLogin.this, ActivityMain.class);
-                startActivity(intent);
-                finish();
+                requestLogin(userMap.get("userID"), userMap.get("userPW"));
             }
         }
         return;

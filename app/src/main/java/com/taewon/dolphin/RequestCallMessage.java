@@ -16,6 +16,7 @@ public class RequestCallMessage extends StringRequest {
     public RequestCallMessage(String callerName,String receiverName, String conType, Response.Listener<String> listener) {
         super(Method.POST, url, listener, null);
         mHash = new HashMap<>();
+        mHash.put("Token", "dolphin");
         mHash.put("callerName",callerName);
         mHash.put("receiverName",receiverName);
         mHash.put("conType",conType);

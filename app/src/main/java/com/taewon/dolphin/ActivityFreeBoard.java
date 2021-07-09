@@ -105,7 +105,7 @@ public class ActivityFreeBoard extends AppCompatActivity{ //클릭 리스너 인
 
                     for(int i=0; i<jsonArray.length(); i++)
                     {
-                        String title, contents, date, userName, userID, PHONE;
+                        String title, contents, date, userName, userID, PHONE, commentCount;
                         JSONObject object = jsonArray.getJSONObject(i);
                         title = object.get("title").toString();
                         contents = object.get("contents").toString();
@@ -114,7 +114,8 @@ public class ActivityFreeBoard extends AppCompatActivity{ //클릭 리스너 인
                         userID = object.get("userID").toString();
                         PHONE = object.get("PHONE").toString();
                         boardID = object.getInt("no");
-                        freeBoardItemList.add(new FreeBoardItem(boardID, title, contents, userName, userID, PHONE, date));
+                        commentCount = object.get("commentCount").toString();
+                        freeBoardItemList.add(new FreeBoardItem(boardID, title, contents, userName, userID, PHONE, date, commentCount));
                     }
                     freeBoardAdapter = new FreeBoardAdapter(ActivityFreeBoard.this, freeBoardItemList);
                     freeBoardListView.setAdapter(freeBoardAdapter);

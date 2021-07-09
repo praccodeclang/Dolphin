@@ -15,6 +15,7 @@ public class RequestGetDolphinNotice extends StringRequest {
     public RequestGetDolphinNotice(Response.Listener<String> listener) {
         super(Method.POST, URL, listener, null); // 여기가 실질적으로 요청을 보내는 곳입니다.
         mHash = new HashMap<>();
+        mHash.put("Token", "dolphin");
     }
 
     @Override

@@ -15,6 +15,7 @@ public class RequestFreeBoardDelete extends StringRequest {
     public RequestFreeBoardDelete(String BoardID, Response.Listener<String> listener) {
         super(Method.POST, URL, listener, null);
         mHash = new HashMap<>();
+        mHash.put("Token", "dolphin");
         mHash.put("BoardID", BoardID);
     }
 

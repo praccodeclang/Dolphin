@@ -1,30 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="300dp"
-    android:layout_height="400dp"
+    android:layout_width="350dp"
+    android:layout_height="500dp"
     android:layout_gravity="center"
-    android:padding="20dp">
-    <TextView
-        android:layout_width="wrap_content"
+    android:paddingHorizontal="10dp"
+    android:paddingVertical="10dp"
+    android:background="@drawable/border_layout_basic">
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/dialog_title"
-        android:textSize="18sp"
-        android:text="공지사항"
-        android:textColor="@color/Dolphin"
-        android:textStyle="bold"/>
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:src="@drawable/icon_dolphins"
+            android:layout_gravity="center"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/dialog_title"
+            android:padding="10dp"
+            android:textSize="18sp"
+            android:text="21.07.02 공지사항"
+            android:textColor="@color/Dolphin"
+            android:textStyle="bold"/>
+    </LinearLayout>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:layout_marginTop="15dp">
+        android:layout_marginTop="5dp"
+        android:background="@drawable/border_layout_under_bar">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/dialog_contents"
             android:textSize="16dp"
-            android:text="akjscnzxkjcnasjc\nsadmklzcxmasklcm\n
-                asdczxjcnaskjzlxkcm\n\n\n\n\n\n\n\n\n\n\n\n\dksamczxlkc"
+            android:linksClickable="true"
+            android:autoLink="web"
+            android:text=""
             android:textColor="@color/black"
             android:padding="10dp"/>
     </ScrollView>
@@ -37,7 +52,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/dialog_showAgain"
             android:text="다시 보지 않기"
-            android:checked="true"
+            android:checked="false"
             android:buttonTint="@color/Dolphin"/>
         <TextView
             android:layout_width="match_parent"

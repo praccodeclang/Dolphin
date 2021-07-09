@@ -17,6 +17,7 @@ public class RequestUserStdCodeValidate extends StringRequest {
     public RequestUserStdCodeValidate(String userStudentCode, Response.Listener<String> listener) {
         super(Method.POST, URL, listener, null); // 여기가 실질적으로 요청을 보내는 곳입니다.
         //요청에 의해 서버로 보낼 파라미터를 저장합니다.
+        mHash.put("Token", "dolphin");
         mHash = new HashMap<>();
         mHash.put("userStudentCode", userStudentCode);
     }

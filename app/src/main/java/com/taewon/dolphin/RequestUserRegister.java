@@ -16,6 +16,7 @@ public class RequestUserRegister extends StringRequest {
                                String userDept, String PHONE , Response.Listener<String> listener) {
         super(Method.POST, URL, listener, null); // 여기가 실질적으로 요청을 보내는 곳입니다.
         mHash = new HashMap<>();
+        mHash.put("Token", "dolphin");
         mHash.put("userStudentCode", userStudentCode);
         mHash.put("userID", userID);
         mHash.put("userPassword", userPassword);

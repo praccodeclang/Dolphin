@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 
 public class ActivityStart extends AppCompatActivity {
@@ -30,6 +31,15 @@ public class ActivityStart extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
         startLogo = (LinearLayout)findViewById(R.id.startLogo);
+        ConstraintLayout layout = (ConstraintLayout)findViewById(R.id.wrap_layout);
+        layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ActivityStart.this, ActivityLogin.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     @Override

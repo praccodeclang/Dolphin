@@ -54,9 +54,6 @@ public class ActivityNfc extends AppCompatActivity {
         params.screenBrightness = 1f;
         getWindow().setAttributes(params);
 
-
-        /* 바코드를 그립니다 */
-
 //        NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
 //        if(nfcAdapter.isEnabled())
 //        {
@@ -93,6 +90,7 @@ public class ActivityNfc extends AppCompatActivity {
         getWindow().setAttributes(params);
     }
 
+    /* 바코드를 그립니다 */
     private Bitmap drawUserBarcode(String code){
         Bitmap bitmap = null;
         MultiFormatWriter gen = new MultiFormatWriter();

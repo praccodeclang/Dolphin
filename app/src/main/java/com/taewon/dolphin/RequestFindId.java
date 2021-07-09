@@ -15,6 +15,7 @@ public class RequestFindId extends StringRequest {
     public RequestFindId(String userName, String userPhone, Response.Listener<String> listener) {
         super(Method.POST, URL, listener, null);
         mHash = new HashMap<>();
+        mHash.put("Token", "dolphin");
         mHash.put("userName", userName);
         mHash.put("userPhone", userPhone);
     }

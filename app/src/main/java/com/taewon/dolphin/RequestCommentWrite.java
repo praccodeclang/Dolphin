@@ -16,6 +16,7 @@ public class RequestCommentWrite extends StringRequest {
     public RequestCommentWrite(String BoardID, String userName, String userID, String userComment, Response.Listener<String> listener) {
         super(Method.POST, url, listener, null);
         mHash = new HashMap<>();
+        mHash.put("Token", "dolphin");
         mHash.put("BoardID", BoardID);
         mHash.put("userName", userName);
         mHash.put("userID", userID);

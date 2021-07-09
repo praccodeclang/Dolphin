@@ -54,10 +54,11 @@ public class FreeBoardAdapter extends BaseAdapter {
         TextView boardDate = (TextView)v.findViewById(R.id.freeboardDate);
         TextView boardContent = (TextView)v.findViewById(R.id.freeboardContent);
         TextView userName = (TextView)v.findViewById(R.id.freeboardUserName);
-
+        TextView freeboardCommentCount = (TextView)v.findViewById(R.id.freeboardCommentCount);
         boardTitle.setText(freeBoardItemList.get(i).getTitle());
         boardContent.setText(freeBoardItemList.get(i).getContents());
         userName.setText(freeBoardItemList.get(i).getUserName());
+        freeboardCommentCount.setText(freeBoardItemList.get(i).getCommentCount());
         try {
             boardDate.setText(ActivityMain.calDate_ShouldReturnString(freeBoardItemList.get(i).getDate()));
         } catch (ParseException e) {

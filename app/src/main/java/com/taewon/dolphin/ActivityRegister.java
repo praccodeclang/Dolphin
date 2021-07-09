@@ -9,9 +9,11 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.telephony.SmsManager;
+import android.telephony.TelephonyManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -24,6 +26,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -651,6 +654,14 @@ public class ActivityRegister extends AppCompatActivity implements View.OnClickL
         }
         return true;
     }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void updateDeviceInfo(String userID){
+        TelephonyManager tm = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+        RequestUpdateDeviceInfo requestDolphinNoticeChk =
+                new RequestUpdateDeviceInfo(userID, tm.getImei(), tm.getDeviceId());
+        RequestQueue queue = Volley.newRequestQueue(ActivityRegister.this);
+        queue.add(requestDolphinNoticeChk);
+    }
 
     //회원가입을 진행합니다.
     private void requestRegister()
@@ -676,11 +687,13 @@ public class ActivityRegister extends AppCompatActivity implements View.OnClickL
                         builder.setTitle("떠날 준비완료.")
                                 .setMessage("\t친구들을 만나러 가볼까요?")
                                 .setNegativeButton("확인", new DialogInterface.OnClickListener() {
+                                    @RequiresApi(api = Build.VERSION_CODES.O)
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         Intent intent = new Intent(ActivityRegister.this, ActivityLogin.class);
                                         intent.putExtra("userID", uID);
-                                        intent.putExtra("userPassword", uPassword);
+                                        intent.putExtra("userPW", uPassword);
+                                        updateDeviceInfo(uID);
                                         startActivity(intent);
                                         dialog.dismiss();
                                         finish();

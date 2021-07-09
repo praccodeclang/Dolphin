@@ -15,6 +15,7 @@ public class RequestUserLogin extends StringRequest {
     public RequestUserLogin(String userID, String userPassword, Response.Listener<String> listener) {
         super(Method.POST, URL, listener, null); // 여기가 실질적으로 요청을 보내는 곳입니다.
         mHash = new HashMap<>();
+        mHash.put("Token", "dolphin");
         mHash.put("userID", userID);
         mHash.put("userPassword", userPassword);
     }

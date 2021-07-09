@@ -17,7 +17,6 @@ public class RequestGetFreeBoard extends StringRequest {
 
     public RequestGetFreeBoard(Response.Listener<String> listener) {
         super(Method.POST, URL, listener, null);
-        System.out.println(Token);
         mHash = new HashMap<>();
         mHash.put("Token", Token);
     }

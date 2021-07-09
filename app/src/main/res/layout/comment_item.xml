@@ -67,6 +67,9 @@
             android:id="@+id/commentText"
             android:textColor="@color/black"
             android:text="내용입니다."
-            android:textIsSelectable="true"/>
+            android:textIsSelectable="true"
+            android:linksClickable="true"
+            android:autoLink="web"
+            />
     </LinearLayout>
 </LinearLayout>

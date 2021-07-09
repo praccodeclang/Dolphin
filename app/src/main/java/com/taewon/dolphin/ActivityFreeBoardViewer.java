@@ -21,12 +21,16 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.provider.FontRequest;
+import androidx.emoji.text.EmojiCompat;
+import androidx.emoji.text.FontRequestEmojiCompatConfig;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.ParseException;
@@ -61,6 +65,7 @@ public class ActivityFreeBoardViewer extends AppCompatActivity {
     private ImageView writer_img;
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,8 +137,8 @@ public class ActivityFreeBoardViewer extends AppCompatActivity {
                         .setPositiveButton("확인", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + freeBoardIntent.getStringExtra("userPhone")));
-                                startActivity(intent);
+
+                                requestCallMessage(ActivityFreeBoardViewer.this);
                             }
                         })
                         .setNegativeButton("취소", null)
@@ -190,6 +195,35 @@ public class ActivityFreeBoardViewer extends AppCompatActivity {
             writer_img.setImageResource(R.drawable.icon_dolphins);
         }
 
+    }
+
+    private void requestCallMessage(Context context)
+    {
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    boolean success = jsonObject.getBoolean("success");
+                    if(success)
+                    {
+                        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + freeBoardIntent.getStringExtra("userPhone")));
+                        startActivity(intent);
+                    }
+                    else
+                    {
+                        Toast.makeText(context, "아무것도 하지못했어요. 일시적인 오류일 수 있습니다.", Toast.LENGTH_SHORT);
+                    }
+                }
+                catch (JSONException e) {
+                    Toast.makeText(context, "아무것도 하지못했어요. 일시적인 오류일 수 있습니다.", Toast.LENGTH_SHORT);
+                }
+
+            }
+        };
+        RequestCallMessage validateRequest = new RequestCallMessage(UserData.getInstance().getUserName(), freeBoardIntent.getStringExtra("Name"), "call", responseListener);
+        RequestQueue queue = Volley.newRequestQueue(context);
+        queue.add(validateRequest);
     }
 
     //서버에서 댓글로드를 요청하는 함수입니다.

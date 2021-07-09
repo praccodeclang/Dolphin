@@ -4,6 +4,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -12,6 +13,7 @@ import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -64,6 +66,7 @@ public class ActivityMain extends AppCompatActivity implements SensorEventListen
     private ListView mainFreeBoardListView;
     private ImageView deptProfile;
     private ImageView myPageBtn;
+    private ImageView dolphinNoticeBtn;
     private ScrollView mainScrollView;
     private ImageView contactBtn;
 
@@ -75,17 +78,13 @@ public class ActivityMain extends AppCompatActivity implements SensorEventListen
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Dialog dialog01;
-        dialog01 = new Dialog(ActivityMain.this);
-        dialog01.setContentView(R.layout.dolphin_notice_custom_dialog);
-        showNoticeDialog(dialog01);
-
         initViews();
         initListeners();
         initBehavior();
         getFreeBoardsFromServer();
         getNoticesFromHomepage();
+        chkNoticeUpdate();
+        updateDeviceInfo();
     }//onCreate End
 
     @Override
@@ -98,7 +97,7 @@ public class ActivityMain extends AppCompatActivity implements SensorEventListen
 
         getFreeBoardsFromServer();
         getNoticesFromHomepage();
-        mainScrollView.fullScroll(View.FOCUS_UP);
+
     }
 
     @Override
@@ -132,6 +131,7 @@ public class ActivityMain extends AppCompatActivity implements SensorEventListen
         iconBtn2 = (LinearLayout)findViewById(R.id.iconBtn2);
         iconBtn3 = (LinearLayout)findViewById(R.id.iconBtn3);
         iconBtn4 = (LinearLayout)findViewById(R.id.iconBtn4);
+        dolphinNoticeBtn = (ImageView)findViewById(R.id.dolphinNoticeBtn);
     }
 
     private void initListeners()
@@ -230,6 +230,12 @@ public class ActivityMain extends AppCompatActivity implements SensorEventListen
                 startActivity(intent);
             }
         });
+        dolphinNoticeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showNoticeDialog();
+            }
+        });
     }
 
 
@@ -251,6 +257,7 @@ public class ActivityMain extends AppCompatActivity implements SensorEventListen
     }
 
 
+    //커스텀 함수
     //서브쓰레드에서 비동기방식으로 공지사항 로드(3개만 가져옴.)를 수행합니다.
     private void getNoticesFromHomepage()
     {
@@ -303,7 +310,7 @@ public class ActivityMain extends AppCompatActivity implements SensorEventListen
                     {
                         for(int i=0; i<itemLength; i++)
                         {
-                            String title, contents, date, userName, userID, PHONE;
+                            String title, contents, date, userName, userID, PHONE, commentCount;
                             JSONObject object = jsonArray.getJSONObject(i);
                             title = object.get("title").toString();
                             contents = object.get("contents").toString();
@@ -312,10 +319,12 @@ public class ActivityMain extends AppCompatActivity implements SensorEventListen
                             userID = object.get("userID").toString();
                             PHONE = object.get("PHONE").toString();
                             boardID = object.getInt("no");
-                            freeBoardItemList.add(new FreeBoardItem(boardID, title, contents, userName, userID, PHONE, date));
+                            commentCount = object.get("commentCount").toString();
+                            freeBoardItemList.add(new FreeBoardItem(boardID, title, contents, userName, userID, PHONE, date, commentCount));
                         }
                         FreeBoardAdapter freeBoardAdapter = new FreeBoardAdapter(ActivityMain.this, freeBoardItemList);
                         mainFreeBoardListView.setAdapter(freeBoardAdapter);
+                        mainScrollView.scrollTo(0,0);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -327,10 +336,41 @@ public class ActivityMain extends AppCompatActivity implements SensorEventListen
         queue.add(freeBoardRequest);
     }
 
-    private void showNoticeDialog(Dialog dialog){
+
+    private void chkNoticeUpdate(){
+        Response.Listener<String> responseListener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    String isChecked = jsonObject.get("chk").toString();
+                    if(isChecked.equals("false")){ showNoticeDialog(); }
+                    else{ return; }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        RequestGetDolphinNoticeChk requestDolphinNoticeChk = new RequestGetDolphinNoticeChk(UserData.getInstance().getUserID(), responseListener);
+        RequestQueue queue = Volley.newRequestQueue(ActivityMain.this);
+        queue.add(requestDolphinNoticeChk);
+    }
+
+    private void showNoticeDialog(){
+        Dialog dialog;
+        dialog = new Dialog(ActivityMain.this);
+        dialog.setContentView(R.layout.dolphin_notice_custom_dialog);
+        TextView tt = (TextView)dialog.findViewById(R.id.dialog_title);
+        TextView tc = (TextView)dialog.findViewById(R.id.dialog_contents);
+        CheckBox chkBox = (CheckBox)dialog.findViewById(R.id.dialog_showAgain);
+
         dialog.findViewById(R.id.dialog_okBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(chkBox.isChecked())
+                {
+                    updateChk();
+                }
                 dialog.dismiss();
             }
         });
@@ -342,7 +382,8 @@ public class ActivityMain extends AppCompatActivity implements SensorEventListen
                     JSONObject jsonObject = new JSONObject(response);
                     if(jsonObject.getBoolean("success"))
                     {
-                        //setContentView
+                        tt.setText(jsonObject.get("title").toString());
+                        tc.setText(jsonObject.get("contents").toString());
                         dialog.show();
                     }
                     else
@@ -355,10 +396,29 @@ public class ActivityMain extends AppCompatActivity implements SensorEventListen
                 }
             }
         };
-
         RequestGetDolphinNotice requestDolphinNotice = new RequestGetDolphinNotice(responseListener);
         RequestQueue queue = Volley.newRequestQueue(ActivityMain.this);
         queue.add(requestDolphinNotice);
+    }
+
+    private void updateChk(){
+        RequestUpdateChk requestDolphinNoticeChk = new RequestUpdateChk(UserData.getInstance().getUserID());
+        RequestQueue queue = Volley.newRequestQueue(ActivityMain.this);
+        queue.add(requestDolphinNoticeChk);
+    }
+
+    private boolean chkDeviceInfo()
+    {
+        return false;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void updateDeviceInfo(){
+        TelephonyManager tm = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+        RequestUpdateDeviceInfo requestDolphinNoticeChk =
+                new RequestUpdateDeviceInfo(UserData.getInstance().getUserID(), tm.getImei(), tm.getDeviceId());
+        RequestQueue queue = Volley.newRequestQueue(ActivityMain.this);
+        queue.add(requestDolphinNoticeChk);
     }
 
     public static String calDate_ShouldReturnString(String dateString) throws ParseException {

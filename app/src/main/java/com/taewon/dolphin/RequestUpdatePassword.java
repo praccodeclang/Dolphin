@@ -17,6 +17,7 @@ public class RequestUpdatePassword extends StringRequest {
         mHash.put("userStudentCode", userStdCode);
         mHash.put("userID", userID);
         mHash.put("newPassword", newPassword);
+        mHash.put("Token", "dolphin");
     }
 
 
